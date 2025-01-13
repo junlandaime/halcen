@@ -21,7 +21,7 @@
             @include('layouts.header')
             
             <!-- Main Content -->
-            <main class="pt-16">
+            <main class="md:pt-16">
 
                 @yield('content')
             </main>

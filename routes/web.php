@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -51,5 +52,19 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// ->middleware('role:superAdmin|author')
+// ->names('candidates');
+
+Route::get('/admin', [DashboardController::class, 'index'])->name('admin.index');
+Route::get('/admin/article', [DashboardController::class, 'article'])->name('admin.article');
+Route::get('/admin/media', [DashboardController::class, 'media'])->name('admin.media');
+Route::get('/admin/program', [DashboardController::class, 'program'])->name('admin.program');
+Route::get('/admin/certifications', [DashboardController::class, 'certifications'])->name('admin.certifications');
+Route::get('/admin/clients', [DashboardController::class, 'clients'])->name('admin.clients');
+Route::get('/admin/laboratory', [DashboardController::class, 'laboratory'])->name('admin.laboratory');
+Route::get('/admin/messages', [DashboardController::class, 'messages'])->name('admin.messages');
+Route::get('/admin/reports', [DashboardController::class, 'reports'])->name('admin.reports');
+Route::get('/admin/settings', [DashboardController::class, 'settings'])->name('admin.settings');
 
 require __DIR__ . '/auth.php';

@@ -1,5 +1,5 @@
 <!-- Header -->
-<header class="fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm" x-data="{ isOpen: false, dropdowns: { program: false, mitra: false } }">
+<header class="md:fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm" x-data="{ isOpen: false, dropdowns: { program: false, mitra: false } }">
     <div class="max-w-6xl mx-auto px-4">
         <div class="flex items-center justify-between h-16">
             <a href="{{ route('front.index') }}" class="text-primary text-xl font-bold flex items-center gap-2">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <!-- Mitra Dropdown -->
+                <!-- Konten Dropdown -->
                 <div class="relative" @mouseenter="dropdowns.konten = true" @mouseleave="dropdowns.konten = false">
                     <button class="text-gray-600 hover:text-primary transition-colors flex items-center gap-1">
                         Konten
@@ -66,9 +66,9 @@
                 </div>
 
                 <a href="{{ route('front.kontak') }}" class="text-gray-600 hover:text-primary transition-colors">Kontak</a>
-                <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                <a href="{{ route('admin.index') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                     Masuk
-                </button>
+                </a>
             </nav>
 
             <!-- Mobile Menu Button -->
@@ -103,26 +103,43 @@
                     </div>
                 </div>
 
-                <!-- Mobile Mitra Dropdown -->
+                <!-- Mobile Konten Dropdown -->
                 <div class="relative">
-                    <button @click="dropdowns.mitra = !dropdowns.mitra"
+                    <button @click="dropdowns.konten = !dropdowns.konten"
                             class="text-gray-600 hover:text-primary transition-colors flex items-center justify-between w-full">
-                        Mitra
+                        Konten
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div x-show="dropdowns.mitra" x-transition class="pl-4 mt-2 flex flex-col gap-2">
-                        <a href="#mitra1" class="text-gray-600 hover:text-primary transition-colors">Mitra 1</a>
-                        <a href="#mitra2" class="text-gray-600 hover:text-primary transition-colors">Mitra 2</a>
-                        <a href="#mitra3" class="text-gray-600 hover:text-primary transition-colors">Mitra 3</a>
+                    <div x-show="dropdowns.konten" x-transition class="pl-4 mt-2 flex flex-col gap-2">
+                        <a href="{{ route('front.video') }}" class="text-gray-600 hover:text-primary transition-colors">Video Pembelajaran</a>
+                        <a href="{{ route('front.article') }}" class="text-gray-600 hover:text-primary transition-colors">Artikel dan Publikasi</a>
+                        <a href="{{ route('front.regulasi') }}" class="text-gray-600 hover:text-primary transition-colors">Regulasi Halal</a>
+                    </div>
+                </div>
+                
+                <!-- Mobile Tentang Dropdown -->
+                <div class="relative">
+                    <button @click="dropdowns.tentang = !dropdowns.tentang"
+                            class="text-gray-600 hover:text-primary transition-colors flex items-center justify-between w-full">
+                        Tentang
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="dropdowns.tentang" x-transition class="pl-4 mt-2 flex flex-col gap-2">
+                        <a href="{{ route('front.halcen') }}" class="text-gray-600 hover:text-primary transition-colors">Halal Center</a>
+                        <a href="{{ route('front.lp3h') }}" class="text-gray-600 hover:text-primary transition-colors">LP3H Salman</a>
+                        <a href="{{ route('front.lph') }}" class="text-gray-600 hover:text-primary transition-colors">LPH Salman</a>
+                        <a href="{{ route('front.salman') }}" class="text-gray-600 hover:text-primary transition-colors">Salman ITB</a>
                     </div>
                 </div>
 
-                <a href="#kontak" class="text-gray-600 hover:text-primary transition-colors">Kontak</a>
-                <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors w-full">
+                <a href="{{ route('front.kontak') }}" class="text-gray-600 hover:text-primary transition-colors">Kontak</a>
+                <a href="{{ route('admin.index') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors w-full">
                     Masuk
-                </button>
+                </a>
             </nav>
         </div>
     </div>
