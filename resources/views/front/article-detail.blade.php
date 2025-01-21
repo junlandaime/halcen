@@ -40,9 +40,9 @@
 @section('additional_meta_tags')
     <meta property="article:published_time" content="{{ $article->published_at->toIso8601String() }}">
     <meta property="article:author" content="{{ $article->author->name ?? 'Tim Pusat Halal Salman' }}">
-    @foreach ($article->tags as $tag)
+    {{-- @foreach ($article->tags as $tag)
         <meta property="article:tag" content="{{ $tag->name }}">
-    @endforeach
+    @endforeach --}}
 @endsection
 
 @push('css')
