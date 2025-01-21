@@ -39,9 +39,14 @@ class ViewServiceProvider extends ServiceProvider
 
         View::composer('layouts.footer', function (ViewInstance $view) {
             $landingpage = LandingPage::firstOrFail();
+            $programs = ProgramLayanan::query()
+                ->where('status', 'aktif')
+                ->orderBy('id', 'asc')
+                ->get();
 
             $view->with([
-                'footerLandingPage' => $landingpage
+                'footerLandingPage' => $landingpage,
+                'footerPrograms' => $programs
             ]);
         });
 
