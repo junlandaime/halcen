@@ -38,7 +38,23 @@ class RolePermissionSeeder extends Seeder
             'password' => bcrypt('secret')
         ]);
 
+        $member1 = User::create([
+            'name' => 'Jundii Abdullah',
+            // 'avatar' => 'images/default-avatar.png',
+            'email' => 'jdi.jundii99@gmail.com',
+            'password' => bcrypt('secret')
+        ]);
+
+        $author1 = User::create([
+            'name' => 'Jundthor Abdullah',
+            // 'avatar' => 'images/default-avatar.png',
+            'email' => 'jdi.jund99@gmail.com',
+            'password' => bcrypt('secret')
+        ]);
+
         $userSU->assignRole($superAdminRole);
         $userSU2->assignRole($superAdminRole);
+        $member1->assignRole($memberRole);
+        $author1->assignRole($authorRole);
     }
 }

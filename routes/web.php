@@ -1,16 +1,39 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\VideoController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RegulationController;
+use App\Http\Controllers\FaqCategoryController;
+use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\ProgramBatchController;
+use App\Http\Controllers\VideoCategoryController;
+use App\Http\Controllers\ProgramLayananController;
 
 Route::get('/welcome', function () {
     return view('welcome');
 });
 
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
-// Route::get('/rapihan', [FrontController::class, 'rapih'])->name('front.rapih');
+
+// Front-end routes
+Route::prefix('program-layanan')->name('program-layanan.')->group(function () {
+    // Route::get('/', [FrontController::class, 'index_program'])->name('index');
+    Route::get('/search', [FrontController::class, 'search'])->name('search');
+    Route::get('/filter', [FrontController::class, 'filter'])->name('filter');
+    Route::get('/{programLayanan:slug}', [FrontController::class, 'show_program'])->name('show');
+    Route::post('/{programLayanan}/daftar', [FrontController::class, 'daftar'])
+        ->name('daftar')
+        ->middleware(['auth']);
+});
 
 Route::get('/kuliah-halal', [FrontController::class, 'kuliah'])->name('front.kuliah-halal');
 Route::get('/juleha', [FrontController::class, 'juleha'])->name('front.juleha');
@@ -18,53 +41,95 @@ Route::get('/p3h', [FrontController::class, 'p3h'])->name('front.p3h');
 Route::get('/sertifikasi', [FrontController::class, 'sertifikasi'])->name('front.sertifikasi');
 Route::get('/ppk', [FrontController::class, 'ppk'])->name('front.ppk');
 
-Route::get('/video', [FrontController::class, 'video'])->name('front.video');
-Route::get('/article', [FrontController::class, 'article'])->name('front.article');
-Route::get('/article-detail', [FrontController::class, 'article_detail'])->name('front.article-detail');
-Route::get('/regulasi', [FrontController::class, 'regulasi'])->name('front.regulasi');
 
-Route::get('/halcen', [FrontController::class, 'halcen'])->name('front.halcen');
-Route::get('/lp3h', [FrontController::class, 'lp3h'])->name('front.lp3h');
-Route::get('/lph', [FrontController::class, 'lph'])->name('front.lph');
-Route::get('/salman', [FrontController::class, 'salman'])->name('front.salman');
-// Route::get('/events/{event:slug}', [FrontController::class, 'details'])->name('front.details');
+// Article Routes
+Route::prefix('articles')->name('articles.')->group(function () {
+    Route::get('/', [FrontController::class, 'article'])->name('index');
+    Route::get('/{article:slug}', [FrontController::class, 'showArticle'])->name('show');
+    Route::get('/category/{category:slug}', [FrontController::class, 'category'])->name('category');
+});
+
+Route::get('/regulasi', [FrontController::class, 'index_regulasi'])->name('regulations.index');
+Route::get('/regulasi/{regulation}', [FrontController::class, 'show_regulasi'])->name('regulations.show');
+
+Route::get('/video', [FrontController::class, 'index_video'])->name('videos.index');
+Route::get('/video/{video}', [FrontController::class, 'show_video'])->name('videos.show');
+
+Route::get('/tentang', [FrontController::class, 'index_about'])->name('abouts.index');
+Route::get('/tentang/{about:slug}', [FrontController::class, 'show_about'])->name('abouts.show');
+
 
 Route::get('/kontak', [FrontController::class, 'kontak'])->name('front.kontak');
-// Route::get('/category/{category:slug}', [FrontController::class, 'category'])->name('front.category');
 
-// Route::get('/features', [FrontController::class, 'features'])->name('front.features');
-
-// Route::get('/informations', [FrontController::class, 'informations'])->name('front.informations');
-// Route::get('/informations/{post:slug}', [FrontController::class, 'infomore'])->name('front.infomore');
-
-// Route::get('/blogs', [FrontController::class, 'blogs'])->name('front.blogs');
-// Route::get('/blogs/{post:slug}', [FrontController::class, 'readmore'])->name('front.readmore');
-
-
-// Route::get('/about', [FrontController::class, 'about'])->name('front.about');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/articles-index', [DashboardController::class, 'article'])->middleware(['auth', 'verified'])->name('article.index')->middleware('role:superAdmin|author');
+Route::get('/articles-create', [DashboardController::class, 'article_create'])->middleware(['auth', 'verified'])->name('article.create')->middleware('role:superAdmin|author');
+// Route::post('/articles', [ArticleController::class, 'store'])->middleware(['auth', 'verified'])->name('admin.articles.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+        // Dashboard
+        Route::middleware('role:superAdmin')->group(function () {
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+            // Landing Page Management
+            Route::get('/landing-page/edit', [LandingPageController::class, 'edit'])->name('landing-page.edit');
+            Route::put('/landing-page/update', [LandingPageController::class, 'update'])->name('landing-page.update');
+
+            // Category Management
+            Route::resource('categories', CategoryController::class)->except(['create', 'edit', 'show']);
+            Route::post('/categories/update-order', [CategoryController::class, 'updateOrder'])->name('categories.updateOrder');
+
+            Route::resource('program-layanan', ProgramLayananController::class);
+            Route::get('/program-layanan/{program}/batch/create', [ProgramBatchController::class, 'create'])->name('program-layanan.batch.create');
+            Route::post('/program-layanan/{program}/batch', [ProgramBatchController::class, 'store'])->name('program-layanan.batch.store');
+            Route::get('/program-layanan/{program}/batch/{batch}/edit', [ProgramBatchController::class, 'edit'])->name('program-layanan.batch.edit');
+            Route::put('/program-layanan/{program}/batch/{batch}', [ProgramBatchController::class, 'update'])->name('program-layanan.batch.update');
+            Route::delete('/program-layanan/{program}/batch/{batch}', [ProgramBatchController::class, 'destroy'])->name('program-layanan.batch.destroy');
+
+            // Partner Management
+            Route::resource('partners', PartnerController::class)->except(['create', 'edit', 'show']);
+            Route::post('/partners/update-order', [PartnerController::class, 'updateOrder'])->name('partners.updateOrder');
+
+            // Testimonial Management
+            Route::resource('testimonials', TestimonialController::class)->except(['create', 'edit', 'show']);
+            Route::post('/testimonials/update-order', [TestimonialController::class, 'updateOrder'])->name('testimonials.updateOrder');
+
+
+            Route::resource('regulations', RegulationController::class);
+            Route::resource('videos', VideoController::class);
+            Route::resource('video-categories', VideoCategoryController::class)->except(['create', 'edit', 'show']);
+            Route::post('/videos-categories/update-order', [VideoCategoryController::class, 'updateOrder'])->name('video-categories.updateOrder');
+
+            Route::resource('faqs', FaqController::class);
+            Route::resource('faq-categories', FaqCategoryController::class)->except(['create', 'edit', 'show']);
+            Route::resource('abouts', AboutController::class);
+        });
+
+
+        Route::middleware('role:superAdmin|author')->group(function () {
+            // Article Management
+            Route::resource('articles', ArticleController::class);
+            Route::post('/articles/{article}/toggle-featured', [ArticleController::class, 'toggleFeatured'])->name('articles.toggleFeatured');
+            Route::post('/articles/{article}/toggle-status', [ArticleController::class, 'toggleStatus'])->name('articles.toggleStatus');
+            Route::post('/articles/update-order', [ArticleController::class, 'updateOrder'])->name('articles.updateOrder');
+        });
+    });
+
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 // ->middleware('role:superAdmin|author')
 // ->names('candidates');
 
-Route::get('/admin', [DashboardController::class, 'index'])->name('admin.index');
-Route::get('/admin/article', [DashboardController::class, 'article'])->name('admin.article');
-Route::get('/admin/media', [DashboardController::class, 'media'])->name('admin.media');
-Route::get('/admin/program', [DashboardController::class, 'program'])->name('admin.program');
-Route::get('/admin/certifications', [DashboardController::class, 'certifications'])->name('admin.certifications');
-Route::get('/admin/clients', [DashboardController::class, 'clients'])->name('admin.clients');
-Route::get('/admin/laboratory', [DashboardController::class, 'laboratory'])->name('admin.laboratory');
-Route::get('/admin/messages', [DashboardController::class, 'messages'])->name('admin.messages');
-Route::get('/admin/reports', [DashboardController::class, 'reports'])->name('admin.reports');
+// Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
+
 Route::get('/admin/settings', [DashboardController::class, 'settings'])->name('admin.settings');
 
 require __DIR__ . '/auth.php';
+
+// Admin Routes
