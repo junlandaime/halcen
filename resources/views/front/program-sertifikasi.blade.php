@@ -32,6 +32,8 @@
 @section('additional_meta_tags')
 
 @endsection
+
+
 @push('css')
     <style>
         p {
