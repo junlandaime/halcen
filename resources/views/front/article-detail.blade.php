@@ -21,16 +21,28 @@
     {{ Str::limit($article->excerpt, 160) }}
 @endsection
 
-@section('og_title', $article->title . ' - Pusat Halal Salman')
+@section('meta_keywords')
+    {{ $article->tags ?? 'artikel, pusat halal salman' }}
+@endsection
+
+@section('og_title')
+    {{ $article->title }} - Pusat Halal Salman
+@endsection
 
 @section('og_description')
     {{ Str::limit($article->excerpt, 200) }}
 @endsection
 
-@section('og_image', 'https://pusathalal.salmanitb.com/storage/' . $article->featured_image)
+@section('og_image')
+    {{ Storage::url($article->featured_image) }}
+@endsection
 
 @section('additional_meta_tags')
-
+    <meta property="article:published_time" content="{{ $article->published_at->toIso8601String() }}">
+    <meta property="article:author" content="{{ $article->author->name ?? 'Tim Pusat Halal Salman' }}">
+    @foreach ($article->tags as $tag)
+        <meta property="article:tag" content="{{ $tag->name }}">
+    @endforeach
 @endsection
 
 @push('css')
@@ -121,7 +133,8 @@
                 <img src="{{ Storage::url($article->featured_image) }}" alt="{{ $article->title }}"
                     class="w-full h-[700px] object-cover">
             @else
-                <img src="https://picsum.photos/1920/1080" alt="{{ $article->title }}" class="w-full h-[700px] object-cover">
+                <img src="https://picsum.photos/1920/1080" alt="{{ $article->title }}"
+                    class="w-full h-[700px] object-cover">
             @endif
         </div>
         <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-primary/60">

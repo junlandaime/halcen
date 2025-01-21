@@ -13,34 +13,26 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
 
     <link rel="icon" href="{{ asset('favicon.png') }}">
-
-
-    {{-- meta text --}}
     <!-- Meta tags untuk SEO dan sharing -->
-    <meta name="description" content="{{ $frontLandingPage->meta_description }}">
-    <meta name="keywords" content="{{ $frontLandingPage->meta_keywords }}">
+    <meta name="description" content="@yield('meta_description', $frontLandingPage->meta_description ?? '')">
+    <meta name="keywords" content="@yield('meta_keywords', $frontLandingPage->meta_keywords ?? '')">
     <meta name="author" content="Tim Pusat Halal Salman">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('og_title', '{{ $frontLandingPage->meta_title }}')">
-    <meta property="og:description" content="@yield('og_description', '{{ $frontLandingPage->meta_description }}')">
-    <meta property="og:image" content="@yield('og_image', '{{ Storage::url($frontLandingPage->hero_image) }}')">
-    {{-- 
-    <meta property="og:title" content="">
-    <meta property="og:description"
-        content="Temukan informasi lengkap dan netral tentang calon kepala daerah di Indonesia. Buat keputusan cerdas untuk memilih pemimpin masa depan.">
-    <meta property="og:image" content="https://caripemimpin.id/back.jpg">
-    <meta property="og:url" content="https://caripemimpin.id">
-    <meta name="twitter:card" content="summary_large_image"> --}}
+    <meta property="og:title" content="@yield('og_title', $frontLandingPage->meta_title ?? '')">
+    <meta property="og:description" content="@yield('og_description', $frontLandingPage->meta_description ?? '')">
+    <meta property="og:image" content="@yield('og_image', !empty($frontLandingPage->hero_image) ? Storage::url($frontLandingPage->hero_image) : '')">
 
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="@yield('og_title', '{{ $frontLandingPage->meta_title }}')">
-    <meta property="twitter:description" content="@yield('og_description', '{{ $frontLandingPage->meta_description }}')">
-    <meta property="twitter:image" content="@yield('og_image', '{{ Storage::url($frontLandingPage->hero_image) }}')">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="@yield('og_title', $frontLandingPage->meta_title ?? '')">
+    <meta name="twitter:description" content="@yield('og_description', $frontLandingPage->meta_description ?? '')">
+    <meta name="twitter:image" content="@yield('og_image', !empty($frontLandingPage->hero_image) ? Storage::url($frontLandingPage->hero_image) : '')">
 
+    @yield('additional_meta_tags')
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
