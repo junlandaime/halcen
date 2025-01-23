@@ -45,7 +45,7 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white rounded-xl shadow-xl p-8" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-4xl font-bold text-primary mb-2" x-data="{ count: 0 }" x-init="setInterval(() => { if (count < {{ $landingPage->stats_clients }}) count++ }, 5)">
+                    <div class="text-4xl font-bold text-primary mb-2" x-data="{ count: 0 }" x-init="setInterval(() => { if (count < {{ $landingPage->stats_clients }}) count++ }, 1)">
                         <span x-text="count">0</span>+
                     </div>
                     <p class="text-gray-600">Lulusan Kuliah Halal</p>
@@ -59,7 +59,7 @@
                     <div class="mt-4 h-1 w-20 bg-primary rounded"></div>
                 </div>
                 <div class="bg-white rounded-xl shadow-xl p-8" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-4xl font-bold text-primary mb-2" x-data="{ count: 0 }" x-init="setInterval(() => { if (count < {{ $landingPage->stats_partners }}) count++ }, 0.5)">
+                    <div class="text-4xl font-bold text-primary mb-2" x-data="{ count: 5500 }" x-init="setInterval(() => { if (count < {{ $landingPage->stats_partners }}) count++ }, 0.1)">
                         <span x-text="count">0</span>+
                     </div>
                     <p class="text-gray-600">UMKM Tersertifikasi</p>
@@ -271,28 +271,29 @@
                         <button @click="category = 'umkm'"
                             :class="category === 'umkm' ? 'bg-white shadow-md' : 'hover:bg-gray-50'"
                             class="flex-1 py-2 rounded-lg transition-all duration-300">
-                            UMKM
+                            Pelaku Usaha Mikro dan Ultra Mikro
                         </button>
                         <button @click="category = 'industri'"
                             :class="category === 'industri' ? 'bg-white shadow-md' : 'hover:bg-gray-50'"
                             class="flex-1 py-2 rounded-lg transition-all duration-300">
-                            Industri
+                            Pelaku Usaha Skala Menengah dan Besar
                         </button>
                     </div>
                     <div x-show.transition.opacity="category === 'umkm'">
-                        <p class="text-gray-600 mb-4">Konsultasi khusus UMKM dengan pendampingan lengkap</p>
+                        <p class="text-gray-600 mb-4">Konsultasi khusus Pelaku Usaha omzet kurang dari 500 juta rupiah
+                        </p>
                         <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $landingPage->contact_whatsapp) }}"
                             target="_blank"><button
                                 class="w-full bg-primary text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
-                                Daftar Sekarang
+                                Konsultasi Sekarang
                             </button></a>
                     </div>
                     <div x-show.transition.opacity="category === 'industri'">
-                        <p class="text-gray-600 mb-4">Layanan konsultasi untuk industri skala besar</p>
+                        <p class="text-gray-600 mb-4">Konsultasi khusus Pelaku Usaha omzet lebih dari 500 juta rupiah</p>
                         <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $landingPage->contact_whatsapp) }}"
                             target="_blank"><button
                                 class="w-full bg-primary text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
-                                Hubungi Kami
+                                Konsultasi Sekarang
                             </button></a>
                     </div>
                 </div>

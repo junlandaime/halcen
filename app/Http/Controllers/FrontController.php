@@ -60,7 +60,7 @@ class FrontController extends Controller
     public function show_program(ProgramLayanan $programLayanan)
     {
 
-        if (str_starts_with($programLayanan->slug, 'sertifikasi-halal')) {
+        if (str_starts_with($programLayanan->slug, 'layanan-sertifikasi')) {
             $programLayanan = ProgramLayanan::where('slug', $programLayanan->slug)->firstOrFail();
             $subsertifikasi = ProgramLayanan::where('status', 'nonaktif')->get();
             $landingPage = LandingPage::firstOrFail();
@@ -245,31 +245,6 @@ class FrontController extends Controller
 
         return view('abouts.show', compact('about'));
     }
-
-    public function halcen()
-    {
-
-        return view('front.halcen');
-    }
-
-    public function lp3h()
-    {
-
-        return view('front.lp3h');
-    }
-
-    public function lph()
-    {
-
-        return view('front.lph');
-    }
-
-    public function salman()
-    {
-
-        return view('front.salman');
-    }
-
 
 
 

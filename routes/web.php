@@ -39,11 +39,6 @@ Route::prefix('program-layanan')->name('program-layanan.')->group(function () {
         ->middleware(['auth']);
 });
 
-Route::get('/kuliah-halal', [FrontController::class, 'kuliah'])->name('front.kuliah-halal');
-Route::get('/juleha', [FrontController::class, 'juleha'])->name('front.juleha');
-Route::get('/p3h', [FrontController::class, 'p3h'])->name('front.p3h');
-Route::get('/sertifikasi', [FrontController::class, 'sertifikasi'])->name('front.sertifikasi');
-Route::get('/ppk', [FrontController::class, 'ppk'])->name('front.ppk');
 
 
 // Article Routes

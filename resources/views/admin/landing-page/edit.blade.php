@@ -131,85 +131,7 @@
                 </div>
             </div>
 
-            <!-- About Section -->
-            <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
-                <div class="p-6">
-                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">About Section</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="about_title"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">About Title</label>
-                            <input type="text" id="about_title" name="about_title"
-                                value="{{ old('about_title', $landingPage->about_title) }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                            @error('about_title')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
 
-                        <div>
-                            <label for="about_content"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">About Content</label>
-                            <textarea id="about_content" name="about_content" rows="6"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">{{ old('about_content', $landingPage->about_content) }}</textarea>
-                            @error('about_content')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Vision & Mission -->
-            <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
-                <div class="p-6">
-                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Vision & Mission</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="vision_title"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vision Title</label>
-                            <input type="text" id="vision_title" name="vision_title"
-                                value="{{ old('vision_title', $landingPage->vision_title) }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                            @error('vision_title')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label for="vision_content"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vision Content</label>
-                            <textarea id="vision_content" name="vision_content" rows="3"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">{{ old('vision_content', $landingPage->vision_content) }}</textarea>
-                            @error('vision_content')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label for="mission_title"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mission Title</label>
-                            <input type="text" id="mission_title" name="mission_title"
-                                value="{{ old('mission_title', $landingPage->mission_title) }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                            @error('mission_title')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label for="mission_content"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mission
-                                Content</label>
-                            <textarea id="mission_content" name="mission_content" rows="3"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">{{ old('mission_content', $landingPage->mission_content) }}</textarea>
-                            @error('mission_content')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
 
@@ -379,6 +301,86 @@
                     </div>
                 </div>
             </div>
+
+            {{-- <!-- About Section -->
+            <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                <div class="p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">About Section</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="about_title"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">About Title</label>
+                            <input type="text" id="about_title" name="about_title"
+                                value="{{ old('about_title', $landingPage->about_title) }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                            @error('about_title')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="about_content"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">About Content</label>
+                            <textarea id="about_content" name="about_content" rows="6"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">{{ old('about_content', $landingPage->about_content) }}</textarea>
+                            @error('about_content')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vision & Mission -->
+            <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                <div class="p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Vision & Mission</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="vision_title"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vision Title</label>
+                            <input type="text" id="vision_title" name="vision_title"
+                                value="{{ old('vision_title', $landingPage->vision_title) }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                            @error('vision_title')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="vision_content"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vision Content</label>
+                            <textarea id="vision_content" name="vision_content" rows="3"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">{{ old('vision_content', $landingPage->vision_content) }}</textarea>
+                            @error('vision_content')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="mission_title"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mission Title</label>
+                            <input type="text" id="mission_title" name="mission_title"
+                                value="{{ old('mission_title', $landingPage->mission_title) }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                            @error('mission_title')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="mission_content"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mission
+                                Content</label>
+                            <textarea id="mission_content" name="mission_content" rows="3"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">{{ old('mission_content', $landingPage->mission_content) }}</textarea>
+                            @error('mission_content')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
 
             <!-- Save Changes Button -->
             <div class="col-span-1 lg:col-span-2">

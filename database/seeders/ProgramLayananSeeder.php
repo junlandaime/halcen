@@ -166,7 +166,7 @@ class ProgramLayananSeeder extends Seeder
             [
                 'nama_program' => 'Sertifikasi',
                 'nama_banner' => 'Sertifikasi Halal Salman ITB',
-                'slug' => 'sertifikasi-halal',
+                'slug' => 'layanan-sertifikasi-halal',
                 'deskripsi' => 'Layanan Pendampingan Sertifikasi Halal untuk UMKM',
                 'deskripsi_lengkap' => '<p>Sertifikasi Halal adalah proses pemeriksaan dan pemberian sertifikat oleh lembaga berwenang yang menyatakan bahwa suatu produk memenuhi standar kehalalan berdasarkan syariat Islam. Sertifikasi ini mencakup bahan baku, proses produksi, hingga produk akhir, untuk memastikan bahwa produk tersebut dapat dikonsumsi atau digunakan oleh umat Islam tanpa ragu.</p>
 

@@ -22,7 +22,7 @@
     <section class="relative h-[300px] overflow-hidden pt-16" x-data="{ scroll: 0 }"
         @scroll.window="scroll = window.pageYOffset">
         <div class="absolute inset-0" x-bind:style="`transform: translateY(${scroll * 0.5}px)`">
-            <img src="https://picsum.photos/1920/800" alt="Video Pembelajaran Banner" class="w-full h-[500px] object-cover">
+            {{-- <img src="https://picsum.photos/1920/800" alt="Video Pembelajaran Banner" class="w-full h-[500px] object-cover"> --}}
         </div>
         <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-primary/60">
             <div class="max-w-6xl mx-auto h-full flex items-center px-4">

@@ -12,7 +12,7 @@ class FaqCategorySeeder extends Seeder
         $categories = [
             [
                 'name' => 'Sertifikasi Halal',
-                'slug' => 'sertifikasi-halal',
+                'slug' => 'layanan-sertifikasi-halal',
                 'description' => 'Pertanyaan seputar sertifikasi halal',
                 'is_active' => true,
                 'order' => 1

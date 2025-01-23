@@ -133,7 +133,7 @@
                     <!-- Manfaat -->
                     <div class="bg-white rounded-xl shadow-lg p-6">
                         <h2 class="text-2xl font-bold mb-4">
-                            {{ $programLayanan->slug == 'sertifikasi-halal' ? 'Apa saja manfaat dari produk yang sudah bersertifikat halal?' : 'Manfaat apa saja yang didapatkan dari ' . $programLayanan->nama_banner }}
+                            {{ $programLayanan->slug == 'layanan-sertifikasi-halal' ? 'Apa saja manfaat dari produk yang sudah bersertifikat halal?' : 'Manfaat apa saja yang didapatkan dari ' . $programLayanan->nama_banner }}
                         </h2>
                         <ul class="space-y-2">
                             @foreach ($programLayanan->manfaat as $manfaat)
@@ -199,7 +199,7 @@
         </div>
     </section>
 
-    @if ($programLayanan->slug === 'sertifikasi-halal')
+    @if ($programLayanan->slug === 'layanan-sertifikasi-halal')
         <!-- Service Paths -->
         <section class="py-16">
             <div class="max-w-6xl mx-auto px-4">
