@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\About;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller
 {
@@ -45,7 +46,7 @@ class AboutController extends Controller
 
         $about = About::create($validated);
 
-        return redirect()->route('admin.abouts.edit', $about)
+        return redirect()->route('admin.abouts.index', $about)
             ->with('success', 'Halaman tentang berhasil dibuat');
     }
 
@@ -93,7 +94,7 @@ class AboutController extends Controller
         if ($about->hero_image) {
             Storage::disk('public')->delete($about->hero_image);
         }
-        
+
         $about->delete();
 
         return redirect()->route('admin.abouts.index')

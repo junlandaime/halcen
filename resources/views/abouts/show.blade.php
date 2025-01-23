@@ -4,6 +4,92 @@
     <title>{{ $about->meta_title ?? $about->title }} - Halal Center Masjid Salman ITB</title>
 @endsection
 
+@push('css')
+    <style>
+        /* Article Section */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .about {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .about h1,
+        .about h2 {
+
+            text-align: center;
+        }
+
+        .about h1 {
+
+            margin-bottom: 16px;
+        }
+
+        .about h2 {
+            font-size: 2rem;
+            margin-top: 32px;
+            margin-bottom: 16px;
+        }
+
+        .about p {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .about ul {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .about ul li {
+            color: #4b5563;
+            margin-bottom: 8px;
+        }
+
+        .about ol li {
+            font-size: 1.2rem;
+            color: #4b5563;
+            margin-bottom: 8px;
+            counter-reset: list-number;
+        }
+
+        .about .section {
+            margin-bottom: 40px;
+        }
+
+        .about .benefits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .about .benefit {
+            background-color: #f9fafb;
+            padding: 16px;
+            border-radius: 8px;
+            flex: 1 1 calc(33% - 32px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .about .benefit h3 {
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .about .benefit p {
+            color: #4b5563;
+        }
+    </style>
+@endpush
+
 @section('content')
     <!-- Hero Section -->
     <section class="relative h-[400px] overflow-hidden pt-16" x-data="{ scroll: 0 }"
@@ -79,6 +165,42 @@
         </div>
     </section>
 
+    @foreach ($about->sections as $section)
+        <section class="{{ $loop->even ? 'bg-gray-50' : '' }}">
+            <div class="py-16 max-w-6xl mx-auto px-4 about">
+                <div class="grid {{ $section->image ? 'md:grid-cols-2' : 'md:grid-cols-1' }} gap-8 items-center">
+                    @if ($loop->even)
+                        <div class="order-2 md:order-1" data-aos="fade-left">
+                            <h2 class="text-3xl font-bold text-primary mb-4">{{ $section->title }}</h2>
+                            <div class="prose text-gray-600 text-justify">
+                                {!! $section->content !!}
+                            </div>
+                        </div>
+                        @if ($section->image)
+                            <div class="order-1 md:order-2" data-aos="fade-right">
+                                <img src="{{ Storage::url($section->image) }}" alt="{{ $section->title }}"
+                                    class="w-full rounded-lg shadow-lg">
+                            </div>
+                        @endif
+                    @else
+                        @if ($section->image)
+                            <div data-aos="fade-right">
+                                <img src="{{ Storage::url($section->image) }}" alt="{{ $section->title }}"
+                                    class="w-full rounded-lg shadow-lg">
+                            </div>
+                        @endif
+                        <div data-aos="fade-left">
+                            <h2 class="text-3xl font-bold text-primary mb-4">{{ $section->title }}</h2>
+                            <div class="prose text-gray-600 text-justify">
+                                {!! $section->content !!}
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </section>
+    @endforeach
+
     <!-- Programs Section -->
     @if ($about->programs->isNotEmpty())
         <section class="py-16">
@@ -113,7 +235,8 @@
             <div class="max-w-6xl mx-auto px-4">
                 <div class="text-center mb-12" data-aos="fade-up">
                     <h2 class="text-3xl font-bold text-primary mb-4">Tim Kami</h2>
-                    <p class="text-gray-600 max-w-3xl mx-auto">Para profesional berpengalaman yang mendedikasikan diri untuk
+                    <p class="text-gray-600 max-w-3xl mx-auto">Para profesional berpengalaman yang mendedikasikan diri
+                        untuk
                         pengembangan ekosistem halal</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">

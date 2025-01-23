@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\VideoController;
@@ -17,6 +18,9 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\ProgramBatchController;
 use App\Http\Controllers\VideoCategoryController;
 use App\Http\Controllers\ProgramLayananController;
+use App\Http\Controllers\Admin\AboutTeamController;
+use App\Http\Controllers\Admin\AboutProgramController;
+use App\Http\Controllers\Admin\AboutSectionController;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -108,6 +112,16 @@ Route::middleware('auth')->group(function () {
             Route::resource('faqs', FaqController::class);
             Route::resource('faq-categories', FaqCategoryController::class)->except(['create', 'edit', 'show']);
             Route::resource('abouts', AboutController::class);
+            // About Sections
+            Route::resource('about-sections', AboutSectionController::class)->except(['index']);
+
+            // About Teams
+            Route::resource('about-teams', AboutTeamController::class)->except(['index']);
+
+            // About Programs
+            Route::resource('about-programs', AboutProgramController::class)->except(['index']);
+
+            Route::resource('users', UserController::class);
         });
 
 
