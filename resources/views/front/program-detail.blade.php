@@ -178,7 +178,7 @@
                     </div>
 
                     <!-- Alur Proses -->
-                    @if (count($programLayanan['alur_proses']) > 0)
+                    @if (count($programLayanan['alur_proses']) > 1)
                         <div class="bg-white rounded-xl shadow-lg p-6">
                             <h2 class="text-2xl font-bold mb-4">Alur Proses</h2>
                             <div class="space-y-4">

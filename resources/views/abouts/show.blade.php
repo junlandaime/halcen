@@ -5,6 +5,9 @@
 @endsection
 
 @push('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* Article Section */
         body {
@@ -95,7 +98,8 @@
     <section class="relative h-[400px] overflow-hidden pt-16" x-data="{ scroll: 0 }"
         @scroll.window="scroll = window.pageYOffset">
         <div class="absolute inset-0" x-bind:style="`transform: translateY(${scroll * 0.5}px)`">
-            <img src="{{ Storage::url($about->hero_image) }}" alt="{{ $about->title }}" class="w-full h-[600px] object-cover">
+            <img src="{{ Storage::url($about->hero_image) }}" alt="{{ $about->title }}"
+                class="w-full h-[600px] object-cover">
         </div>
         <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-primary/60">
             <div class="max-w-6xl mx-auto h-full flex items-center px-4">
@@ -124,46 +128,48 @@
     </section>
 
     <!-- Vision Mission Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-primary mb-4">Visi & Misi</h2>
-                <p class="text-gray-600 max-w-3xl mx-auto">{{ $about->description }}</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                            </path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Visi</h3>
-                    <p class="text-gray-600">{{ $about->vision }}</p>
+    @if ($about->vision)
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl font-bold text-primary mb-4">Visi & Misi</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">{{ $about->description }}</p>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2v16z"></path>
-                        </svg>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Visi</h3>
+                        <p class="text-gray-600">{{ $about->vision }}</p>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Misi</h3>
-                    <ul class="space-y-3 text-gray-600">
-                        @foreach ($about->mission as $mission)
-                            <li class="flex items-start gap-3">
-                                <span class="text-primary mt-1">•</span>
-                                <p>{{ $mission }}</p>
-                            </li>
-                        @endforeach
-                    </ul>
+                    <div class="bg-white p-8 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2v16z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Misi</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            @foreach ($about->mission as $mission)
+                                <li class="flex items-start gap-3">
+                                    <span class="text-primary mt-1">•</span>
+                                    <p>{{ $mission }}</p>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     @foreach ($about->sections as $section)
         <section class="{{ $loop->even ? 'bg-gray-50' : '' }}">
@@ -212,16 +218,16 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     @foreach ($about->programs as $program)
-                        <div class="bg-white p-6 rounded-xl shadow-lg" data-aos="fade-up"
+                        <div class="bg-white p-6 rounded-xl shadow-lg " data-aos="fade-up"
                             data-aos-delay="{{ $loop->index * 100 }}">
-                            @if ($program->icon)
+                            {{-- @if ($program->icon)
                                 <div class="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                                     <img src="{{ Storage::url($program->icon) }}" alt="{{ $program->title }}"
                                         class="w-6 h-6">
                                 </div>
-                            @endif
-                            <h3 class="text-xl font-bold mb-2">{{ $program->title }}</h3>
-                            <p class="text-gray-600">{{ $program->description }}</p>
+                            @endif --}}
+                            <h3 class="text-xl font-bold mb-2 text-center">{{ $program->title }}</h3>
+                            <p class="text-gray-600 text-justify text-sm">{{ $program->description }}</p>
                         </div>
                     @endforeach
                 </div>
