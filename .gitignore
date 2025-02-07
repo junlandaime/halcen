@@ -3,6 +3,7 @@
 /public/build
 /public/hot
 /public/storage
+/database/seeders
 /storage/*.key
 /storage/pail
 /vendor
@@ -21,4 +22,3 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
-/database/seeders
