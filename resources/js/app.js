@@ -1,12 +1,8 @@
-import "./bootstrap";
+import './bootstrap';
+// import '../css/template/style.css'
 
-import Alpine from "alpinejs";
+import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
 Alpine.start();
-
-import "aos/dist/aos.css";
-import AOS from "aos";
-
-AOS.init();

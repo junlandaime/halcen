@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ProgramLayanan;
+use App\Models\ProgramBatch;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,6 +21,38 @@ class ProgramLayananController extends Controller
     {
         return view('admin.program-layanan.create');
     }
+
+
+    public function tambahSesiManual(Request $request)
+    {
+    $batch = ProgramBatch::find($request->id);
+
+    if (!$batch) {
+        return redirect()->route('admin.program-layanan.index')->with('error', 'Batch tidak ditemukan.');
+    }
+
+    if ($batch->status !== 'aktif') {
+        return redirect()->route('admin.program-layanan.index')->with('deleted', 'Batch tidak aktif, tidak bisa mengubah sesi.');
+    }
+
+    if ($request->action === 'tambah') {
+        if ($batch->Sesi < 16) {
+            $batch->increment('sesi');
+            return redirect()->route('admin.program-layanan.index')->with('success', 'Sesi berhasil ditambah.');
+        } else {
+            return redirect()->route('admin.program-layanan.index')->with('deleted', 'Sesi sudah 15, nilai maksimum.');
+        }
+    } elseif ($request->action === 'kurang') {
+        if ($batch->Sesi > 0) {
+            $batch->decrement('sesi');
+            return redirect()->route('admin.program-layanan.index')->with('success', 'Sesi berhasil dikurangi.');
+        } else {
+            return redirect()->route('admin.program-layanan.index')->with('deleted', 'Sesi sudah 0, tidak bisa dikurangi.');
+        }
+    }
+
+    return redirect()->route('admin.program-layanan.index')->with('error', 'Aksi tidak dikenali.');
+}
 
     public function store(Request $request)
     {

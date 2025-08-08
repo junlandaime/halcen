@@ -17,30 +17,42 @@ use Illuminate\Http\Request;
 use App\Models\VideoCategory;
 use App\Models\ProgramLayanan;
 use App\Models\RegulationCategory;
+use App\Models\ProgramBatch;
 
 class FrontController extends Controller
 {
     public function index()
-    {
-        $landingPage = LandingPage::firstOrFail();
-        $partners = Partner::orderBy('order')->get();
-        $testimonials = Testimonial::where('is_featured', true)
-            ->orderBy('order')
-            ->take(3)
-            ->get();
-        $upcomingPrograms = Program::
-            // where('start_date', '>', now())
-            //     ->orderBy('start_date')
-            take(3)
-            ->get();
+{
+    $landingPage = LandingPage::firstOrFail();
+    $partners = Partner::orderBy('order')->get();
+    $testimonials = Testimonial::where('is_featured', true)
+        ->orderBy('order')
+        ->take(3)
+        ->get();
 
-        return view('front.home', compact(
-            'landingPage',
-            'partners',
-            'testimonials',
-            'upcomingPrograms'
-        ));
-    }
+    $categories = [
+        1 => 'Kuliah Halal',
+        2 => 'Juleha Kurban',
+        3 => 'Juleha Unggas',
+        4 => 'P3H',
+        5 => 'Sertifikasi',
+    ];
+
+    // ambil batch berdasarkan kategori
+    $upcomingBatches = ProgramBatch::where('status', 'aktif')
+        ->where('tanggal_mulai_program', '>', now())
+        ->with('programLayanan') // relasi program_layanan
+        ->get()
+        ->groupBy('program_layanan_id');
+
+    return view('front.home', compact(
+        'landingPage',
+        'partners',
+        'testimonials',
+        'categories',
+        'upcomingBatches'
+    ));
+}
 
 
     public function index_program()

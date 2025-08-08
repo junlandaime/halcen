@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('template.layouts.index')
 
 @section('title')
     <title>Create User - Admin Panel</title>
@@ -45,22 +45,23 @@
                         <input type="password" name="password_confirmation" id="password_confirmation"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primer-500 focus:ring-primer-500">
                     </div>
+@foreach ($roles as $role)
+    <div class="flex items-center">
+        <input type="radio" name="role" value="{{ $role->name }}"
+               {{ old('role') == $role->name ? 'checked' : '' }}
+               class="h-4 w-4 text-primer-600 focus:ring-primer-500 border-gray-300">
+        <label class="ml-2 text-sm text-gray-700">{{ $role->name }}</label>
+    </div>
+@endforeach
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Roles</label>
-                        <div class="mt-2 space-y-2">
-                            @foreach ($roles as $role)
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="roles[]" value="{{ $role->name }}"
-                                        class="h-4 w-4 text-primer-600 focus:ring-primer-500 border-gray-300 rounded">
-                                    <label class="ml-2 text-sm text-gray-700">{{ $role->name }}</label>
-                                </div>
-                            @endforeach
-                        </div>
-                        @error('roles')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+
+@error('role')
+    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+@enderror
+
+</div>
+
+
 
                     <div class="flex justify-end space-x-2">
                         <a href="{{ route('admin.users.index') }}"

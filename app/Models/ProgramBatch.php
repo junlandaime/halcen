@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProgramBatch extends Model
 {
@@ -21,7 +22,8 @@ class ProgramBatch extends Model
         'harga',
         'status',
         'external_link',
-        'catatan_batch'
+        'catatan_batch',
+        'whatsapp_group_link',
     ];
 
     protected $casts = [
@@ -35,6 +37,12 @@ class ProgramBatch extends Model
     {
         return $this->belongsTo(ProgramLayanan::class, 'program_layanan_id');
     }
+
+        public function participants(): HasMany
+    {
+        return $this->hasMany(Participant::class, 'batch_id');
+    }
+
 
     public function isOpenForRegistration(): bool
     {
@@ -58,4 +66,11 @@ class ProgramBatch extends Model
             return 'Sudah Ditutup';
         }
     }
+
+    public function registrationForm()
+{
+    return $this->hasOne(RegistrationForm::class);
+}
+
+
 }

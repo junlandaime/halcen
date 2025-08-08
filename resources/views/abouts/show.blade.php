@@ -101,7 +101,7 @@
             <img src="{{ Storage::url($about->hero_image) }}" alt="{{ $about->title }}"
                 class="w-full h-[600px] object-cover">
         </div>
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-primary/60">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/100 to-blue-400/100">
             <div class="max-w-6xl mx-auto h-full flex items-center px-4">
                 <div class="text-white" data-aos="fade-up">
                     <h1 class="text-5xl font-bold mb-6">{{ $about->hero_title }}</h1>

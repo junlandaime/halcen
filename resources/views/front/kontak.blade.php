@@ -24,7 +24,7 @@
         <div class="absolute inset-0" x-bind:style="`transform: translateY(${scroll * 0.5}px)`">
             {{-- <img src="https://picsum.photos/1920/800" alt="FAQ Banner" class="w-full h-[500px] object-cover"> --}}
         </div>
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-primary/60">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/100 to-blue-400/100">
             <div class="max-w-6xl mx-auto h-full flex items-center px-4">
                 <div class="text-white" data-aos="fade-up">
                     <h1 class="text-5xl font-bold mb-6">FAQ & Kontak</h1>
@@ -40,12 +40,12 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex flex-wrap gap-4" data-aos="fade-up">
                 <a href="{{ route('front.kontak') }}"
-                    class="px-6 py-2 rounded-full {{ !request('category') ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                    class="px-6 py-2 rounded-full {{ !request('category') ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
                     Semua
                 </a>
                 @foreach ($categories as $category)
                     <a href="{{ route('front.kontak', ['category' => $category->slug]) }}"
-                        class="px-6 py-2 rounded-full {{ request('category') == $category->slug ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                        class="px-6 py-2 rounded-full {{ request('category') == $category->slug ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
                         {{ $category->name }}
                     </a>
                 @endforeach

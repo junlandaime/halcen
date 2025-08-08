@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('template.layouts.index')
 
 @section('title')
     <title>Tambah Program/Layanan Baru - Admin Pusat Halal Salman ITB</title>
@@ -106,6 +106,16 @@
                         </div>
 
                         <div>
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        Link WhatsApp Group
+    </label>
+    <input type="url" name="whatsapp_group_link" value="{{ old('whatsapp_group_link', $batch->whatsapp_group_link) }}"
+        placeholder="https://chat.whatsapp.com/..."
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5">
+</div>
+
+
+                        <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Status
                             </label>
@@ -121,18 +131,6 @@
                             </select>
                         </div>
 
-                        <div class="mb-4">
-                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                Link External
-                            </label>
-                            <input type="url" name="external_link"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5"
-                                value="{{ old('external_link', $batch->external_link) }}">
-                            @error('external_link')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
                         <div class="col-span-2">
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Catatan Batch
@@ -144,14 +142,15 @@
 
                     <div class="mt-6 flex justify-end space-x-3">
                         <a href="{{ route('admin.program-layanan.show', $program) }}"
-                            class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                            class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-red-600 rounded-lg hover:bg-red-700">
                             Batal
                         </a>
                         <button type="submit"
-                            class="px-4 py-2 text-sm font-medium text-white bg-primer-600 rounded-lg hover:bg-primer-700">
-                            Simpan Perubahan
+                            class="px-4 py-2 text-sm font-medium text-white bg-green-600 border border-green-600 rounded-lg hover:bg-green-700">
+                            Simpan
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>

@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('template.layouts.index')
 
 @section('title')
     <title>Kategori Video - Admin Pusat Halal Salman ITB</title>

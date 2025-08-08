@@ -23,11 +23,11 @@ class Program extends Model
 
     public function schedules()
     {
-        return $this->hasMany(ProgramSchedule::class);
+        // return $this->hasMany(ProgramSchedule::class);
     }
 
     public function registrations()
     {
-        return $this->hasMany(Registration::class);
+        // return $this->hasMany(Registration::class);
     }
 }

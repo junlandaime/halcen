@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('template.layouts.index')
 
 @section('title')
     <title>User Management - Admin Panel</title>
@@ -6,84 +6,120 @@
 
 @section('content')
     <div class="p-4 md:ml-64">
-        <!-- Top Bar -->
-        <div class="flex items-center justify-between mb-4">
-            <button @click="sidebarOpen = !sidebarOpen"
-                class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+        {{-- Top-Bar --}}
+        <div class="flex items-center justify-end mb-4">
             <a href="{{ route('admin.users.create') }}"
-                class="text-white bg-primer-600 hover:bg-primer-700 focus:ring-4 focus:ring-primer-300 font-medium rounded-lg text-sm px-4 py-2">
+               class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2">
                 Add User
             </a>
         </div>
 
-        <!-- User List -->
+        {{-- Flash Message --}}
+        @foreach (['success','error'] as $msg)
+            @if(session($msg))
+                <div class="mb-4 p-3 rounded {{ $msg=='success'
+                      ? 'bg-green-50 border border-green-200 text-green-800'
+                      : 'bg-red-50 border border-red-200 text-red-800' }}">
+                    {{ session($msg) }}
+                </div>
+            @endif
+        @endforeach
+
+        {{-- User List --}}
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
             <div class="p-4">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500">
+                    <table class="w-full text-sm text-left text-gray-600">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
-                                <th scope="col" class="px-4 py-4">Name</th>
-                                <th scope="col" class="px-4 py-4">Email</th>
-                                <th scope="col" class="px-4 py-4">Roles</th>
-                                <th scope="col" class="px-4 py-4">Created At</th>
-                                <th scope="col" class="px-4 py-4">Actions</th>
+                                <th class="px-4 py-3">Name</th>
+                                <th class="px-4 py-3">Email</th>
+                                <th class="px-4 py-3">Roles</th>
+                                <th class="px-4 py-3">2-FA</th>
+                                <th class="px-4 py-3">Created</th>
+                                <th class="px-4 py-3">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($users as $user)
+                            @forelse ($users as $user)
                                 <tr class="border-b">
-                                    <td class="px-4 py-3 font-medium text-gray-900">
-                                        {{ $user->name }}
-                                    </td>
+                                    <td class="px-4 py-3 font-medium">{{ $user->name }}</td>
                                     <td class="px-4 py-3">{{ $user->email }}</td>
                                     <td class="px-4 py-3">
                                         @foreach ($user->roles as $role)
-                                            <span
-                                                class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded mr-1">
                                                 {{ $role->name }}
                                             </span>
                                         @endforeach
                                     </td>
+
+                                    {{-- Status 2FA --}}
+                                    <td class="px-4 py-3">
+                                        @if($user->two_factor_secret)
+                                            <span class="text-green-600 font-semibold">Aktif</span>
+                                            <a href="{{ route('admin.users.qr', $user) }}"
+                                               class="ml-1 text-xs text-indigo-600 underline">QR</a>
+                                        @else
+                                            <span class="text-red-600 font-semibold">Nonaktif</span>
+                                        @endif
+                                    </td>
+
                                     <td class="px-4 py-3">{{ $user->created_at->format('d M Y') }}</td>
+
+                                    {{-- Aksi --}}
                                     <td class="px-4 py-3 flex items-center space-x-2">
+                                        {{-- Edit --}}
                                         <a href="{{ route('admin.users.edit', $user) }}"
-                                            class="text-blue-600 hover:text-blue-900">
-                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                            </svg>
+                                           class="text-blue-600 hover:text-blue-900">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"
+                                                 viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                                                 d="M15.232 5.232l3.536 3.536M9 11l6 6M13 7l4 4m-9 2l-4 4m0 0H3v-3l4-4"/></svg>
                                         </a>
+
+                                        {{-- Hapus --}}
                                         <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
-                                            onsubmit="return confirm('Are you sure?');">
-                                            @csrf
-                                            @method('DELETE')
+                                              onsubmit="return confirm('Hapus user ini?');">
+                                            @csrf @method('DELETE')
                                             <button class="text-red-600 hover:text-red-900">
-                                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                </svg>
+                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"
+                                                     viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                                                     d="M6 18L18 6M6 6l12 12"/></svg>
                                             </button>
                                         </form>
+
+                                        {{-- Toggle 2FA --}}
+                                        @if(auth()->user()->hasRole('superAdmin') && auth()->id() !== $user->id)
+                                            @if($user->two_factor_secret)
+                                                {{-- Nonaktifkan --}}
+                                                <form action="{{ route('admin.users.disable2fa', $user) }}" method="POST">
+                                                    @csrf @method('PATCH')
+                                                    <button type="submit"
+                                                            class="text-xs px-2 py-1 rounded bg-red-500 hover:bg-red-600 text-white">
+                                                        Nonaktifkan 2FA
+                                                    </button>
+                                                </form>
+                                            @else
+                                                {{-- Aktifkan --}}
+                                                <form action="{{ route('admin.users.enable2fa', $user) }}" method="POST">
+                                                    @csrf @method('PATCH')
+                                                    <button type="submit"
+                                                            class="text-xs px-2 py-1 rounded bg-green-500 hover:bg-green-600 text-white">
+                                                        Aktifkan 2FA
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
-                                <tr>
-                                    <td colspan="5" class="text-center py-4">No users found.</td>
-                                </tr>
+                                <tr><td colspan="6" class="text-center py-4">No users found.</td></tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
-                <div class="mt-4">
-                    {{ $users->links() }}
-                </div>
+
+                {{-- Pagination --}}
+                <div class="mt-4">{{ $users->links() }}</div>
             </div>
         </div>
     </div>

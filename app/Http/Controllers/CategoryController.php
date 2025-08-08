@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class CategoryController extends Controller
 {
@@ -50,7 +52,7 @@ class CategoryController extends Controller
         $category->update($validated);
 
         return redirect()->route('admin.categories.index')
-            ->with('success', 'Category updated successfully.');
+            ->with('updated', 'Category updated successfully.');
     }
 
     /**
@@ -59,14 +61,18 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         // dd($category);
-        if ($category->articles()->count() > 0) {
-            return redirect()->route('admin.categories.index')
-                ->with('error', 'Cannot delete category with associated articles.');
-        }
+        // if ($category->articles()->count() > 0) {
+        //     return redirect()->route('admin.categories.index')
+        //         ->with('error', 'Cannot delete category with associated articles.');
+        // }
 
-        $category->delete();
+        // $category->forceDelete();
 
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Category deleted successfully.');
+        // return redirect()->route('admin.categories.index')
+        //     ->with('success', 'Category deleted successfully.');
+        Log::info('DESTROY METHOD CALLED', ['id' => $category->id]);
+        abort(200, 'Destroy called');
+        //     Log::info('DESTROY METHOD CALLED', ['id' => $category->id]);
+        //     return response()->json(['message' => 'Deleted'], 200);
     }
 }

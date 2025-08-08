@@ -47,7 +47,7 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-primary to-primary-dark text-white py-16">
+    <section class="bg-gradient-to-r from-blue-900/100 to-blue-400/100 text-white py-16">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex flex-col md:flex-row gap-8 items-center">
                 <div class="flex-1">
@@ -79,7 +79,7 @@
                                     class="text-lg">{{ $activeBatch->tanggal_selesai_pendaftaran->format('d F Y') }}</span>
                             </div>
                             <a href="{{ $activeBatch->external_link }}" target="_blank"
-                                class="inline-block px-6 py-3 bg-white text-primary font-semibold rounded-lg hover:bg-gray-100 transition-colors">
+                                class="inline-block px-6 py-3 bg-blue-300 text-black font-semibold rounded-lg hover:bg-gray-100 transition-colors">
                                 Daftar Sekarang
                             </a>
                         </div>
@@ -95,12 +95,6 @@
                     @endif
                 </div>
                 {{-- @dd($programLayanan->gambar_banner) --}}
-                @if ($programLayanan->gambar_banner)
-                    <div class="md:w-1/3">
-                        <img src="{{ Storage::url($programLayanan->gambar_banner) }}"
-                            alt="{{ $programLayanan->nama_program }}" class="rounded-lg shadow-lg">
-                    </div>
-                @endif
             </div>
         </div>
     </section>
@@ -201,19 +195,6 @@
 
                 <!-- Sidebar -->
                 <div class="space-y-6">
-                    @if ($activeBatch)
-                        <!-- Registration Form -->
-                        <div id="daftar" class="bg-white rounded-xl shadow-lg p-10 text-center">
-
-                            @if ($activeBatch->external_link)
-                                <a href="{{ $activeBatch->external_link }}" target="_blank"
-                                    class="w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
-                                    Daftar Sekarang
-                                </a>
-                            @endif
-                        </div>
-                    @endif
-
                     <!-- Upcoming Batches -->
                     @if ($upcomingBatches->isNotEmpty())
                         <div class="bg-white rounded-xl shadow-lg p-6">

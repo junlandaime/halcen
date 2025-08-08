@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class PartnerController extends Controller
 {
     public function index()
     {
-        $partners = Partner::orderBy('order')->get();
+        $partners = Partner::withTrashed()->orderBy('id', 'desc')->get();
         return view('admin.partners.index', compact('partners'));
     }
 
@@ -26,7 +28,40 @@ class PartnerController extends Controller
         ]);
 
         if ($request->hasFile('logo')) {
-            $validated['logo'] = $request->file('logo')->store('partners', 'public');
+            $folder = public_path('partners');
+
+            // Buat folder kalau belum ada
+            if (!File::exists($folder)) {
+                File::makeDirectory($folder, 0755, true);
+            }
+
+            // Ambil urutan terakhir berdasarkan nama file yang diawali angka
+            $existingFiles = File::files($folder);
+            $maxNumber = 0;
+
+            foreach ($existingFiles as $file) {
+                $filename = pathinfo($file->getFilename(), PATHINFO_FILENAME);
+                if (preg_match('/^(\d+)\./', $filename, $matches)) {
+                    $num = intval($matches[1]);
+                    if ($num > $maxNumber) {
+                        $maxNumber = $num;
+                    }
+                }
+            }
+
+            $nextNumber = $maxNumber + 1;
+
+            // Format nama: 4. Nama Pengguna.extension
+            $extension = $request->file('logo')->getClientOriginalExtension();
+            $safeName = Str::slug($validated['name'], '_');
+            $fileName = "{$nextNumber}. {$validated['name']}.{$extension}";
+            $filePath = 'partners/' . $fileName;
+
+            // Pindahkan file
+            $request->file('logo')->move($folder, $fileName);
+
+            // Simpan path relatif
+            $validated['logo'] = 'partners/' . $fileName;
         }
 
         Partner::create($validated);
@@ -56,19 +91,29 @@ class PartnerController extends Controller
         $partner->update($validated);
 
         return redirect()->route('admin.partners.index')
-            ->with('success', 'Partner has been updated successfully.');
+            ->with('updated', 'Partner has been updated successfully.');
     }
 
     public function destroy(Partner $partner)
     {
-        if ($partner->logo) {
-            Storage::disk('public')->delete($partner->logo);
+        try {
+            // Hapus gambar dari folder public/testimoni jika ada
+            if ($partner->logo) {
+                $imagePath = public_path($partner->logo);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            }
+
+            // Hapus data testimonial
+            $partner->forceDelete();
+
+            return redirect()->route('admin.partners.index')
+                ->with('deleted', 'Partner has been deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withErrors(['error' => 'Erro Deleting Partner: ' . $e->getMessage()]);
         }
-
-        $partner->delete();
-
-        return redirect()->route('admin.partners.index')
-            ->with('success', 'Partner has been deleted successfully.');
     }
 
     public function updateOrder(Request $request)

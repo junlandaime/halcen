@@ -30,12 +30,12 @@ class FaqController extends Controller
             'is_active' => 'nullable|boolean',
             'order' => 'integer'
         ]);
-        
+
         // Convert is_active dari checkbox ke boolean
         $validated['is_active'] = $request->has('is_active');
-        
+
         Faq::create($validated);
-        
+
         return redirect()->route('admin.faqs.index')
             ->with('success', 'FAQ berhasil ditambahkan');
     }

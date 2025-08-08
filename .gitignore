@@ -3,7 +3,6 @@
 /public/build
 /public/hot
 /public/storage
-/database/seeders
 /storage/*.key
 /storage/pail
 /vendor
@@ -14,9 +13,9 @@
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
-auth.json
 npm-debug.log
 yarn-error.log
+/auth.json
 /.fleet
 /.idea
 /.nova

@@ -11,11 +11,17 @@ use Illuminate\View\View as ViewInstance;
 
 class ViewServiceProvider extends ServiceProvider
 {
+    /**
+     * Register services.
+     */
     public function register(): void
     {
         //
     }
 
+    /**
+     * Bootstrap services.
+     */
     public function boot(): void
     {
         // Make sure to use the correct view path
@@ -33,7 +39,8 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with([
                 'headerPrograms' => $programs,
-                'headerAbouts' => $abouts
+                'headerAbouts' => $abouts,
+
             ]);
         });
 

@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('template.layouts.index')
 
 @section('title')
     <title>Kategori Artikel - Admin Pusat Halal Salman ITB</title>
@@ -11,15 +11,16 @@
             <main class="p-6">
                 <!-- Header -->
                 <div class="mb-6">
-                    <div class="flex justify-between items-center">
+                    <div class="flex justify-between items-end">
                         <div>
                             <h1 class="text-2xl font-semibold text-gray-900">Manage Categories</h1>
                             <p class="mt-1 text-sm text-gray-600">
                                 Manage your categories efficiently
                             </p>
                         </div>
-                        <button @click="showAddModal = true"
-                            class="text-white bg-primer-600 hover:bg-primer-700 focus:ring-4 focus:ring-primer-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primer-600 dark:hover:bg-primer-700 focus:outline-none dark:focus:ring-primer-800">
+                        <button type="button" data-modal-target="crud-modal" id="create-categories-btn"
+                            data-modal-toggle="crud-modal"
+                            class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-primer-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primer-600 dark:hover:bg-primer-700 focus:outline-none dark:focus:ring-primer-800 edit-partner">
                             Add Category
                         </button>
                     </div>
@@ -41,27 +42,27 @@
                                     <h3 class="text-lg font-medium text-gray-900">{{ $category->name }}</h3>
                                     <p class="mt-1 text-sm text-gray-500">{{ $category->articles_count }} articles</p>
                                 </div>
-                                <div class="flex space-x-2">
-                                    <button @click="showEditModal = true" class="text-gray-400 hover:text-gray-500"
-                                        data-category="{{ json_encode($category) }}">
-                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="flex flex-col">
+                                    <button type="button" data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                                        class="inline-flex items-center my-1 px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-150 edit-categories"
+                                        data-categories='@json($category)'>
+                                        <svg class="w-4 h-4 mr-0.5 -ml-0.5" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                            </path>
                                         </svg>
                                     </button>
-                                    <form action="{{ route('admin.categories.destroy', $category) }}" method="POST"
-                                        class="inline"
-                                        onsubmit="return confirm('Are you sure you want to delete this category?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-500"
-                                            {{ $category->articles_count > 0 ? 'disabled' : '' }}>
-                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-                                        </button>
-                                    </form>
+                                    <button data-modal-target="default-modal" data-modal-toggle="default-modal"
+                                        data-categories-id="{{ $category->id }}" type="button"
+                                        class="inline-flex items-center my-1 px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-150 delete-categories-button">
+                                        <svg class="w-4 h-4 mr-0.5 -ml-0.5" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                            </path>
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                             <div class="mt-4">
@@ -90,92 +91,94 @@
                     {{ $categories->links() }}
                 </div>
 
-                <!-- Add Category Modal -->
-                <div x-show="showAddModal"
-                    class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center p-4 md:ml-64">
-                    <div class="bg-white rounded-lg p-6 max-w-md w-full">
-                        <form action="{{ route('admin.categories.store') }}" method="POST">
-                            @csrf
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="text-lg font-medium text-gray-900">Add New Category</h3>
-                                <button @click="showAddModal = false" type="button"
-                                    class="text-gray-400 hover:text-gray-500">
-                                    <span class="sr-only">Close</span>
-                                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M6 18L18 6M6 6l12 12" />
+                <!-- Main modal -->
+                <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative p-4 w-full max-w-md max-h-full">
+                        <!-- Modal content -->
+                        <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                            <!-- Modal header -->
+                            <div
+                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white" id="modal-title">
+                                    Edit Partner
+                                </h3>
+                                <button type="button"
+                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-modal-toggle="crud-modal">
+                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                     </svg>
+                                    <span class="sr-only">Close modal</span>
                                 </button>
                             </div>
-                            <div class="space-y-4">
-                                <div>
-                                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                                    <input type="text" name="name" id="name" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primer-500 focus:ring-primer-500 sm:text-sm">
+                            <!-- Modal body -->
+                            <form class="p-4 md:p-5" id="categories-form" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="_method" id="form-method" value="POST">
+                                <input type="hidden" name="id" id="categories-id">
+
+                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                    <div class="col-span-2">
+                                        <label for="name" class="block text-sm font-bold text-gray-700">Name</label>
+                                        <input type="text" name="name" id="name" required
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primer-500 focus:ring-primer-500 sm:text-sm">
+                                    </div>
+                                    <div class="col-span-2">
+                                        <label for="description"
+                                            class="block text-sm font-bold text-gray-700">Description</label>
+                                        <textarea name="description" id="description" rows="3"
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primer-500 focus:ring-primer-500 sm:text-sm"></textarea>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="description"
-                                        class="block text-sm font-medium text-gray-700">Description</label>
-                                    <textarea name="description" id="description" rows="3"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primer-500 focus:ring-primer-500 sm:text-sm"></textarea>
-                                </div>
-                            </div>
-                            <div class="mt-5 flex justify-end space-x-3">
-                                <button type="button" @click="showAddModal = false"
-                                    class="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primer-500 focus:ring-offset-2">
-                                    Cancel
+                                <button type="submit" id="submit-button"
+                                    class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Simpan
                                 </button>
-                                <button type="submit"
-                                    class="rounded-md bg-primer-600 px-4 py-2 text-sm font-medium text-white hover:bg-primer-700 focus:outline-none focus:ring-2 focus:ring-primer-500 focus:ring-offset-2">
-                                    Create Category
-                                </button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Edit Category Modal -->
-                <div x-show="showEditModal"
-                    class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center p-4 md:ml-64">
-                    <div class="bg-white rounded-lg p-6 max-w-md w-full">
-                        <form id="editCategoryForm" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="text-lg font-medium text-gray-900">Edit Category</h3>
-                                <button @click="showEditModal = false" type="button"
-                                    class="text-gray-400 hover:text-gray-500">
-                                    <span class="sr-only">Close</span>
-                                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M6 18L18 6M6 6l12 12" />
+                <div id="default-modal" tabindex="-1" aria-hidden="true"
+                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative p-4 w-full max-w-md max-h-full">
+                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                            <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                    Konfirmasi Hapus
+                                </h3>
+                                <button type="button" data-modal-hide="default-modal"
+                                    class="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                     </svg>
                                 </button>
                             </div>
-                            <div class="space-y-4">
-                                <div>
-                                    <label for="edit_name" class="block text-sm font-medium text-gray-700">Name</label>
-                                    <input type="text" name="name" id="edit_name" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primer-500 focus:ring-primer-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="edit_description"
-                                        class="block text-sm font-medium text-gray-700">Description</label>
-                                    <textarea name="description" id="edit_description" rows="3"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primer-500 focus:ring-primer-500 sm:text-sm"></textarea>
-                                </div>
+                            <div class="p-4">
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    Apakah Anda yakin ingin menghapus item ini?
+                                </p>
                             </div>
-                            <div class="mt-5 flex justify-end space-x-3">
-                                <button type="button" @click="showEditModal = false"
-                                    class="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primer-500 focus:ring-offset-2">
-                                    Cancel
-                                </button>
-                                <button type="submit"
-                                    class="rounded-md bg-primer-600 px-4 py-2 text-sm font-medium text-white hover:bg-primer-700 focus:outline-none focus:ring-2 focus:ring-primer-500 focus:ring-offset-2">
-                                    Update Category
+                            <div class="flex justify-end gap-2 p-4 border-t border-gray-200 dark:border-gray-600">
+                                <form id="delete-categories-form" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm">
+                                        Hapus
+                                    </button>
+                                </form>
+                                <button data-modal-hide="default-modal" type="button"
+                                    class="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 text-sm dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
+                                    Batal
                                 </button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </main>
@@ -185,27 +188,76 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('alpine:init', () => {
-            // Handle edit category modal
-            const editButtons = document.querySelectorAll('[data-category]');
+        document.addEventListener('DOMContentLoaded', function() {
+            ['alert-deleted', 'alert-updated', 'success'].forEach(id => {
+                const alert = document.getElementById(id);
+                if (alert) {
+                    setTimeout(() => {
+                        alert.style.display = 'none';
+                    }, 3000);
+                }
+            });
+
+            document.getElementById('create-categories-btn').addEventListener('click', function() {
+                setTimeout(() => {
+                    const form = document.getElementById('categories-form');
+                    const submitButton = document.getElementById('submit-button');
+                    const modalTitle = document.getElementById('modal-title');
+                    const formMethod = document.getElementById('form-method');
+
+                    if (submitButton && modalTitle) {
+                        form.reset();
+                        form.action = '/admin/categories';
+                        formMethod.value = 'POST';
+                        submitButton.textContent = 'Tambah Category';
+                        modalTitle.textContent = 'Tambah Category';
+                    } else {
+                        console.error('Modal belum selesai dirender, elemen tidak ditemukan.');
+                    }
+                }, 5); // sesuaikan delay jika modal pakai animasi (bisa 200–500ms)
+            });
+
+            const editButtons = document.querySelectorAll('.edit-categories');
             editButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const category = JSON.parse(button.dataset.category);
-                    document.getElementById('edit_name').value = category.name;
-                    document.getElementById('edit_description').value = category.description;
-                    document.getElementById('editCategoryForm').action =
-                        `/admin/categories/${category.slug}`;
+                button.addEventListener('click', function() {
+                    setTimeout(() => {
+                        const CategoriesData = JSON.parse(this.getAttribute(
+                            'data-categories'));
+                        const submitButton = document.getElementById('submit-button');
+                        const modalTitle = document.getElementById('modal-title');
+                        const form = document.getElementById('categories-form');
+                        const formMethod = document.getElementById('form-method');
+
+                        if (submitButton && modalTitle) {
+                            document.getElementById('categories-id').value =
+                                CategoriesData.id;
+                            document.getElementById('name').value =
+                                CategoriesData.name;
+                            document.getElementById('description').value =
+                                CategoriesData
+                                .description;
+                            form.action = '/admin/categories/' + CategoriesData.id;
+                            formMethod.value = 'PUT';
+                            modalTitle.textContent = 'Edit Category';
+                            submitButton.textContent = 'Update';
+                        } else {
+                            console.error(
+                                'Modal belum selesai dirender, elemen tidak ditemukan.');
+                        }
+                    }, 5); // sesuaikan delay jika modal pakai animasi (bisa 200–500ms)
                 });
             });
 
-            // Show validation errors in modals if any
-            @if ($errors->any())
-                @if (old('_method') == 'PUT')
-                    window.showEditModal = true;
-                @else
-                    window.showAddModal = true;
-                @endif
-            @endif
+            const deleteButtons = document.querySelectorAll('.delete-categories-button');
+            const deleteForm = document.getElementById('delete-categories-form');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    console.log("Form Action:", deleteForm.action);
+                    const categoriesid = this.getAttribute('data-categories-id');
+                    deleteForm.action = `/admin/categories/${categoriesid}`;
+                });
+            });
         });
     </script>
 @endpush

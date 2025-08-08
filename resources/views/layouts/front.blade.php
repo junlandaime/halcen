@@ -4,21 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
 
     @yield('title')
 
-    <!-- Fonts -->
-    {{-- <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
-
     <link rel="icon" href="{{ asset('favicon.png') }}">
-    <!-- Meta tags untuk SEO dan sharing -->
+
     <meta name="description" content="@yield('meta_description', $frontLandingPage->meta_description ?? '')">
     <meta name="keywords" content="@yield('meta_keywords', $frontLandingPage->meta_keywords ?? '')">
     <meta name="author" content="Tim Pusat Halal Salman">
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="@yield('og_title', $frontLandingPage->meta_title ?? '')">
@@ -34,34 +29,42 @@
 
     @yield('additional_meta_tags')
 
-    <!-- Scripts -->
+    <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    {{-- @yield('css') --}}
     @stack('css')
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+<body class="font-sans antialiased bg-gray-100">
+    <div class="min-h-screen">
         @include('layouts.header')
 
-        <!-- Main Content -->
         <main class="md:pt-16">
-
             @yield('content')
         </main>
 
-
         @include('layouts.footer')
     </div>
-    @stack('script')
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+    </script>
+
+    <!-- Stack Script Tambahan -->
+    @stack('scripts')
 </body>
-<script>
-    // Initialize AOS
-    // AOS.init({
-    //     duration: 800,
-    //     easing: 'ease-in-out',
-    //     once: true
-    // });
-</script>
 
 </html>

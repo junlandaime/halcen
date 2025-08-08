@@ -66,13 +66,12 @@ class ArticleController extends Controller
         // dd($validated);
 
         Article::create($validated);
-        if (auth()->user()->hasRole('superAdmin')) {
-            return redirect()->route('admin.articles.index')
-                ->with('success', 'Article created successfully.');
-        } else {
-            return redirect()->route('articles.index')
-                ->with('success', 'Article created successfully.');
-        }
+        // if (auth()->user()->hasRole('superAdmin')) {
+        return redirect()->route('admin.articles.index')
+            ->with('success', 'Article created successfully.');
+        //  } else {
+        return redirect()->route('articles.index')
+            ->with('success', 'Article created successfully.');
     }
 
     /**
@@ -87,48 +86,42 @@ class ArticleController extends Controller
     /**
      * Update the specified article in storage.
      */
-    public function update(Request $request, Article $article)
-    {
-        $validated = $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'excerpt' => 'nullable',
-            'category_id' => 'required|exists:categories,id',
-            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'required|in:draft,published',
-            'published_at' => 'nullable|date',
-            'meta_description' => 'nullable|max:255',
-            'meta_keywords' => 'nullable|max:255',
-            'is_featured' => 'boolean'
-        ]);
+public function update(Request $request, Article $article)
+{
+    $validated = $request->validate([
+        'title' => 'required|max:255',
+        'content' => 'required',
+        'excerpt' => 'nullable',
+        'category_id' => 'required|exists:categories,id',
+        'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'status' => 'required|in:draft,published',
+        'published_at' => 'nullable|date',
+        'meta_description' => 'nullable|max:255',
+        'meta_keywords' => 'nullable|max:255',
+        'is_featured' => 'boolean'
+    ]);
 
-        if ($request->hasFile('featured_image')) {
-            // Delete old image if exists
-            if ($article->featured_image) {
-                Storage::disk('public')->delete($article->featured_image);
-            }
-            $path = $request->file('featured_image')->store('articles', 'public');
-            $validated['featured_image'] = $path;
+    if ($request->hasFile('featured_image')) {
+        if ($article->featured_image) {
+            Storage::disk('public')->delete($article->featured_image);
         }
-
-        $validated['slug'] = Str::slug($request->title);
-        $validated['published_at'] = $request->status === 'published' ?
-            ($request->published_at ?? now()) : null;
-
-        $article->update($validated);
-
-        if (auth()->user()->hasRole('superAdmin')) {
-            return redirect()->route('admin.articles.index')
-                ->with('success', 'Article updated successfully.');
-        } else {
-            return redirect()->route('article.index')
-                ->with('success', 'Article updated successfully.');
-        }
+        $path = $request->file('featured_image')->store('articles', 'public');
+        $validated['featured_image'] = $path;
     }
 
-    /**
-     * Display the specified article.
-     */
+    $validated['slug'] = Str::slug($request->title);
+    $validated['published_at'] = $request->status === 'published'
+        ? ($request->published_at ?? now())
+        : null;
+
+    $article->update($validated);
+
+    return redirect()->route('admin.articles.index')
+        ->with('success', 'Article updated successfully.');
+}
+
+
+
     public function show(Article $article)
     {
         $article->load(['category', 'author']);
@@ -153,7 +146,7 @@ class ArticleController extends Controller
             Storage::disk('public')->delete($article->featured_image);
         }
 
-        $article->delete();
+        $article->forceDelete();
 
         return redirect()->route('admin.articles.index')
             ->with('success', 'Article deleted successfully.');

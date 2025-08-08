@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('template.layouts.index')
 
 @section('title')
     <title>Tambah Program/Layanan Baru - Admin Pusat Halal Salman ITB</title>
@@ -40,10 +40,10 @@
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Batch Ke-
                             </label>
-                            <input type="number" name="batch_ke" value="{{ old('batch_ke') }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5"
-                                required>
+                            <input type="number" name="batch_ke" value="{{ old('batch_ke', $nextBatchNumber) }}" readonly
+                                class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                         </div>
+
 
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -102,6 +102,19 @@
                                 required>
                         </div>
 
+                        <div class="mb-4">
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        Link Grup WhatsApp
+    </label>
+    <input type="url" name="whatsapp_group_link"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primer-500 focus:border-primer-500 block w-full p-2.5"
+        value="{{ old('whatsapp_group_link') }}">
+    @error('whatsapp_group_link')
+        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+    @enderror
+</div>
+
+
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Status
@@ -115,7 +128,7 @@
                             </select>
                         </div>
 
-                        <div class="mb-4">
+                        {{-- <div class="mb-4">
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Link Pendaftaran
                             </label>
@@ -125,7 +138,7 @@
                             @error('external_link')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         <div class="col-span-2">
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -138,11 +151,11 @@
 
                     <div class="mt-6 flex justify-end space-x-3">
                         <a href="{{ route('admin.program-layanan.show', $program) }}"
-                            class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                            class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-red-600 rounded-lg hover:bg-red-700">
                             Batal
                         </a>
                         <button type="submit"
-                            class="px-4 py-2 text-sm font-medium text-white bg-primer-600 rounded-lg hover:bg-primer-700">
+                            class="px-4 py-2 text-sm font-medium text-white bg-green-600 border border-green-600 rounded-lg hover:bg-green-700">
                             Simpan Batch
                         </button>
                     </div>

@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('template.layouts.index')
 
 @section('title')
     <title>Manajemen FAQ - Admin Pusat Halal Salman ITB</title>
@@ -11,16 +11,16 @@
                 Manajemen FAQ
             </h2>
 
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-end items-center mb-6">
                 <div>
                     <a href="{{ route('admin.faqs.create') }}"
-                        class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark">
+                        class="px-4 py-2 mx-1 bg-green-500 text-white rounded-lg hover:bg-primary-dark">
                         Tambah FAQ
                     </a>
                 </div>
                 <div>
                     <a href="{{ route('admin.faq-categories.index') }}"
-                        class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-primary-dark">
+                        class="px-4 py-2 mx-1 bg-green-600 text-white rounded-lg hover:bg-primary-dark">
                         Kategori Faq
                     </a>
                 </div>

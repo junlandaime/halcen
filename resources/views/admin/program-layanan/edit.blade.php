@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('template.layouts.index')
 
 @section('title')
     <title>Edit Program/Layanan {{ $programLayanan->nama_program }} - Admin Pusat Halal Salman ITB</title>

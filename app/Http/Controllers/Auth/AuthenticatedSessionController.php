@@ -3,47 +3,76 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Tampilkan form login.
      */
-    public function create(): View
-    {
-        return view('auth.login');
+    public function create(Request $request)
+{
+    if (Auth::check()) {
+        $user = Auth::user();
+
+        // Jika user sudah login & mencoba akses halaman login
+        // kita paksa logout
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->withErrors([
+            'email' => 'Anda telah logout secara otomatis.',
+        ]);
     }
 
+    return view('auth.login');
+}
+
+
     /**
-     * Handle an incoming authentication request.
+     * Tangani request login.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->authenticate();
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+            throw ValidationException::withMessages([
+                'email' => 'Email atau password salah.',
+            ]);
+        }
 
         $request->session()->regenerate();
 
-        if (auth()->user()->hasRole('superAdmin')) {
-            return redirect()->intended(route('admin.dashboard', absolute: false));
-        } else {
-            return redirect()->intended(route('dashboard', absolute: false));
-        }
+        $user = Auth::user();
+
+        // Cek role & redirect sesuai hak akses
+if ($user->hasAnyRole(['superAdmin', 'admin', 'author'])) {
+    return redirect()->route('admin.dashboard');
+}
+
+
+        // Role tidak valid: logout paksa
+        Auth::logout();
+        return redirect()->route('login')->withErrors([
+            'email' => 'Akun Anda tidak memiliki hak akses.',
+        ]);
     }
 
     /**
-     * Destroy an authenticated session.
+     * Logout user.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
+        Auth::logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');

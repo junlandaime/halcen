@@ -44,7 +44,7 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-primary to-primary-dark text-white py-16">
+    <section class="bg-gradient-to-r from-blue-900/100 to-blue-400/100 text-white py-16">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex flex-col md:flex-row gap-8 items-center h-[300px]">
                 <div class="flex-1">

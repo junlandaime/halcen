@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('template.layouts.index')
 
 @section('title')
     <title>Edit User - Admin Panel</title>
@@ -50,22 +50,23 @@
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primer-500 focus:ring-primer-500">
                     </div>
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Roles</label>
-                        <div class="mt-2 space-y-2">
-                            @foreach ($roles as $role)
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="roles[]" value="{{ $role->name }}"
-                                        {{ in_array($role->id, $user->roles->pluck('id')->toArray()) ? 'checked' : '' }}
-                                        class="h-4 w-4 text-primer-600 focus:ring-primer-500 border-gray-300 rounded">
-                                    <label class="ml-2 text-sm text-gray-700">{{ $role->name }}</label>
-                                </div>
-                            @endforeach
-                        </div>
-                        @error('roles')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+<div class="mb-4">
+    <label class="block text-sm font-medium text-gray-700">Roles</label>
+    <div class="mt-2 space-y-2">
+        @foreach ($roles as $role)
+            <div class="flex items-center">
+                <input type="radio" name="role" value="{{ $role->name }}"
+                    {{ $user->hasRole($role->name) ? 'checked' : '' }}
+                    class="h-4 w-4 text-primer-600 focus:ring-primer-500 border-gray-300">
+                <label class="ml-2 text-sm text-gray-700">{{ $role->name }}</label>
+            </div>
+        @endforeach
+    </div>
+    @error('role')
+        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+    @enderror
+</div>
+
 
                     <div class="flex justify-end space-x-2">
                         <a href="{{ route('admin.users.index') }}"
@@ -73,7 +74,7 @@
                             Cancel
                         </a>
                         <button type="submit"
-                            class="bg-primer-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-primer-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primer-500">
+                            class="text-white bg-green-500 hover:bg-primer-700 focus:ring-4 focus:ring-primer-300 font-medium rounded-lg text-sm px-4 py-2">
                             Update User
                         </button>
                     </div>

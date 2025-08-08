@@ -6,7 +6,8 @@ use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class TestimonialController extends Controller
 {
@@ -18,8 +19,6 @@ class TestimonialController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'position' => 'nullable|string|max:255',
@@ -32,14 +31,48 @@ class TestimonialController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('testimonials', 'public');
+            $folder = public_path('testimoni');
+
+            // Buat folder kalau belum ada
+            if (!File::exists($folder)) {
+                File::makeDirectory($folder, 0755, true);
+            }
+
+            // Ambil urutan terakhir berdasarkan nama file yang diawali angka
+            $existingFiles = File::files($folder);
+            $maxNumber = 0;
+
+            foreach ($existingFiles as $file) {
+                $filename = pathinfo($file->getFilename(), PATHINFO_FILENAME);
+                if (preg_match('/^(\d+)\./', $filename, $matches)) {
+                    $num = intval($matches[1]);
+                    if ($num > $maxNumber) {
+                        $maxNumber = $num;
+                    }
+                }
+            }
+
+            $nextNumber = $maxNumber + 1;
+
+            // Format nama: 4. Nama Pengguna.extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $safeName = Str::slug($validated['name'], '_');
+            $fileName = "{$nextNumber}. {$validated['name']}.{$extension}";
+            $filePath = 'testimoni/' . $fileName;
+
+            // Pindahkan file
+            $request->file('image')->move($folder, $fileName);
+
+            // Simpan path relatif
+            $validated['image'] = 'testimoni/' . $fileName;
         }
 
         Testimonial::create($validated);
 
         return redirect()->route('admin.testimonials.index')
-            ->with('success', 'Testimonial has been added successfully.');
+            ->with('success', 'Testimonial berhasil ditambahkan.');
     }
+
 
     public function update(Request $request, Testimonial $testimonial)
     {
@@ -48,7 +81,7 @@ class TestimonialController extends Controller
             $request->merge(['is_featured' => $request->is_featured === '1' ? true : false]);
         }
 
-        // Validate basic fields
+        // Validasi input
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'position' => 'required|string|max:255',
@@ -63,21 +96,26 @@ class TestimonialController extends Controller
         try {
             DB::beginTransaction();
 
-            // Handle image upload if new image exists
+            // Handle image upload
             if ($request->hasFile('image')) {
                 try {
-                    // Upload new image
-                    $newImage = $request->file('image')->store('testimonials', 'public');
-                    
-                    // Delete old image if exists
-                    if ($testimonial->image) {
-                        $oldImagePath = $testimonial->image;
-                        if (Storage::disk('public')->exists($oldImagePath)) {
-                            Storage::disk('public')->delete($oldImagePath);
-                        }
+                    $image = $request->file('image');
+                    $imageName = uniqid('testimonial_') . '.' . $image->getClientOriginalExtension();
+                    $imagePath = public_path('testimoni');
+
+                    // Buat folder jika belum ada
+                    if (!file_exists($imagePath)) {
+                        mkdir($imagePath, 0755, true);
                     }
-                    
-                    $validated['image'] = $newImage;
+
+                    $image->move($imagePath, $imageName);
+
+                    // Hapus gambar lama jika ada
+                    if ($testimonial->image && file_exists(public_path($testimonial->image))) {
+                        unlink(public_path($testimonial->image));
+                    }
+
+                    $validated['image'] = 'testimoni/' . $imageName;
                 } catch (\Exception $e) {
                     DB::rollBack();
                     return redirect()->back()
@@ -85,24 +123,22 @@ class TestimonialController extends Controller
                         ->withErrors(['image' => 'Failed to process image: ' . $e->getMessage()]);
                 }
             } else {
-                // If no new image, remove image from validated data to prevent overwriting
                 unset($validated['image']);
             }
 
-            // Update testimonial
+            // Simpan perubahan testimonial
             $testimonial->update($validated);
-            
+
             DB::commit();
 
             return redirect()->route('admin.testimonials.index')
-                ->with('success', 'Testimonial has been updated successfully.');
-
+                ->with('updated', 'Testimonial has been updated successfully.');
         } catch (\Exception $e) {
             DB::rollBack();
-            
-            // If new image was uploaded but update failed, try to clean it up
-            if (isset($newImage) && Storage::disk('public')->exists($newImage)) {
-                Storage::disk('public')->delete($newImage);
+
+            // Hapus gambar baru jika update gagal
+            if (isset($validated['image']) && file_exists(public_path($validated['image']))) {
+                unlink(public_path($validated['image']));
             }
 
             return redirect()->back()
@@ -113,14 +149,24 @@ class TestimonialController extends Controller
 
     public function destroy(Testimonial $testimonial)
     {
-        if ($testimonial->image) {
-            Storage::disk('public')->delete($testimonial->image);
-        }
-        
-        $testimonial->delete();
+        try {
+            // Hapus gambar dari folder public/testimoni jika ada
+            if ($testimonial->image) {
+                $imagePath = public_path($testimonial->image);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            }
 
-        return redirect()->route('admin.testimonials.index')
-            ->with('success', 'Testimonial has been deleted successfully.');
+            // Hapus data testimonial
+            $testimonial->delete();
+
+            return redirect()->route('admin.testimonials.index')
+                ->with('success', 'Testimonial berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withErrors(['error' => 'Gagal menghapus testimonial: ' . $e->getMessage()]);
+        }
     }
 
     public function updateOrder(Request $request)

@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('template.layouts.index')
 
 @section('title')
     <title>Buat Artikel Baru - Admin Pusat Halal Salman ITB</title>
@@ -11,20 +11,9 @@
     <!-- Main Content -->
     <div class="p-4 md:ml-64">
         <!-- Top Bar -->
-        <div class="flex items-center justify-between mb-4">
-
-            <div class="flex items-center space-x-3">
-                <a href="{{ Auth::user()->hasRole('superAdmin') ? route('admin.articles.index') : route('article.index') }}"
-                    class="text-white bg-primary hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                    Kembali ke List Artikel
-                </a>
-                <button type="submit" form="article-form"
-                    class="text-white bg-primer-600 hover:bg-primer-700 focus:ring-4 focus:ring-primer-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primer-600 dark:hover:bg-primer-700 focus:outline-none dark:focus:ring-primer-800">
-                    Publish Artikel
-                </button>
-            </div>
-        </div>
-
+        <h2 class="text-2xl mb-5 font-semibold text-gray-700">
+            Create Articles
+        </h2>
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 <div class="py-3 w-full rounded-3xl bg-red-500 text-white">
@@ -35,8 +24,7 @@
 
         <!-- Article Form -->
         <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
-            <form id="article-form" action="{{ route('admin.articles.store') }}" method="POST"
-                enctype="multipart/form-data">
+            <form id="article-form" action="{{ route('admin.articles.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="grid gap-4 mb-4">
@@ -135,12 +123,17 @@
                             </div>
 
                         </div>
-                        <div>
+                        <div class="flex items-center justify-end">
+                            <a href="{{ Auth::user()->hasRole('superAdmin') ? route('admin.articles.index') : route('article.index') }}"
+                                class="inline-flex items-center mx-2 px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-150">
+                                Kembali ke List Artikel
+                            </a>
+                            <button type="submit" form="article-form"
+                                class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-primer-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primer-600 dark:hover:bg-primer-700 focus:outline-none dark:focus:ring-primer-800">
+                                Publish Artikel
+                            </button>
                         </div>
-
-
                     </div>
-
             </form>
         </div>
     </div>

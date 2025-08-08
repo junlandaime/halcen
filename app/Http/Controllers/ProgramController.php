@@ -20,7 +20,7 @@ class ProgramController extends Controller
                   ->where('start_date', '>', now())
                   ->orderBy('start_date');
         }])->where('slug', $slug)->firstOrFail();
-        
+
         return view('programs.show', compact('program'));
     }
 
@@ -31,9 +31,9 @@ class ProgramController extends Controller
             'notes' => 'nullable|string'
         ]);
 
-        $registration = $program->registrations()->create([
+        $registration = $program->registration()->create([
             'program_schedule_id' => $validated['program_schedule_id'],
-            'user_id' => auth()->id(),
+          //  'user_id' => auth()->id(),
             'notes' => $validated['notes'] ?? null
         ]);
 

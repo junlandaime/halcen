@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Regulation;
 use App\Models\Testimonial;
 use App\Models\ProgramBatch;
+use App\Models\Participant;
 use Illuminate\Http\Request;
 use App\Models\ProgramLayanan;
 use Illuminate\Support\Carbon;
@@ -23,6 +24,16 @@ class DashboardController extends Controller
         // Cek role user yang sedang login
         // if (auth()->user()->hasRole('superAdmin')) {
         // Stats untuk superAdmin
+
+        $batchCounts = ProgramBatch::withCount('participants')
+        ->where('program_layanan_id', 1)
+        ->orderBy('created_at', 'asc') // dari batch awal ke terbaru
+        ->get();
+
+        // Ganti 'name' sesuai kolom nama batch kamu
+        $labels = $batchCounts->pluck('Kuliah Halal');
+        $data = $batchCounts->pluck('participants_count');
+
         $stats = [
             'total_certifications' => ProgramLayanan::count(),
             'total_clients' => Partner::count(),
@@ -36,16 +47,35 @@ class DashboardController extends Controller
             'pending_review' => ProgramBatch::where('status', 'pending')->count()
         ];
 
+        // Hitung jumlah peserta berdasarkan program layanan
+        $kuliahcount = Participant::where('program_layanan_id', 1)->count();
+        $julehaKcount = Participant::where('program_layanan_id', 2)->count();
+        $julehaUcount = Participant::where('program_layanan_id', 3)->count();
+
+        // Hitung jumlah peserta berdasarkan Jenis Kelamin
+        $lakicount = Participant::where('kelamin', "pria")->count();
+        $perempuancount = Participant::where('kelamin', "wanita")->count();
+
         // Data chart untuk superAdmin
         $certificationData = $this->getCertificationChartData();
         $clientTrendData = $this->getClientTrendData();
         $recentActivities = $this->getRecentActivities();
+        $programs = ProgramLayanan::all();
 
-        return view('admin.dashboard', compact(
+        // return view('admin.dashboard', compact(
+        return view('template.index.generalReport', compact(
             'stats',
             'certificationData',
             'clientTrendData',
-            'recentActivities'
+            'recentActivities',
+            'programs',
+            'kuliahcount',
+            'julehaKcount',
+            'julehaUcount',
+            'lakicount',
+            'perempuancount',
+            'labels',
+            'data'
         ));
         // } else {
         //     return view('dashboard');
@@ -104,7 +134,8 @@ class DashboardController extends Controller
                     'title' => $batch->programLayanan->nama_program,
                     'description' => "Batch ke " . $batch->batch_ke . " " . $batch->nama_batch . " baru ditambahkan",
                     'time' => $batch->created_at,
-                    'image' => $batch->gambar_banner->image ?? '/default-avatar.png'
+                    'image' => $batch->gambar_banner->image ?? '/default-avatar.png',
+                    'author' => 'Admin Pusat Halal'
                 ];
             });
 
@@ -120,7 +151,8 @@ class DashboardController extends Controller
                     'title' => $article->title,
                     'description' => "Artikel baru dipublikasikan",
                     'time' => $article->created_at,
-                    'image' => $article->featured_image ?? '/default-avatar.png'
+                    'image' => $article->featured_image ?? '/default-avatar.png',
+                    'author' => $article->author->name,
                 ];
             });
 
@@ -136,7 +168,8 @@ class DashboardController extends Controller
         $user = Auth::user();
         $postsQuery = Article::query();
 
-        if ($user->hasRole('author')) {
+        // if ($user->hasRole('author'))
+        {
             $postsQuery->whereHas('author', function ($query) use ($user) {
                 $query->where('author_id', $user->id);
             });
@@ -146,7 +179,7 @@ class DashboardController extends Controller
         $categories = Category::count();
         $users = User::count();
 
-        return view('dashboard', compact('categories', 'posts', 'users'));
+        return view("index", compact('categories', 'posts', 'users'));
     }
 
     public function article()
@@ -155,7 +188,8 @@ class DashboardController extends Controller
         $posts = Article::query();
         $postsQ = Article::orderBy('id', 'desc')->get();
 
-        if ($user->hasRole('author')) {
+        //if ($user->hasRole('author'))
+        {
             $posts->whereHas('author', function ($posts) use ($user) {
                 $posts->where('author_id', $user->id);
             });

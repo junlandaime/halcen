@@ -1,22 +1,16 @@
-@extends('admin.layouts.app')
+@extends('template.layouts.index')
 
 @section('title')
     <title>Edit Landing Page - Admin Pusat Halal Salman ITB</title>
 @endsection
 
 @section('content')
+    @php
+        $disableOverflowHidden = true;
+    @endphp
     <!-- Main Content -->
     <div class="p-4 md:ml-64">
-        <!-- Top Bar -->
-        <div class="flex items-center justify-between mb-4">
-            <button @click="sidebarOpen = !sidebarOpen"
-                class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
-            <h1 class="text-xl font-semibold text-gray-900 dark:text-white">Edit Landing Page</h1>
-        </div>
+        <h1 class="text-xl mb-5 font-semibold text-gray-900 dark:text-white">Edit Landing Page</h1>
 
         @if (session('success'))
             <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
@@ -33,7 +27,7 @@
         @endif
 
         <form action="{{ route('admin.landing-page.update') }}" method="POST" enctype="multipart/form-data"
-            class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            class="grid grid-cols-2 lg:grid-cols-2 gap-4">
             @csrf
             @method('PUT')
 
@@ -383,9 +377,9 @@
             </div> --}}
 
             <!-- Save Changes Button -->
-            <div class="col-span-1 lg:col-span-2">
+            <div class="col-span-2 lg:col-span-2">
                 <button type="submit"
-                    class="w-full px-4 py-2 text-sm font-medium text-white bg-primer-600 rounded-lg hover:bg-primer-700 focus:ring-4 focus:ring-primer-300">
+                    class="w-full px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-primer-300">
                     Save Changes
                 </button>
             </div>

@@ -1,27 +1,28 @@
 @php
     $headerPrograms = $headerPrograms ?? collect();
     $headerAbouts = $headerAbouts ?? collect();
+    $headerRegistrations = $headerRegistrations ?? collect();
 @endphp
 
 <header class="md:fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm" x-data="{ isOpen: false, dropdowns: { program: false, mitra: false } }">
     <div class="max-w-6xl mx-auto px-4">
         <div class="flex items-center justify-between h-16">
-            <a href="{{ route('front.index') }}" class="text-primary text-xl font-bold flex items-center gap-2">
-                <img src="{{ asset('logohalcen.png') }}" alt="Logo" class="h-8 rounded">
+            <a href="{{ route('front.index') }}" class="text-stale-600 text-xl font-bold flex items-center gap-2">
+                <img src="{{ asset('logohalcen.png') }}" alt="Logo" class="h-8 rounded me-2">
                 Pusat Halal Salman ITB
             </a>
 
             <!-- Desktop Menu -->
             <nav class="hidden md:flex items-center gap-6">
                 <a href="{{ route('front.index') }}"
-                    class="transition-colors {{ request()->routeIs('front.index') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                    class="transition-colors {{ request()->routeIs('front.index') ? 'text-blue-500 font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
                     Beranda
                 </a>
 
                 <!-- Program Dropdown -->
                 <div class="relative" @mouseenter="dropdowns.program = true" @mouseleave="dropdowns.program = false">
                     <button
-                        class="transition-colors flex items-center gap-1 {{ request()->routeIs('program-layanan.*') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                        class="transition-colors flex items-center gap-1 {{ request()->routeIs('program-layanan.*') ? 'text-blue-500 font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
                         Program & layanan
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -31,7 +32,7 @@
                         class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
                         @foreach ($headerPrograms as $program)
                             <a href="{{ route('program-layanan.show', $program) }}"
-                                class="block px-4 py-2 transition-colors {{ request()->routeIs('program-layanan.show') && request()->segment(2) == $program->slug ? 'text-primary bg-gray-50 font-medium' : 'text-gray-600 hover:text-primary hover:bg-gray-50' }}">
+                                class="block px-4 py-2 transition-colors {{ request()->routeIs('program-layanan.show') && request()->segment(2) == $program->slug ? 'text-primary bg-gray-50 font-medium' : 'text-gray-600 hover:text-primary hover:bg-gray-50' }} cursor-pointer">
                                 {{ $program->nama_program }}
                             </a>
                         @endforeach
@@ -41,7 +42,7 @@
                 <!-- Konten Dropdown -->
                 <div class="relative" @mouseenter="dropdowns.konten = true" @mouseleave="dropdowns.konten = false">
                     <button
-                        class="transition-colors flex items-center gap-1 {{ request()->routeIs('videos.*') || request()->routeIs('articles.*') || request()->routeIs('regulations.*') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                        class="transition-colors flex items-center gap-1 {{ request()->routeIs('videos.*') || request()->routeIs('articles.*') || request()->routeIs('regulations.*') ? 'text-blue-500 font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
                         Konten
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -50,15 +51,15 @@
                     <div x-show="dropdowns.konten" x-transition
                         class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
                         <a href="{{ route('videos.index') }}"
-                            class="block px-4 py-2 transition-colors {{ request()->routeIs('videos.*') ? 'text-primary bg-gray-50 font-medium' : 'text-gray-600 hover:text-primary hover:bg-gray-50' }}">
+                            class="block px-4 py-2 transition-colors {{ request()->routeIs('videos.*') ? 'text-primary bg-gray-50 font-medium' : 'text-gray-600 hover:text-primary hover:bg-gray-50' }} cursor-pointer">
                             Video Pembelajaran
                         </a>
                         <a href="{{ route('articles.index') }}"
-                            class="block px-4 py-2 transition-colors {{ request()->routeIs('articles.*') ? 'text-primary bg-gray-50 font-medium' : 'text-gray-600 hover:text-primary hover:bg-gray-50' }}">
+                            class="block px-4 py-2 transition-colors {{ request()->routeIs('articles.*') ? 'text-primary bg-gray-50 font-medium' : 'text-gray-600 hover:text-primary hover:bg-gray-50' }} cursor-pointer">
                             Artikel dan Publikasi
                         </a>
                         <a href="{{ route('regulations.index') }}"
-                            class="block px-4 py-2 transition-colors {{ request()->routeIs('regulations.*') ? 'text-primary bg-gray-50 font-medium' : 'text-gray-600 hover:text-primary hover:bg-gray-50' }}">
+                            class="block px-4 py-2 transition-colors {{ request()->routeIs('regulations.*') ? 'text-primary bg-gray-50 font-medium' : 'text-gray-600 hover:text-primary hover:bg-gray-50' }} cursor-pointer">
                             Regulasi Halal
                         </a>
                     </div>
@@ -67,7 +68,7 @@
                 <!-- Tentang Dropdown -->
                 <div class="relative" @mouseenter="dropdowns.tentang = true" @mouseleave="dropdowns.tentang = false">
                     <button
-                        class="transition-colors flex items-center gap-1 {{ request()->routeIs('abouts.*') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                        class="transition-colors flex items-center gap-1 {{ request()->routeIs('abouts.*') ? 'text-blue-500 font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
                         Tentang Kami
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -77,29 +78,50 @@
                         class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
                         @foreach ($headerAbouts as $about)
                             <a href="{{ route('abouts.show', $about) }}"
-                                class="block px-4 py-2 transition-colors {{ request()->routeIs('abouts.show') && request()->segment(2) == $about->slug ? 'text-primary bg-gray-50 font-medium' : 'text-gray-600 hover:text-primary hover:bg-gray-50' }}">
+                                class="block px-4 py-2 transition-colors {{ request()->routeIs('abouts.show') && request()->segment(2) == $about->slug ? 'text-primary bg-gray-50 font-medium' : 'text-gray-600 hover:text-primary hover:bg-gray-50' }} cursor-pointer">
                                 {{ $about->title }}
                             </a>
                         @endforeach
                     </div>
                 </div>
 
+                {{-- <!-- Pendaftaran Dropdown -->
+                <div class="relative" @mouseenter="dropdowns.pendaftaran = true"
+                    @mouseleave="dropdowns.pendaftaran = false">
+                    <button
+                        class="transition-colors flex items-center gap-1 {{ request()->routeIs('registrations.*') ? 'text-blue-500 font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
+                        Pendaftaran
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="dropdowns.pendaftaran" x-transition
+                        class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
+                        @foreach ($headerRegistrations as $registration)
+                            <a href="{{ route('registrations.show', $registration) }}"
+                                class="block px-4 py-2 transition-colors {{ request()->routeIs('registrations.show') && request()->segment(2) == $registration->slug ? 'text-primary bg-gray-50 font-medium' : 'text-gray-600 hover:text-primary hover:bg-gray-50' }} cursor-pointer">
+                                {{ $registration->programLayanan->nama_program }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div> --}}
+
                 <a href="{{ route('front.kontak') }}"
-                    class="transition-colors {{ request()->routeIs('front.kontak') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                    class="transition-colors {{ request()->routeIs('front.kontak') ? 'text-blue-500 font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
                     Kontak
                 </a>
-                @auth
+                {{-- @auth
 
-                    <a href="{{ Auth::user()->hasRole('superAdmin') ? route('admin.dashboard') : route('dashboard') }}"
-                        class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                        Dashboard
-                    </a>
-                @else
-                    <a href="{{ route('login') }}"
-                        class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                        Masuk
-                    </a>
-                @endauth
+                        <a href="{{ Auth::user()->hasRole('superAdmin') ? route('admin.dashboard') : route('dashboard') }}"
+                            class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            Dashboard
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            Masuk
+                        </a>
+                    @endauth --}}
 
             </nav>
 
@@ -118,23 +140,24 @@
         <div x-show="isOpen" x-transition class="md:hidden py-4">
             <nav class="flex flex-col gap-4">
                 <a href="{{ route('front.index') }}"
-                    class="transition-colors {{ request()->routeIs('front.index') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                    class="transition-colors {{ request()->routeIs('front.index') ? 'text-blue-500 font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
                     Beranda
                 </a>
 
                 <!-- Mobile Program Dropdown -->
                 <div class="relative">
                     <button @click="dropdowns.program = !dropdowns.program"
-                        class="transition-colors flex items-center justify-between w-full {{ request()->routeIs('program-layanan.*') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                        class="transition-colors flex items-center justify-between w-full {{ request()->routeIs('program-layanan.*') ? 'text-blue-500 font-medium' : 'text-gray-600 hover:text-primary' }}">
                         Program & Layanan
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     <div x-show="dropdowns.program" x-transition class="pl-4 mt-2 flex flex-col gap-2">
                         @foreach ($headerPrograms as $program)
                             <a href="{{ route('program-layanan.show', $program) }}"
-                                class="transition-colors {{ request()->routeIs('program-layanan.show') && request()->segment(2) == $program->slug ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                                class="transition-colors {{ request()->routeIs('program-layanan.show') && request()->segment(2) == $program->slug ? 'text-blue-500 font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
                                 {{ $program->nama_program }}
                             </a>
                         @endforeach
@@ -153,15 +176,15 @@
                     </button>
                     <div x-show="dropdowns.konten" x-transition class="pl-4 mt-2 flex flex-col gap-2">
                         <a href="{{ route('videos.index') }}"
-                            class="transition-colors {{ request()->routeIs('videos.*') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                            class="transition-colors {{ request()->routeIs('videos.*') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
                             Video Pembelajaran
                         </a>
                         <a href="{{ route('articles.index') }}"
-                            class="transition-colors {{ request()->routeIs('articles.*') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                            class="transition-colors {{ request()->routeIs('articles.*') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
                             Artikel dan Publikasi
                         </a>
                         <a href="{{ route('regulations.index') }}"
-                            class="transition-colors {{ request()->routeIs('regulations.*') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                            class="transition-colors {{ request()->routeIs('regulations.*') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
                             Regulasi Halal
                         </a>
                     </div>
@@ -180,19 +203,40 @@
                     <div x-show="dropdowns.tentang" x-transition class="pl-4 mt-2 flex flex-col gap-2">
                         @foreach ($headerAbouts as $about)
                             <a href="{{ route('abouts.show', $about) }}"
-                                class="transition-colors {{ request()->routeIs('abouts.show') && request()->segment(2) == $about->slug ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                                class="transition-colors {{ request()->routeIs('abouts.show') && request()->segment(2) == $about->slug ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
                                 {{ $about->title }}
                             </a>
                         @endforeach
                     </div>
                 </div>
 
+                <!-- Mobile Pendaftaran Dropdown -->
+                <div class="relative">
+                    <button @click="dropdowns.pendaftaran = !dropdowns.pendaftaran"
+                        class="transition-colors flex items-center justify-between w-full {{ request()->routeIs('registrations.*') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                        Pendaftaran
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="dropdowns.pendaftaran" x-transition class="pl-4 mt-2 flex flex-col gap-2">
+                        @foreach ($headerRegistrations as $registration)
+                            <a href="{{ route('registrations.show', $registration) }}"
+                                class="transition-colors {{ request()->routeIs('registrations.show') && request()->segment(2) == $registration->slug ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
+                                {{ $registration->programLayanan->nama_program }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+
                 <a href="{{ route('front.kontak') }}"
-                    class="transition-colors {{ request()->routeIs('front.kontak') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }}">
+                    class="transition-colors {{ request()->routeIs('front.kontak') ? 'text-primary font-medium' : 'text-gray-600 hover:text-primary' }} cursor-pointer">
                     Kontak
                 </a>
 
-                <a href="{{ route('login') }}"
+                {{-- <a href="{{ route('login') }}" --}}
+                <a href="/"
                     class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-center">
                     Masuk
                 </a>

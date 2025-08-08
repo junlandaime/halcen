@@ -1,0 +1,133 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\{
+    FaqController,
+    UserController,
+    AboutController,
+    FrontController,
+    VideoController,
+    ArticleController,
+    PartnerController,
+    ProfileController,
+    CategoryController,
+    DashboardController,
+    RegulationController,
+    FaqCategoryController,
+    LandingPageController,
+    TestimonialController,
+    ProgramBatchController,
+    VideoCategoryController,
+    ProgramLayananController,
+    RegistrationController
+};
+use App\Http\Controllers\Admin\{
+    AboutTeamController,
+    AboutProgramController,
+    AboutSectionController
+};
+
+//Login routes
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';
+
+// Front-end routes
+Route::get('/home', function () {
+    return redirect()->route('front.index'); // atau halaman lain sesuai kebutuhan kamu
+})->name('home');
+
+Route::get('/', [FrontController::class, 'index'])->name('front.index');
+Route::resource('registrations', RegistrationController::class);
+
+Route::prefix('program-layanan')->name('program-layanan.')->group(function () {
+    Route::get('/search', [FrontController::class, 'search'])->name('search');
+    Route::get('/filter', [FrontController::class, 'filter'])->name('filter');
+    Route::get('/{programLayanan:slug}', [FrontController::class, 'show_program'])->name('show');
+    Route::post('/{programLayanan}/daftar', [FrontController::class, 'daftar'])
+        ->name('daftar')
+        ->middleware(['auth']);
+});
+
+// Article Routes
+Route::prefix('articles')->name('articles.')->group(function () {
+    Route::get('/', [FrontController::class, 'article'])->name('index');
+    Route::get('/{article:slug}', [FrontController::class, 'showArticle'])->name('show');
+    Route::get('/category/{category:slug}', [FrontController::class, 'category'])->name('category');
+});
+
+// Other Public Routes
+Route::get('/regulasi', [FrontController::class, 'index_regulasi'])->name('regulations.index');
+Route::get('/regulasi/{regulation}', [FrontController::class, 'show_regulasi'])->name('regulations.show');
+Route::get('/video', [FrontController::class, 'index_video'])->name('videos.index');
+Route::get('/video/{video}', [FrontController::class, 'show_video'])->name('videos.show');
+Route::get('/tentang', [FrontController::class, 'index_about'])->name('abouts.index');
+Route::get('/tentang/{about:slug}', [FrontController::class, 'show_about'])->name('abouts.show');
+Route::get('/kontak', [FrontController::class, 'kontak'])->name('front.kontak');
+
+// Tambahan
+Route::get('/pendaftaran', [FrontController::class, 'index_registration'])->name('registrations.index');
+Route::get('/pendaftaran/{registration:slug}', [RegistrationController::class, 'show_registration'])->name('registrations.show');
+Route::resource('registration', RegistrationController::class);
+
+// Dashboard & Profile Routes
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/articles-index', [DashboardController::class, 'article'])->name('article.index')->middleware('role:superAdmin|author');
+    Route::get('/articles-create', [DashboardController::class, 'article_create'])->name('article.create')->middleware('role:superAdmin|author');
+
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'edit'])->name('edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
+    });
+});
+
+// Admin Routes
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:superAdmin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/settings', [DashboardController::class, 'settings'])->name('settings');
+
+    Route::prefix('landing-page')->name('landing-page.')->group(function () {
+        Route::get('/edit', [LandingPageController::class, 'edit'])->name('edit');
+        Route::put('/update', [LandingPageController::class, 'update'])->name('update');
+    });
+
+    // Resource Routes
+    Route::resources([
+        'categories' => CategoryController::class,
+        'program-layanan' => ProgramLayananController::class,
+        'partners' => PartnerController::class,
+        'testimonials' => TestimonialController::class,
+        'regulations' => RegulationController::class,
+        'videos' => VideoController::class,
+        'video-categories' => VideoCategoryController::class,
+        'faqs' => FaqController::class,
+        'faq-categories' => FaqCategoryController::class,
+        'abouts' => AboutController::class,
+        'about-sections' => AboutSectionController::class,
+        'about-teams' => AboutTeamController::class,
+        'about-programs' => AboutProgramController::class,
+        'users' => UserController::class,
+    ]);
+
+    Route::post('/categories/update-order', [CategoryController::class, 'updateOrder'])->name('categories.updateOrder');
+    Route::post('/partners/update-order', [PartnerController::class, 'updateOrder'])->name('partners.updateOrder');
+    Route::post('/testimonials/update-order', [TestimonialController::class, 'updateOrder'])->name('testimonials.updateOrder');
+    Route::post('/videos-categories/update-order', [VideoCategoryController::class, 'updateOrder'])->name('video-categories.updateOrder');
+});
+
+Route::middleware(['auth', 'role:superAdmin|author'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('articles', ArticleController::class);
+    Route::post('/articles/{article}/toggle-featured', [ArticleController::class, 'toggleFeatured'])->name('articles.toggleFeatured');
+    Route::post('/articles/{article}/toggle-status', [ArticleController::class, 'toggleStatus'])->name('articles.toggleStatus');
+    Route::post('/articles/update-order', [ArticleController::class, 'updateOrder'])->name('articles.updateOrder');
+});
