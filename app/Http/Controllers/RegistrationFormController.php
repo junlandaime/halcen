@@ -31,14 +31,14 @@ class RegistrationFormController extends Controller
 
         $viewMap = [
             'program-kuliah-halal'     => 'registration.pendaftaranKuliah',
-            'pelatihan-juleha-kurban'  => 'registration.pendaftaranJuleha-Kurban',
-            'pelatihan-juleha-unggas'  => 'registration.pendaftaranJuleha-Unggas',
+            'pelatihan-juleha-kurban'  => 'registration.pendaftaranJuleha-kurban',
+            'pelatihan-juleha-unggas'  => 'registration.pendaftaranJuleha-unggas',
         ];
 
         $viewName = $viewMap[$programSlug] ?? 'admin.registration_form.show';
 
         return view($viewName, [
-            'registration' => $form,
+            'form' => $form,
             'slug' => $slug,
             'batch' => $form->programBatch,
         ]);
@@ -52,7 +52,9 @@ class RegistrationFormController extends Controller
             abort(404, 'Form tidak ditemukan atau tidak aktif.');
         }
 
-        return view('admin.registration_form.show', compact('form'));
+        return view('admin.registration_form.show', [
+            'form' => $form,
+        ]);
     }
 
     public function store(Request $request, $slug)
@@ -142,7 +144,7 @@ class RegistrationFormController extends Controller
         $validated['syarat'] = $request->has('syarat');
 
         $participant = new Participant($validated);
-        $participant->program_layanan_id = $form->programBatch?->program_layanan_id ?? null;
+        $participant->program_layanan_id = $form->programBatch->program_layanan_id ?? null;
         $participant->batch_id = $form->program_batch_id;
         $participant->save();
 
@@ -152,8 +154,8 @@ class RegistrationFormController extends Controller
             'presensi_siang' => 0,
         ]);
 
-        // ✅ Redirect ke WhatsApp jika link tersedia
-        if ($form->programBatch?->whatsapp_group_link) {
+        // ✅ Redirect ke WhatsApp jika link tersedia untuk semua program
+        if ($form->programBatch->whatsapp_group_link) {
             return view('registration.redirect_wa', [
                 'link' => $form->programBatch->whatsapp_group_link
             ]);
