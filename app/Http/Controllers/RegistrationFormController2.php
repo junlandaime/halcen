@@ -66,7 +66,7 @@ class RegistrationFormController extends Controller
             abort(404, 'Form tidak ditemukan atau tidak aktif.');
         }
 
-        $programSlug = strtolower($form->programBatch?->programLayanan?->slug ?? '');
+        $programSlug = strtolower($form->programBatch->programLayanan->slug ?? '');
 
         // Cek duplikat
         if ($programSlug === 'program-kuliah-halal') {
@@ -142,7 +142,7 @@ class RegistrationFormController extends Controller
         $validated['syarat'] = $request->has('syarat');
 
         $participant = new Participant($validated);
-        $participant->program_layanan_id = $form->programBatch?->program_layanan_id ?? null;
+        $participant->program_layanan_id = $form->programBatch->program_layanan_id ?? null;
         $participant->batch_id = $form->program_batch_id;
         $participant->save();
 
@@ -152,12 +152,13 @@ class RegistrationFormController extends Controller
             'presensi_siang' => 0,
         ]);
 
-        // ✅ Redirect ke WhatsApp jika link tersedia
-        if ($form->programBatch?->whatsapp_group_link) {
-            return view('registration.redirect_wa', [
-                'link' => $form->programBatch->whatsapp_group_link
-            ]);
-        }
+        // ✅ Redirect ke WhatsApp jika link tersedia untuk semua program
+if ($form->programBatch->whatsapp_group_link) {
+    return view('registration.redirect_wa', [
+        'link' => $form->programBatch->whatsapp_group_link
+    ]);
+}
+
 
         // Fallback kalau tidak ada link WA
         return redirect()->route('registration.form.show', $form->slug)

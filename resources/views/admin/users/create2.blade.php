@@ -69,7 +69,7 @@
                             Cancel
                         </a>
                         <button type="submit"
-                            class="text-white bg-green-500 hover:bg-primer-700 focus:ring-4 focus:ring-primer-300 font-medium rounded-lg text-sm px-4 py-2">
+                            class="bg-primer-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-primer-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primer-500">
                             Create User
                         </button>
                     </div>
