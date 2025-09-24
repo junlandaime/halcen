@@ -31,8 +31,8 @@ class RegistrationFormController extends Controller
 
         $viewMap = [
             'program-kuliah-halal'     => 'registration.pendaftaranKuliah',
-            'pelatihan-juleha-kurban'  => 'registration.pendaftaranJuleha-kurban',
-            'pelatihan-juleha-unggas'  => 'registration.pendaftaranJuleha-unggas',
+            'pelatihan-juleha-kurban'  => 'registration.pendaftaranJuleha-Kurban',
+            'pelatihan-juleha-unggas'  => 'registration.pendaftaranJuleha-Unggas',
         ];
 
         $viewName = $viewMap[$programSlug] ?? 'admin.registration_form.show';
