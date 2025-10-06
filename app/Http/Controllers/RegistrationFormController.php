@@ -12,16 +12,16 @@ class RegistrationFormController extends Controller
 {
     public function showBySlug($slug)
     {
-        $form = RegistrationForm::with(['programBatch.programLayanan'])
+        $registration = RegistrationForm::with(['programBatch.programLayanan'])
             ->where('slug', $slug)
             ->where('is_active', true)
             ->first();
 
-        if (!$form) {
+        if (!$registration) {
             abort(404, 'Form tidak ditemukan atau tidak aktif.');
         }
 
-        $programLayanan = $form->programBatch?->programLayanan;
+        $programLayanan = $registration->programBatch?->programLayanan;
 
         if (!$programLayanan) {
             abort(404, 'Program layanan tidak ditemukan.');
@@ -38,45 +38,43 @@ class RegistrationFormController extends Controller
         $viewName = $viewMap[$programSlug] ?? 'admin.registration_form.show';
 
         return view($viewName, [
-            'form' => $form,
+            'registration' => $registration,
             'slug' => $slug,
-            'batch' => $form->programBatch,
+            'batch' => $registration->programBatch,
         ]);
     }
 
     public function showByBatch(ProgramBatch $batch)
     {
-        $form = $batch->registrationForm()->with('programBatch')->first();
+        $registration = $batch->registrationForm()->with('programBatch')->first();
 
-        if (!$form || !$form->is_active) {
+        if (!$registration || !$registration->is_active) {
             abort(404, 'Form tidak ditemukan atau tidak aktif.');
         }
 
-        return view('admin.registration_form.show', [
-            'form' => $form,
-        ]);
+        return view('admin.registration_form.show', compact('registration'));
     }
 
     public function store(Request $request, $slug)
     {
-        $form = RegistrationForm::with('programBatch.programLayanan')
+        $registration = RegistrationForm::with('programBatch.programLayanan')
             ->where('slug', $slug)
             ->where('is_active', true)
             ->first();
 
-        if (!$form) {
+        if (!$registration) {
             abort(404, 'Form tidak ditemukan atau tidak aktif.');
         }
 
-        $programSlug = strtolower($form->programBatch?->programLayanan?->slug ?? '');
+        $programSlug = strtolower($registration->programBatch?->programLayanan?->slug ?? '');
 
-        // Cek duplikat
+        // 🔎 Cek duplikat
         if ($programSlug === 'program-kuliah-halal') {
             $emailExist = Participant::where('email', $request->email)
-                ->where('batch_id', $form->program_batch_id)
+                ->where('batch_id', $registration->program_batch_id)
                 ->exists();
             $waExist = Participant::where('wa', $request->wa)
-                ->where('batch_id', $form->program_batch_id)
+                ->where('batch_id', $registration->program_batch_id)
                 ->exists();
 
             if ($emailExist) {
@@ -87,7 +85,7 @@ class RegistrationFormController extends Controller
             }
         } else {
             $waExist = Participant::where('wa', $request->wa)
-                ->where('batch_id', $form->program_batch_id)
+                ->where('batch_id', $registration->program_batch_id)
                 ->exists();
 
             if ($waExist) {
@@ -95,7 +93,7 @@ class RegistrationFormController extends Controller
             }
         }
 
-        // Validasi
+        // ✅ Validasi input
         $rules = [];
 
         if ($programSlug === 'program-kuliah-halal') {
@@ -144,8 +142,8 @@ class RegistrationFormController extends Controller
         $validated['syarat'] = $request->has('syarat');
 
         $participant = new Participant($validated);
-        $participant->program_layanan_id = $form->programBatch->program_layanan_id ?? null;
-        $participant->batch_id = $form->program_batch_id;
+        $participant->program_layanan_id = $registration->programBatch?->program_layanan_id ?? null;
+        $participant->batch_id = $registration->program_batch_id;
         $participant->save();
 
         Attendance::create([
@@ -154,15 +152,15 @@ class RegistrationFormController extends Controller
             'presensi_siang' => 0,
         ]);
 
-        // ✅ Redirect ke WhatsApp jika link tersedia untuk semua program
-        if ($form->programBatch->whatsapp_group_link) {
+        // ✅ Redirect ke WhatsApp jika link tersedia
+        if ($registration->programBatch?->whatsapp_group_link) {
             return view('registration.redirect_wa', [
-                'link' => $form->programBatch->whatsapp_group_link
+                'link' => $registration->programBatch->whatsapp_group_link
             ]);
         }
 
         // Fallback kalau tidak ada link WA
-        return redirect()->route('registration.form.show', $form->slug)
+        return redirect()->route('registration.form.show', $registration->slug)
             ->with('success', 'Pendaftaran berhasil!');
     }
 }

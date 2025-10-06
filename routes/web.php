@@ -40,6 +40,7 @@ use App\Http\Controllers\Admin\{
 /* ----------------------------------------------------------
  | 🔓 PUBLIC ROUTES
  * ---------------------------------------------------------- */
+
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
 
 Route::get('/pendaftaran/{slug}', [RegistrationFormController::class, 'showBySlug'])->name('registration.form.show');
@@ -212,4 +213,4 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name
 /* ----------------------------------------------------------
  | 🔐 DEFAULT AUTH ROUTES
  * ---------------------------------------------------------- */
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
