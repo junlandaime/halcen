@@ -17,35 +17,22 @@ class RegistrationFormController extends Controller
             ->where('is_active', true)
             ->first();
 
-        if (!$form) {
-            abort(404, 'Form tidak ditemukan atau tidak aktif.');
-        }
+        if (!$form) abort(404, 'Form tidak ditemukan atau tidak aktif.');
 
         $programLayanan = $form->programBatch?->programLayanan;
+        if (!$programLayanan) abort(404, 'Program layanan tidak ditemukan.');
 
-        if (!$programLayanan) {
-            abort(404, 'Program layanan tidak ditemukan.');
-        }
-
-        // Ambil slug program dari database
         $programSlug = strtolower($programLayanan->slug ?? '');
 
-        // Gunakan match sebagian agar slug versi tahunan tetap cocok
-        if (str_contains($programSlug, 'program-kuliah-halal')) {
-            $viewName = 'registration.pendaftaranKuliah';
-        } elseif (str_contains($programSlug, 'pelatihan-juleha-kurban')) {
-            $viewName = 'registration.pendaftaranJuleha-Kurban';
-        } elseif (str_contains($programSlug, 'pelatihan-juleha-unggas')) {
-            $viewName = 'registration.pendaftaranJuleha-Unggas';
-        } else {
-            // fallback aman kalau belum ada template
-            $viewName = 'registration.pendaftaranKuliah';
-        }
+        // ✅ mapping ke folder registration
+        $viewMap = [
+            'program-kuliah-halal'     => 'registration.pendaftaranKuliah',
+            'pelatihan-juleha-kurban'  => 'registration.pendaftaranJuleha-Kurban',
+            'pelatihan-juleha-unggas'  => 'registration.pendaftaranJuleha-Unggas',
+        ];
 
-        // Cek dulu apakah view-nya benar-benar ada
-        if (!view()->exists($viewName)) {
-            abort(500, "View {$viewName} tidak ditemukan di folder resources/views.");
-        }
+        // fallback view default (kalau slug tidak cocok)
+        $viewName = $viewMap[$programSlug] ?? 'registration.pendaftaranKuliah';
 
         return view($viewName, [
             'registration' => $form,
@@ -57,10 +44,7 @@ class RegistrationFormController extends Controller
     public function showByBatch(ProgramBatch $batch)
     {
         $form = $batch->registrationForm()->with('programBatch')->first();
-
-        if (!$form || !$form->is_active) {
-            abort(404, 'Form tidak ditemukan atau tidak aktif.');
-        }
+        if (!$form || !$form->is_active) abort(404, 'Form tidak ditemukan atau tidak aktif.');
 
         return view('registration.pendaftaranKuliah', compact('form'));
     }
@@ -72,13 +56,11 @@ class RegistrationFormController extends Controller
             ->where('is_active', true)
             ->first();
 
-        if (!$form) {
-            abort(404, 'Form tidak ditemukan atau tidak aktif.');
-        }
+        if (!$form) abort(404, 'Form tidak ditemukan atau tidak aktif.');
 
         $programSlug = strtolower($form->programBatch?->programLayanan?->slug ?? '');
 
-        // ====== Cek duplikat ======
+        // ✅ logika duplikat & validasi tetap sama persis
         if ($programSlug === 'program-kuliah-halal') {
             $emailExist = Participant::where('email', $request->email)
                 ->where('batch_id', $form->program_batch_id)
@@ -87,71 +69,62 @@ class RegistrationFormController extends Controller
                 ->where('batch_id', $form->program_batch_id)
                 ->exists();
 
-            if ($emailExist) {
-                return redirect()->back()->withInput()->with('error', 'Email sudah terdaftar untuk batch ini.');
-            }
-            if ($waExist) {
-                return redirect()->back()->withInput()->with('error', 'Nomor WhatsApp sudah terdaftar oleh email lain untuk batch ini.');
-            }
+            if ($emailExist)
+                return back()->withInput()->with('error', 'Email sudah terdaftar.');
+            if ($waExist)
+                return back()->withInput()->with('error', 'Nomor WhatsApp sudah terdaftar.');
         } else {
             $waExist = Participant::where('wa', $request->wa)
                 ->where('batch_id', $form->program_batch_id)
                 ->exists();
-
-            if ($waExist) {
-                return redirect()->back()->withInput()->with('error', 'Nomor WhatsApp sudah terdaftar untuk batch ini.');
-            }
+            if ($waExist)
+                return back()->withInput()->with('error', 'Nomor WhatsApp sudah terdaftar.');
         }
 
-        // ====== Validasi ======
-        if ($programSlug === 'program-kuliah-halal') {
-            $rules = [
-                'nama' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
-                'kelamin' => 'required|in:pria,wanita',
-                'usia' => 'required|integer|min:17|max:70',
-                'sapaan' => 'nullable|string|max:10',
-                'wa' => 'required|string|max:13',
-                'alamat_ktp' => 'required|string|max:500',
-                'provinsi' => 'required|string|max:100',
-                'kota' => 'required|string|max:100',
-                'kecamatan' => 'required|string|max:100',
-                'kelurahan' => 'required|string|max:100',
-                'pendidikan' => 'required|string|max:100',
-                'sekolah' => 'required|string|max:255',
-                'pekerjaan' => 'required|string|max:100',
-                'instansi' => 'nullable|string|max:255',
-                'info_dari' => 'required|string|max:255',
-                'info_lainnya' => 'nullable|string|max:255',
-                'pernah_mengikuti' => 'required|in:Ya,Tidak',
-                'batch_lama' => 'nullable|string|max:50',
-                'siap_mengikuti' => 'required|in:Ya,Insyaallah diusahakan',
-                'syarat' => 'accepted',
-            ];
-        } else {
-            $rules = [
-                'nama' => 'required|string|max:255',
-                'usia' => 'required|integer|min:17|max:70',
-                'wa' => 'required|string|max:13',
-                'kategori' => 'required|string|max:255',
-                'instansi' => 'required|string|max:255',
-                'alamat_instansi' => 'required|string|max:255',
-                'provinsi' => 'required|string|max:100',
-                'kota' => 'required|string|max:100',
-                'kecamatan' => 'required|string|max:100',
-                'kelurahan' => 'required|string|max:100',
-                'pernah_mengikuti' => 'required|in:Ya,Tidak',
-                'syarat' => 'accepted',
-            ];
-        }
+        // ✅ Validasi per program
+        $rules = $programSlug === 'program-kuliah-halal' ? [
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'kelamin' => 'required|in:pria,wanita',
+            'usia' => 'required|integer|min:17|max:70',
+            'sapaan' => 'nullable|string|max:10',
+            'wa' => 'required|string|max:13',
+            'alamat_ktp' => 'required|string|max:500',
+            'provinsi' => 'required|string|max:100',
+            'kota' => 'required|string|max:100',
+            'kecamatan' => 'required|string|max:100',
+            'kelurahan' => 'required|string|max:100',
+            'pendidikan' => 'required|string|max:100',
+            'sekolah' => 'required|string|max:255',
+            'pekerjaan' => 'required|string|max:100',
+            'instansi' => 'nullable|string|max:255',
+            'info_dari' => 'required|string|max:255',
+            'info_lainnya' => 'nullable|string|max:255',
+            'pernah_mengikuti' => 'required|in:Ya,Tidak',
+            'batch_lama' => 'nullable|string|max:50',
+            'siap_mengikuti' => 'required|in:Ya,Insyaallah diusahakan',
+            'syarat' => 'accepted',
+        ] : [
+            'nama' => 'required|string|max:255',
+            'usia' => 'required|integer|min:17|max:70',
+            'wa' => 'required|string|max:13',
+            'kategori' => 'required|string|max:255',
+            'instansi' => 'required|string|max:255',
+            'alamat_instansi' => 'required|string|max:255',
+            'provinsi' => 'required|string|max:100',
+            'kota' => 'required|string|max:100',
+            'kecamatan' => 'required|string|max:100',
+            'kelurahan' => 'required|string|max:100',
+            'pernah_mengikuti' => 'required|in:Ya,Tidak',
+            'syarat' => 'accepted',
+        ];
 
         $validated = $request->validate($rules);
         $validated['pernah_mengikuti'] = strtolower($validated['pernah_mengikuti'] ?? '');
         $validated['syarat'] = $request->has('syarat');
 
-        // Simpan peserta baru
         $participant = new Participant($validated);
-        $participant->program_layanan_id = $form->programBatch?->program_layanan_id ?? null;
+        $participant->program_layanan_id = $form->programBatch?->program_layanan_id;
         $participant->batch_id = $form->program_batch_id;
         $participant->save();
 
@@ -161,14 +134,11 @@ class RegistrationFormController extends Controller
             'presensi_siang' => 0,
         ]);
 
-        // Jika ada link grup WA, arahkan ke redirect page
+        // Redirect ke link WA jika ada
         if ($form->programBatch?->whatsapp_group_link) {
-            return view('registration.redirect_wa', [
-                'link' => $form->programBatch->whatsapp_group_link
-            ]);
+            return view('registration.redirect_wa', ['link' => $form->programBatch->whatsapp_group_link]);
         }
 
-        // Fallback redirect jika tidak ada link WA
         return redirect()->route('registration.form.show', $form->slug)
             ->with('success', 'Pendaftaran berhasil!');
     }
