@@ -7,7 +7,6 @@ use App\Models\About;
 use App\Models\Video;
 use App\Models\Article;
 use App\Models\Partner;
-use App\Models\Program;
 use App\Models\Category;
 use App\Models\Regulation;
 use App\Models\FaqCategory;
@@ -22,48 +21,48 @@ use App\Models\ProgramBatch;
 class FrontController extends Controller
 {
     public function index()
-{
-    $landingPage = LandingPage::firstOrFail();
-    $partners = Partner::orderBy('order')->get();
-    $testimonials = Testimonial::where('is_featured', true)
-        ->orderBy('order')
-        ->take(3)
-        ->get();
+    {
+        $landingPage = LandingPage::current();
 
-    $categories = [
-        1 => 'Kuliah Halal',
-        2 => 'Juleha Kurban',
-        3 => 'Juleha Unggas',
-        4 => 'P3H',
-        5 => 'Sertifikasi',
-    ];
+        $partners = Partner::orderBy('order')->get();
 
-    // ambil batch berdasarkan kategori
-    $upcomingBatches = ProgramBatch::where('status', 'aktif')
-        ->where('tanggal_mulai_program', '>', now())
-        ->with('programLayanan') // relasi program_layanan
-        ->get()
-        ->groupBy('program_layanan_id');
+        $testimonials = Testimonial::where('is_featured', true)
+            ->orderBy('order')
+            ->take(3)
+            ->get();
 
-    return view('front.home', compact(
-        'landingPage',
-        'partners',
-        'testimonials',
-        'categories',
-        'upcomingBatches'
-    ));
-}
+        $categories = [
+            1 => 'Kuliah Halal',
+            2 => 'Juleha Kurban',
+            3 => 'Juleha Unggas',
+            4 => 'P3H',
+            5 => 'Sertifikasi',
+        ];
 
+        $upcomingBatches = ProgramBatch::where('status', 'aktif')
+            ->where('tanggal_mulai_program', '>', now())
+            ->with('programLayanan')
+            ->get()
+            ->groupBy('program_layanan_id');
+
+        return view('front.home', compact(
+            'landingPage',
+            'partners',
+            'testimonials',
+            'categories',
+            'upcomingBatches'
+        ));
+    }
 
     public function index_program()
     {
         $featuredPrograms = ProgramLayanan::where('status', 'aktif')
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->take(3)
             ->get();
 
         $programs = ProgramLayanan::where('status', 'aktif')
-            ->orderBy('created_at', 'asc')
+            ->oldest()
             ->paginate(6);
 
         return view('front.program', compact('featuredPrograms', 'programs'));
@@ -71,29 +70,35 @@ class FrontController extends Controller
 
     public function show_program(ProgramLayanan $programLayanan)
     {
+        $landingPage = LandingPage::current();
 
         if (str_starts_with($programLayanan->slug, 'layanan-sertifikasi')) {
-            $programLayanan = ProgramLayanan::where('slug', $programLayanan->slug)->firstOrFail();
+
             $subsertifikasi = ProgramLayanan::where('status', 'nonaktif')->get();
-            $landingPage = LandingPage::firstOrFail();
 
-            return view('front.program-sertifikasi', compact('programLayanan', 'subsertifikasi', 'landingPage'));
-        } else {
-            $programLayanan = ProgramLayanan::with(['batches' => function ($query) {
-                $query->where('status', 'aktif')
-                    ->where('tanggal_selesai_pendaftaran', '>=', now())
-                    ->orderBy('tanggal_mulai_pendaftaran');
-            }])
-                ->where('slug', $programLayanan->slug)
-                ->firstOrFail();
-
-            $activeBatch = $programLayanan->getActiveBatch();
-            $upcomingBatches = $programLayanan->getUpcomingBatches();
-
-            return view('front.program-detail', compact('programLayanan', 'activeBatch', 'upcomingBatches'));
+            return view('front.program-sertifikasi', compact(
+                'programLayanan',
+                'subsertifikasi',
+                'landingPage'
+            ));
         }
-    }
 
+        $programLayanan->load(['batches' => function ($query) {
+            $query->where('status', 'aktif')
+                ->where('tanggal_selesai_pendaftaran', '>=', now())
+                ->orderBy('tanggal_mulai_pendaftaran');
+        }]);
+
+        $activeBatch = $programLayanan->getActiveBatch();
+        $upcomingBatches = $programLayanan->getUpcomingBatches();
+
+        return view('front.program-detail', compact(
+            'programLayanan',
+            'activeBatch',
+            'upcomingBatches',
+            'landingPage'
+        ));
+    }
 
     public function index_video(Request $request)
     {
@@ -101,13 +106,10 @@ class FrontController extends Controller
             ->orderBy('order')
             ->get();
 
-        $activeCategory = $request->category ?? $categories->first()->slug;
+        $activeCategory = $request->category ?? $categories->first()?->slug;
 
-        // Ambil semua video dari semua kategori yang aktif
         $videos = Video::with('category')
-            ->whereHas('category', function ($query) {
-                $query->where('is_active', true);
-            })
+            ->whereHas('category', fn($q) => $q->where('is_active', true))
             ->where('is_active', true)
             ->orderBy('order')
             ->get();
@@ -115,66 +117,55 @@ class FrontController extends Controller
         return view('front.video', compact('videos', 'categories', 'activeCategory'));
     }
 
-    public function show_video(Video $video)
-    {
-        return view('videos.show', compact('video'));
-    }
-
-
     public function article(Request $request)
     {
-        // First get the featured article
-        $featuredArticles = Article::with('category')
-            ->published()
+        $featuredArticles = Article::published()
             ->featured()
             ->latest('published_at')
             ->take(1)
             ->get();
 
-        // Get the featured article ID
-        $featuredArticleId = $featuredArticles->first()?->id;
+        $featuredId = $featuredArticles->first()?->id;
 
-        // Build the main query
-        $query = Article::with(['category', 'author'])
-            ->published()
-            ->latest('published_at');
+        $query = Article::published()->latest('published_at');
 
-        // Exclude the featured article from the main listing
-        if ($featuredArticleId) {
-            $query->where('id', '!=', $featuredArticleId);
+        if ($featuredId) {
+            $query->where('id', '!=', $featuredId);
         }
 
-        // Filter by category if provided
         if ($request->filled('category')) {
-            $query->whereHas('category', function ($q) use ($request) {
-                $q->where('slug', $request->category);
-            });
+            $query->whereHas(
+                'category',
+                fn($q) =>
+                $q->where('slug', $request->category)
+            );
         }
 
-        // Search functionality
         if ($request->filled('search')) {
-            $searchTerm = '%' . $request->search . '%';
-            $query->where(function ($q) use ($searchTerm) {
-                $q->where('title', 'like', $searchTerm)
-                    ->orWhere('content', 'like', $searchTerm)
-                    ->orWhere('excerpt', 'like', $searchTerm);
-            });
+            $query->where(
+                fn($q) =>
+                $q->where('title', 'like', "%{$request->search}%")
+                    ->orWhere('content', 'like', "%{$request->search}%")
+                    ->orWhere('excerpt', 'like', "%{$request->search}%")
+            );
         }
 
-        // Get paginated results
         $articles = $query->paginate(9)->withQueryString();
 
-        // Get categories for the filter buttons
         $categories = Category::withCount('articles')
             ->having('articles_count', '>', 0)
             ->orderBy('name')
             ->get();
 
-        return view('front.article', compact('articles', 'categories', 'featuredArticles'));
+        return view('front.article', compact(
+            'articles',
+            'categories',
+            'featuredArticles'
+        ));
     }
 
     /**
-     * Display the specified article.
+     * ✅ FIX: DETAIL ARTICLE (WAS MISSING)
      */
     public function showArticle(Article $article)
     {
@@ -182,8 +173,7 @@ class FrontController extends Controller
 
         $article->load(['category', 'author']);
 
-        $relatedArticles = Article::with('category')
-            ->published()
+        $relatedArticles = Article::published()
             ->where('category_id', $article->category_id)
             ->where('id', '!=', $article->id)
             ->latest('published_at')
@@ -196,38 +186,39 @@ class FrontController extends Controller
             ->take(5)
             ->get();
 
-        return view('front.article-detail', compact('article', 'relatedArticles', 'recentArticles'));
+        return view('front.article-detail', compact(
+            'article',
+            'relatedArticles',
+            'recentArticles'
+        ));
     }
 
     public function index_regulasi(Request $request)
     {
-        $query = Regulation::with('category')->where('is_active', true);
+        $query = Regulation::where('is_active', true)->with('category');
 
         if ($request->category) {
-            $query->whereHas('category', function ($q) use ($request) {
-                $q->where('code', $request->category);
-            });
+            $query->whereHas(
+                'category',
+                fn($q) =>
+                $q->where('code', $request->category)
+            );
         }
 
         if ($request->search) {
-            $query->where(function ($q) use ($request) {
+            $query->where(
+                fn($q) =>
                 $q->where('title', 'like', "%{$request->search}%")
                     ->orWhere('description', 'like', "%{$request->search}%")
-                    ->orWhere('number', 'like', "%{$request->search}%");
-            });
+                    ->orWhere('number', 'like', "%{$request->search}%")
+            );
         }
 
         $regulations = $query->latest()->paginate(10);
-        $categories = RegulationCategory::whereHas('regulations', function ($query) {
-            $query->whereNotNull('id');
-        })->get();
+
+        $categories = RegulationCategory::whereHas('regulations')->get();
 
         return view('front.regulasi', compact('regulations', 'categories'));
-    }
-
-    public function show_regulasi(Regulation $regulation)
-    {
-        return view('regulations.show', compact('regulation'));
     }
 
     public function index_about()
@@ -243,47 +234,48 @@ class FrontController extends Controller
     {
         $about = About::where('slug', $about->slug)
             ->where('is_active', true)
-            ->with(['sections' => function ($query) {
-                $query->where('is_active', true)
-                    ->orderBy('order');
-            }, 'teams' => function ($query) {
-                $query->where('is_active', true)
-                    ->orderBy('order');
-            }, 'programs' => function ($query) {
-                $query->where('is_active', true)
-                    ->orderBy('order');
-            }])
+            ->with([
+                'sections' => fn($q) => $q->where('is_active', true)->orderBy('order'),
+                'teams' => fn($q) => $q->where('is_active', true)->orderBy('order'),
+                'programs' => fn($q) => $q->where('is_active', true)->orderBy('order'),
+            ])
             ->firstOrFail();
 
         return view('abouts.show', compact('about'));
     }
 
-
-
     public function kontak(Request $request)
     {
-        $categories = FaqCategory::where('is_active', true)->orderBy('order')->get();
+        $landingPage = LandingPage::current();
 
-        $query = Faq::with('category')->where('is_active', true);
+        $categories = FaqCategory::where('is_active', true)
+            ->orderBy('order')
+            ->get();
+
+        $query = Faq::where('is_active', true)->with('category');
 
         if ($request->category) {
-            $query->whereHas('category', function ($q) use ($request) {
-                $q->where('slug', $request->category);
-            });
+            $query->whereHas(
+                'category',
+                fn($q) =>
+                $q->where('slug', $request->category)
+            );
         }
 
         if ($request->search) {
-            $query->where(function ($q) use ($request) {
+            $query->where(
+                fn($q) =>
                 $q->where('question', 'like', "%{$request->search}%")
-                    ->orWhere('answer', 'like', "%{$request->search}%");
-            });
+                    ->orWhere('answer', 'like', "%{$request->search}%")
+            );
         }
 
         $faqs = $query->orderBy('order')->get();
 
-        // return view('faqs.index', compact('faqs', 'categories'));
-        $landingPage = LandingPage::firstOrFail();
-
-        return view('front.kontak', compact('landingPage', 'faqs', 'categories'));
+        return view('front.kontak', compact(
+            'landingPage',
+            'faqs',
+            'categories'
+        ));
     }
 }

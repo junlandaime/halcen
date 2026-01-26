@@ -44,57 +44,92 @@
         }
     </style>
 @endpush
-
 @section('content')
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-900/100 to-blue-400/100 text-white py-16">
+
+    <section class="relative bg-gradient-to-r from-blue-900 to-blue-500 text-white pt-24 pb-16">
         <div class="max-w-6xl mx-auto px-4">
-            <div class="flex flex-col md:flex-row gap-8 items-center">
-                <div class="flex-1">
-                    <h1 class="text-4xl font-bold mb-4">{{ $programLayanan->nama_banner }}</h1>
-                    <p class="text-lg opacity-90">{{ $programLayanan->deskripsi }}</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+
+                {{-- KIRI: INFO PROGRAM --}}
+                <div>
+                    <h1 class="text-4xl font-bold mb-4">
+                        {{ $programLayanan->nama_banner }}
+                    </h1>
+
+                    <p class="text-lg opacity-90 mb-6">
+                        {{ $programLayanan->deskripsi }}
+                    </p>
 
                     @if ($activeBatch)
-                        <div class="mt-8 space-y-4">
-                            <div class="flex items-center gap-2">
-                                <span class="text-lg font-semibold">Batch {{ $activeBatch->batch_ke }} -
-                                    {{ $activeBatch->nama_batch }}</span>
-                                <span class="px-3 py-1 bg-green-500 text-white text-sm rounded-full">Pendaftaran
-                                    Dibuka</span>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3">
+                                <span class="font-semibold">
+                                    Batch {{ $activeBatch->batch_ke }} – {{ $activeBatch->nama_batch }}
+                                </span>
+                                <span class="px-3 py-1 bg-green-500 text-sm rounded-full">
+                                    Pendaftaran Dibuka
+                                </span>
                             </div>
-                            <div class="flex gap-4">
+
+                            <div class="flex gap-6">
                                 <div>
-                                    <span class="block text-sm opacity-75">Harga Program</span>
-                                    <span class="text-2xl font-bold">Rp
-                                        {{ number_format($activeBatch->harga, 0, ',', '.') }}</span>
+                                    <div class="text-sm opacity-75">Harga Program</div>
+                                    <div class="text-2xl font-bold">
+                                        Rp {{ number_format($activeBatch->harga, 0, ',', '.') }}
+                                    </div>
                                 </div>
+
                                 <div>
-                                    <span class="block text-sm opacity-75">Sisa Kuota</span>
-                                    <span class="text-2xl font-bold">{{ $activeBatch->kuota }} Peserta</span>
+                                    <div class="text-sm opacity-75">Sisa Kuota</div>
+                                    <div class="text-2xl font-bold">
+                                        {{ $activeBatch->kuota }} Peserta
+                                    </div>
                                 </div>
                             </div>
+
                             <div>
-                                <span class="block text-sm opacity-75">Batas Pendaftaran</span>
-                                <span
-                                    class="text-lg">{{ $activeBatch->tanggal_selesai_pendaftaran->format('d F Y') }}</span>
+                                <div class="text-sm opacity-75">Batas Pendaftaran</div>
+                                <div class="text-lg">
+                                    {{ $activeBatch->tanggal_selesai_pendaftaran->format('d F Y') }}
+                                </div>
                             </div>
+
                             <a href="{{ $activeBatch->external_link }}" target="_blank"
-                                class="inline-block px-6 py-3 bg-blue-300 text-black font-semibold rounded-lg hover:bg-gray-100 transition-colors">
+                                class="inline-block mt-4 px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg hover:bg-blue-50 transition">
                                 Daftar Sekarang
                             </a>
                         </div>
-                    @else
-                        @if ($upcomingBatches->isNotEmpty())
-                            <div class="mt-8">
-                                <span class="px-4 py-2 bg-yellow-500 text-white rounded-lg">
-                                    Batch berikutnya akan dibuka pada
-                                    {{ $upcomingBatches->first()->tanggal_mulai_pendaftaran->format('d F Y') }}
-                                </span>
-                            </div>
-                        @endif
                     @endif
                 </div>
-                {{-- @dd($programLayanan->gambar_banner) --}}
+
+                {{-- KANAN: IMAGE BANNER --}}
+                @if ($programLayanan->gambar_banner)
+                    <div x-data="{ open: false }" class="relative cursor-pointer">
+
+                        {{-- IMAGE THUMBNAIL --}}
+                        <img src="{{ asset('storage/' . $programLayanan->gambar_banner) }}"
+                            alt="{{ $programLayanan->nama_program }}"
+                            class="rounded-xl shadow-lg object-cover w-full max-h-[420px] cursor-zoom-in"
+                            @click="open = true">
+
+                        {{-- HOVER OVERLAY --}}
+                        <div
+                            class="absolute inset-0 bg-black/30 opacity-0 hover:opacity-100 transition flex items-center justify-center rounded-xl pointer-events-none">
+                            <span class="text-white text-sm">Klik untuk memperbesar</span>
+                        </div>
+
+                        {{-- MODAL IMAGE --}}
+                        <div x-show="open" x-cloak x-transition
+                            class="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center"
+                            @click.self="open = false">
+                            <img src="{{ asset('storage/' . $programLayanan->gambar_banner) }}"
+                                class="max-w-[90%] max-h-[90%] rounded-lg shadow-2xl">
+                        </div>
+
+                    </div>
+                @endif
+
+
             </div>
         </div>
     </section>

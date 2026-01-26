@@ -19,26 +19,41 @@
 
 @section('content')
     <!-- Web Banner -->
-    <section class="relative h-[600px] overflow-hidden pt-16" x-data="{ scroll: 0 }"
+    <section class="relative min-h-[90vh] pt-16 overflow-hidden" x-data="{ scroll: 0 }"
         @scroll.window="scroll = window.pageYOffset">
-        <div class="absolute inset-0" x-bind:style="`transform: translateY(${scroll * 0.5}px)`">
-            @if ($landingPage->hero_image)
-                <img src="{{ Storage::url($landingPage->hero_image) }}" alt="Hero Image" class="w-full h-[800px] object-cover">
-            @endif
-        </div>
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/100 to-blue-400/100">
-            <div class="max-w-6xl mx-auto h-full flex items-center px-4">
-                <div class="text-white" data-aos="fade-up">
-                    <h1 class="text-5xl font-bold mb-6">{{ $landingPage->hero_title }}</h1>
-                    <p class="text-2xl mb-8 text-gray-200">{{ $landingPage->hero_subtitle }}</p>
-                    <a href="{{ route('front.kontak') }}"><button
-                            class="bg-white text-blue-700 px-8 py-3 rounded-full hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 cursor-pointer">
-                            Mulai Sekarang
-                        </button></a>
-                </div>
+        {{-- Background Image --}}
+        @if ($landingPage->hero_image)
+            <img src="{{ asset('storage/' . $landingPage->hero_image) }}" alt="Hero Image"
+                class="absolute inset-0 w-full h-full object-cover object-bottom"
+                :style="`transform: translateY(${scroll * 0.3}px)`">
+        @endif
+
+        {{-- Overlay --}}
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-400/70"></div>
+
+        {{-- Content --}}
+        <div class="relative z-10 max-w-6xl mx-auto h-full flex items-center px-4">
+            <div class="text-white max-w-2xl" data-aos="fade-up">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                    {{ $landingPage->hero_title }}
+                </h1>
+
+                <p class="text-lg md:text-2xl mb-8 text-gray-200">
+                    {{ $landingPage->hero_subtitle }}
+                </p>
+
+                <a href="{{ route('front.kontak') }}">
+                    <button
+                        class="bg-white text-blue-700 px-8 py-3 rounded-full
+                           hover:bg-blue-50 transition-all duration-300
+                           transform hover:scale-105">
+                        Mulai Sekarang
+                    </button>
+                </a>
             </div>
         </div>
     </section>
+
 
     <!-- Rekap Penerima Manfaat -->
     <section class="relative z-10 -mt-20 pb-16">
@@ -311,7 +326,7 @@
                             </button></a>
                     </div>
                     <div x-show.transition.opacity="category === 'industri'">
-                        <p class="text-gray-600 mb-4">Konsultasi khusus Pelaku Usaha omzet lebih dari 500 juta rupiah</p>
+                        <p class="text-gray-600 mb-4">Konsultasi khusus Pelaku Usaha omzet lebih dari 500 juta rupiah</p>
                         <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $landingPage->contact_whatsapp) }}"
                             target="_blank"><button
                                 class="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-102 cursor-pointer">
