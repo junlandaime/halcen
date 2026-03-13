@@ -66,11 +66,8 @@ class ArticleController extends Controller
         // dd($validated);
 
         Article::create($validated);
-        // if (auth()->user()->hasRole('superAdmin')) {
+
         return redirect()->route('admin.articles.index')
-            ->with('success', 'Article created successfully.');
-        //  } else {
-        return redirect()->route('articles.index')
             ->with('success', 'Article created successfully.');
     }
 

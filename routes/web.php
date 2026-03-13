@@ -83,7 +83,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/2fa', [TwoFactorController::class, 'verify'])->name('2fa.verify');
 
     Route::middleware('2fa')->group(function () {
-        Route::get('/admin.dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
         // Akses umum: edit & update
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -98,7 +98,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             // Dashboard akses umum untuk semua role admin
             Route::middleware('role:superAdmin|admin|author')->group(function () {
-                Route::get('/admin.dashboard', [DashboardController::class, 'index'])->name('dashboard');
+                Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
             });
 
             // 🔐 superAdmin only
@@ -107,9 +107,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::patch('/users/{user}/enable-2fa', [UserController::class, 'enable2FA'])->name('users.enable2fa');
                 Route::patch('/users/{user}/disable-2fa', [UserController::class, 'disable2FA'])->name('users.disable2fa');
                 Route::get('/users/{user}/qr', [UserController::class, 'showQr'])->name('users.qr');
-
-                Route::get('/landing-page/edit', [LandingPageController::class, 'edit'])->name('landing-page.edit');
-                Route::put('/landing-page/update', [LandingPageController::class, 'update'])->name('landing-page.update');
 
                 Route::resource('categories', CategoryController::class)->except(['create', 'edit', 'show']);
                 Route::post('/categories/update-order', [CategoryController::class, 'updateOrder'])->name('categories.updateOrder');
@@ -175,8 +172,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::middleware('role:superAdmin|admin')->group(function () {
                 Route::resource('partners', PartnerController::class)->except(['create', 'edit', 'show']);
                 Route::post('/partners/update-order', [PartnerController::class, 'updateOrder'])->name('partners.updateOrder');
-                Route::get('/landing-page/edit', [LandingPageController::class, 'edit'])->name('landing-page.edit');
-                Route::put('/landing-page/update', [LandingPageController::class, 'update'])->name('landing-page.update');
             });
 
             // Artikel → superAdmin & author
@@ -184,8 +179,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::resource('articles', ArticleController::class);
                 Route::post('/articles/{article}/toggle-featured', [ArticleController::class, 'toggleFeatured'])->name('articles.toggleFeatured');
                 Route::post('/articles/{article}/toggle-status', [ArticleController::class, 'toggleStatus'])->name('articles.toggleStatus');
-                Route::get('/landing-page/edit', [LandingPageController::class, 'edit'])->name('landing-page.edit');
-                Route::put('/landing-page/update', [LandingPageController::class, 'update'])->name('landing-page.update');
             });
         });
 

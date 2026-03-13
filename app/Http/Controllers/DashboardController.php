@@ -31,7 +31,7 @@ class DashboardController extends Controller
         ->get();
 
         // Ganti 'name' sesuai kolom nama batch kamu
-        $labels = $batchCounts->pluck('Kuliah Halal');
+        $labels = $batchCounts->pluck('nama_batch');
         $data = $batchCounts->pluck('participants_count');
 
         $stats = [
@@ -134,7 +134,7 @@ class DashboardController extends Controller
                     'title' => $batch->programLayanan->nama_program,
                     'description' => "Batch ke " . $batch->batch_ke . " " . $batch->nama_batch . " baru ditambahkan",
                     'time' => $batch->created_at,
-                    'image' => $batch->gambar_banner->image ?? '/default-avatar.png',
+                    'image' => '/default-avatar.png',
                     'author' => 'Admin Pusat Halal'
                 ];
             });
@@ -152,7 +152,7 @@ class DashboardController extends Controller
                     'description' => "Artikel baru dipublikasikan",
                     'time' => $article->created_at,
                     'image' => $article->featured_image ?? '/default-avatar.png',
-                    'author' => $article->author->name,
+                    'author' => $article->author?->name ?? 'Unknown',
                 ];
             });
 
@@ -168,11 +168,8 @@ class DashboardController extends Controller
         $user = Auth::user();
         $postsQuery = Article::query();
 
-        // if ($user->hasRole('author'))
-        {
-            $postsQuery->whereHas('author', function ($query) use ($user) {
-                $query->where('author_id', $user->id);
-            });
+        if ($user->hasRole('author')) {
+            $postsQuery->where('author_id', $user->id);
         }
 
         $posts = $postsQuery->count();
@@ -186,13 +183,9 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         $posts = Article::query();
-        $postsQ = Article::orderBy('id', 'desc')->get();
 
-        //if ($user->hasRole('author'))
-        {
-            $posts->whereHas('author', function ($posts) use ($user) {
-                $posts->where('author_id', $user->id);
-            });
+        if ($user->hasRole('author')) {
+            $posts->where('author_id', $user->id);
         }
 
         $posts = $posts->orderBy('id', 'desc')->paginate(10);

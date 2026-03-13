@@ -107,7 +107,7 @@
                     <div x-data="{ open: false }" class="relative cursor-pointer">
 
                         {{-- IMAGE THUMBNAIL --}}
-                        <img src="{{ asset('storage/' . $programLayanan->gambar_banner) }}"
+                        <img src="{{ Storage::url($programLayanan->gambar_banner) }}"
                             alt="{{ $programLayanan->nama_program }}"
                             class="rounded-xl shadow-lg object-cover w-full max-h-[420px] cursor-zoom-in"
                             @click="open = true">
@@ -122,7 +122,7 @@
                         <div x-show="open" x-cloak x-transition
                             class="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center"
                             @click.self="open = false">
-                            <img src="{{ asset('storage/' . $programLayanan->gambar_banner) }}"
+                            <img src="{{ Storage::url($programLayanan->gambar_banner) }}"
                                 class="max-w-[90%] max-h-[90%] rounded-lg shadow-2xl">
                         </div>
 

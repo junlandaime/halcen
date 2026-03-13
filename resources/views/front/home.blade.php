@@ -23,7 +23,7 @@
         @scroll.window="scroll = window.pageYOffset">
         {{-- Background Image --}}
         @if ($landingPage->hero_image)
-            <img src="{{ asset('storage/' . $landingPage->hero_image) }}" alt="Hero Image"
+            <img src="{{ Storage::url($landingPage->hero_image) }}" alt="Hero Image"
                 class="absolute inset-0 w-full h-full object-cover object-bottom"
                 :style="`transform: translateY(${scroll * 0.3}px)`">
         @endif
@@ -159,7 +159,7 @@
                                 <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300"
                                     data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
                                     <a href="{{ $partner->website }}" target="_blank" class="block">
-                                        <img src="{{ asset($partner->logo) }}" alt="{{ $partner->name }}"
+                                        <img src="{{ Storage::url($partner->logo) }}" alt="{{ $partner->name }}"
                                             class="w-full h-24 object-contain filter grayscale hover:grayscale-0 transition-all duration-300">
                                     </a>
                                 </div>

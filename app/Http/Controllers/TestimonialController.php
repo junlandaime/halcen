@@ -6,7 +6,7 @@ use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class TestimonialController extends Controller
@@ -31,40 +31,7 @@ class TestimonialController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $folder = public_path('testimoni');
-
-            // Buat folder kalau belum ada
-            if (!File::exists($folder)) {
-                File::makeDirectory($folder, 0755, true);
-            }
-
-            // Ambil urutan terakhir berdasarkan nama file yang diawali angka
-            $existingFiles = File::files($folder);
-            $maxNumber = 0;
-
-            foreach ($existingFiles as $file) {
-                $filename = pathinfo($file->getFilename(), PATHINFO_FILENAME);
-                if (preg_match('/^(\d+)\./', $filename, $matches)) {
-                    $num = intval($matches[1]);
-                    if ($num > $maxNumber) {
-                        $maxNumber = $num;
-                    }
-                }
-            }
-
-            $nextNumber = $maxNumber + 1;
-
-            // Format nama: 4. Nama Pengguna.extension
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $safeName = Str::slug($validated['name'], '_');
-            $fileName = "{$nextNumber}. {$validated['name']}.{$extension}";
-            $filePath = 'testimoni/' . $fileName;
-
-            // Pindahkan file
-            $request->file('image')->move($folder, $fileName);
-
-            // Simpan path relatif
-            $validated['image'] = 'testimoni/' . $fileName;
+            $validated['image'] = $request->file('image')->store('testimonials', 'public');
         }
 
         Testimonial::create($validated);
@@ -94,34 +61,13 @@ class TestimonialController extends Controller
         ]);
 
         try {
-            DB::beginTransaction();
-
             // Handle image upload
             if ($request->hasFile('image')) {
-                try {
-                    $image = $request->file('image');
-                    $imageName = uniqid('testimonial_') . '.' . $image->getClientOriginalExtension();
-                    $imagePath = public_path('testimoni');
-
-                    // Buat folder jika belum ada
-                    if (!file_exists($imagePath)) {
-                        mkdir($imagePath, 0755, true);
-                    }
-
-                    $image->move($imagePath, $imageName);
-
-                    // Hapus gambar lama jika ada
-                    if ($testimonial->image && file_exists(public_path($testimonial->image))) {
-                        unlink(public_path($testimonial->image));
-                    }
-
-                    $validated['image'] = 'testimoni/' . $imageName;
-                } catch (\Exception $e) {
-                    DB::rollBack();
-                    return redirect()->back()
-                        ->withInput()
-                        ->withErrors(['image' => 'Failed to process image: ' . $e->getMessage()]);
+                // Hapus gambar lama jika ada
+                if ($testimonial->image) {
+                    Storage::disk('public')->delete($testimonial->image);
                 }
+                $validated['image'] = $request->file('image')->store('testimonials', 'public');
             } else {
                 unset($validated['image']);
             }
@@ -129,18 +75,9 @@ class TestimonialController extends Controller
             // Simpan perubahan testimonial
             $testimonial->update($validated);
 
-            DB::commit();
-
             return redirect()->route('admin.testimonials.index')
                 ->with('updated', 'Testimonial has been updated successfully.');
         } catch (\Exception $e) {
-            DB::rollBack();
-
-            // Hapus gambar baru jika update gagal
-            if (isset($validated['image']) && file_exists(public_path($validated['image']))) {
-                unlink(public_path($validated['image']));
-            }
-
             return redirect()->back()
                 ->withInput()
                 ->withErrors(['error' => 'Failed to update testimonial: ' . $e->getMessage()]);
@@ -150,12 +87,9 @@ class TestimonialController extends Controller
     public function destroy(Testimonial $testimonial)
     {
         try {
-            // Hapus gambar dari folder public/testimoni jika ada
+            // Hapus gambar dari storage jika ada
             if ($testimonial->image) {
-                $imagePath = public_path($testimonial->image);
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
+                Storage::disk('public')->delete($testimonial->image);
             }
 
             // Hapus data testimonial

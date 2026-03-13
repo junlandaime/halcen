@@ -71,7 +71,7 @@
                         <input type="file" name="featured_image" id="featured-image"
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             accept="image/*">
-                        @error('featured-image')
+                        @error('featured_image')
                             <div class="text-sm text-red-600 space-y-1">* {{ $message }}</div>
                         @enderror
                     </div>
@@ -116,6 +116,7 @@
                         <div>
                             <div class="form-group">
                                 <div class="custom-control custom-switch">
+                                    <input type="hidden" name="is_featured" value="0">
                                     <input type="checkbox" class="custom-control-input" id="is_featured" name="is_featured"
                                         value="1" {{ old('is_featured') ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="is_featured">Featured Article</label>
@@ -142,7 +143,7 @@
 
 @push('scripts')
     <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script>
         CKEDITOR.replace('content');
     </script>

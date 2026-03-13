@@ -28,40 +28,7 @@ class PartnerController extends Controller
         ]);
 
         if ($request->hasFile('logo')) {
-            $folder = public_path('partners');
-
-            // Buat folder kalau belum ada
-            if (!File::exists($folder)) {
-                File::makeDirectory($folder, 0755, true);
-            }
-
-            // Ambil urutan terakhir berdasarkan nama file yang diawali angka
-            $existingFiles = File::files($folder);
-            $maxNumber = 0;
-
-            foreach ($existingFiles as $file) {
-                $filename = pathinfo($file->getFilename(), PATHINFO_FILENAME);
-                if (preg_match('/^(\d+)\./', $filename, $matches)) {
-                    $num = intval($matches[1]);
-                    if ($num > $maxNumber) {
-                        $maxNumber = $num;
-                    }
-                }
-            }
-
-            $nextNumber = $maxNumber + 1;
-
-            // Format nama: 4. Nama Pengguna.extension
-            $extension = $request->file('logo')->getClientOriginalExtension();
-            $safeName = Str::slug($validated['name'], '_');
-            $fileName = "{$nextNumber}. {$validated['name']}.{$extension}";
-            $filePath = 'partners/' . $fileName;
-
-            // Pindahkan file
-            $request->file('logo')->move($folder, $fileName);
-
-            // Simpan path relatif
-            $validated['logo'] = 'partners/' . $fileName;
+            $validated['logo'] = $request->file('logo')->store('partners', 'public');
         }
 
         Partner::create($validated);
@@ -97,22 +64,19 @@ class PartnerController extends Controller
     public function destroy(Partner $partner)
     {
         try {
-            // Hapus gambar dari folder public/testimoni jika ada
+            // Hapus gambar dari storage jika ada
             if ($partner->logo) {
-                $imagePath = public_path($partner->logo);
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
+                Storage::disk('public')->delete($partner->logo);
             }
 
-            // Hapus data testimonial
-            $partner->forceDelete();
+            // Hapus data partner (soft delete)
+            $partner->delete();
 
             return redirect()->route('admin.partners.index')
                 ->with('deleted', 'Partner has been deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()
-                ->withErrors(['error' => 'Erro Deleting Partner: ' . $e->getMessage()]);
+                ->withErrors(['error' => 'Error Deleting Partner: ' . $e->getMessage()]);
         }
     }
 

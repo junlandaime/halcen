@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LPH Salman ITB | Lembaga Pemeriksa Halal | Sertifikasi Halal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    [x-cloak]{display:none!important}
+    *{font-family:'Inter',sans-serif;scroll-behavior:smooth}
+
+    /* === COLOR THEME: Salman ITB hijau emerald + emas === */
+    :root{
+      --green:#1a6e3c;
+      --green-dark:#145530;
+      --green-light:#e8f5ee;
+      --gold:#b8972a;
+      --navy:#1e2d1e;
+    }
+
+    /* === NAV === */
+    .nav-active{border:2px solid #1a6e3c;border-radius:999px;padding:5px 18px;color:#1a6e3c;font-weight:700}
+    .dropdown{position:absolute;top:calc(100%+6px);left:50%;transform:translateX(-50%);background:white;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.12);min-width:210px;padding:6px 0;z-index:200}
+    .dropdown a{display:block;padding:11px 20px;font-size:12px;font-weight:700;letter-spacing:.06em;color:#1a2e1a;transition:background .15s}
+    .dropdown a:hover{background:#e8f5ee;color:#1a6e3c}
+
+    /* === HERO BLOB === */
+    .hero-blob{
+      width:620px;height:580px;position:relative;flex-shrink:0;
+      clip-path:path("M310 0 C490 0 610 100 610 280 C610 440 500 560 310 600 C120 560 10 440 10 280 C10 100 130 0 310 0Z");
+      overflow:hidden;
+    }
+    .hero-blob img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+    .hero-blob:hover img{transform:scale(1.05)}
+    .hero-blob::after{content:'';position:absolute;inset:0;background:rgba(26,110,60,.25)}
+
+    /* === BTN MORE === */
+    .btn-more{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:14px;color:#1a6e3c;transition:gap .2s}
+    .btn-more:hover{gap:16px}
+    .btn-more .circle{width:34px;height:34px;background:#1a6e3c;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s}
+    .btn-more:hover .circle{background:#145530;transform:translateX(3px)}
+
+    /* === GREEN LABEL BOX (replaces teal) === */
+    .green-label{background:linear-gradient(135deg,#1a6e3c,#145530);border-radius:16px;color:white;padding:28px;display:flex;flex-direction:column}
+    .green-label-title{color:white;font-weight:900;font-size:1.35rem;line-height:1.3}
+
+    /* === SERVICE CARD === */
+    .svc-card{background:white;border:1.5px solid #e5e7eb;border-radius:16px;padding:28px 24px;display:flex;flex-direction:column;gap:12px;transition:box-shadow .25s,border-color .25s,transform .25s}
+    .svc-card:hover{box-shadow:0 16px 40px rgba(26,110,60,.12);border-color:#1a6e3c;transform:translateY(-4px)}
+    .svc-icon{font-size:36px;color:#1a1a2e}
+
+    /* === FLOW CARD === */
+    .flow-card{flex:1;min-width:0;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:24px 16px;text-align:center;position:relative;overflow:hidden;transition:box-shadow .25s,border-color .25s,transform .25s}
+    .flow-card:hover{border-color:#1a6e3c;box-shadow:0 10px 30px rgba(26,110,60,.1);transform:translateY(-4px)}
+    .flow-num{font-size:5rem;font-weight:900;color:#e5e7eb;position:absolute;bottom:-10px;right:8px;line-height:1;user-select:none;transition:color .25s}
+    .flow-card:hover .flow-num{color:#c8ebd8}
+    .flow-icon{font-size:32px;color:#1a6e3c;margin-bottom:8px}
+
+    /* === CHECK HALAL === */
+    .check-input{border:1.5px solid #d1d5db;border-radius:10px;padding:12px 16px;font-size:14px;outline:none;color:#374151;background:white;transition:border-color .2s,box-shadow .2s}
+    .check-input:focus{border-color:#1a6e3c;box-shadow:0 0 0 3px rgba(26,110,60,.1)}
+    .btn-search{background:#1a6e3c;color:white;font-weight:700;padding:12px 28px;border-radius:10px;font-size:14px;cursor:pointer;transition:background .2s,transform .15s}
+    .btn-search:hover{background:#145530;transform:translateY(-1px)}
+
+    /* === PUB CARD === */
+    .pub-card{background:white;border:1.5px solid #e5e7eb;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px;min-height:300px;transition:box-shadow .25s,border-color .25s,transform .25s}
+    .pub-card:hover{box-shadow:0 16px 40px rgba(26,110,60,.1);border-color:#1a6e3c;transform:translateY(-4px)}
+
+    /* === CONTACT INFO === */
+    .contact-info-row{display:flex;align-items:center;gap:14px;font-size:15px;color:#1a2e1a;font-weight:600}
+
+    /* === FOOTER === */
+    footer{background:linear-gradient(135deg,#1a6e3c,#0f4a28)}
+
+    /* === WHATSAPP === */
+    .whatsapp-float{position:fixed;bottom:28px;right:28px;width:54px;height:54px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:transform .2s,box-shadow .2s}
+    .whatsapp-float:hover{transform:scale(1.1);box-shadow:0 8px 28px rgba(0,0,0,.3)}
+
+    /* === LOGO PLACEHOLDER === */
+    .logo-placeholder{width:72px;height:72px;border-radius:50%;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:10px;text-align:center;color:#666;font-weight:600;line-height:1.2;transition:transform .2s,box-shadow .2s}
+    .logo-placeholder:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(0,0,0,.12)}
+
+    /* === HERO SLIDER === */
+    .slider-dot{width:10px;height:10px;border-radius:50%;background:#ccc;cursor:pointer;transition:background .3s,transform .3s}
+    .slider-dot.active{background:#1a6e3c;transform:scale(1.3)}
+
+    /* === MARQUEE === */
+    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    .marquee-track{display:flex;gap:48px;animation:marquee 22s linear infinite;white-space:nowrap}
+
+    /* === FADE IN ON SCROLL === */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    .fade-up{animation:fadeUp .6s ease forwards}
+
+    /* === STATS counter === */
+    .stat-box{background:white;border:1.5px solid #e5e7eb;border-radius:14px;padding:20px 16px;text-align:center;transition:transform .2s,box-shadow .2s}
+    .stat-box:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(26,110,60,.1)}
+    .stat-num{color:#1a6e3c;font-size:2rem;font-weight:900}
+
+    /* === NAV LINK HOVER UNDERLINE === */
+    .nav-link{position:relative;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#1a2e1a;transition:color .2s}
+    .nav-link::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:#1a6e3c;border-radius:2px;transition:width .25s}
+    .nav-link:hover{color:#1a6e3c}
+    .nav-link:hover::after{width:100%}
+
+    /* === HIGHLIGHT TAG === */
+    .tag{display:inline-block;background:#e8f5ee;color:#1a6e3c;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;letter-spacing:.05em}
+
+    /* === HERO SLIDE TRANSITION === */
+    .slide{display:none;animation:fadeUp .5s ease}
+    .slide.active{display:flex}
+  </style>
+</head>
+<body class="bg-white text-gray-900"
+  x-data="{
+    profileOpen:false, serviceOpen:false, pubOpen:false, mob:false,
+    slide:0, slides:3,
+    startSlide(){setInterval(()=>{ this.slide=(this.slide+1)%this.slides },4500)}
+  }"
+  x-init="startSlide()">
+
+<!-- ========================= NAVBAR ========================= -->
+<header class="sticky top-0 z-50 bg-white shadow-sm">
+  <div class="max-w-screen-xl mx-auto px-8 py-3 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="#home" class="flex items-center gap-3">
+      <div class="w-14 h-14 rounded-full border-2 border-[#1a6e3c] flex items-center justify-center bg-white relative">
+        <div class="text-center leading-none">
+          <i class="fa fa-mosque text-[#1a6e3c] text-xl"></i>
+        </div>
+        <div class="absolute inset-0 rounded-full border border-[#b8972a] opacity-50" style="transform:scale(1.1)"></div>
+      </div>
+      <div class="w-px h-10 bg-gray-200 mx-1"></div>
+      <div>
+        <div class="text-2xl font-black leading-none" style="color:#b8972a;letter-spacing:.05em">LPH</div>
+        <div style="font-size:8px;letter-spacing:.12em" class="text-gray-400 font-semibold">SALMAN ITB</div>
+      </div>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-7">
+      <a href="#home" class="nav-link">HOME</a>
+      <div class="relative" @mouseenter="profileOpen=true" @mouseleave="profileOpen=false">
+        <button class="nav-link">PROFILE</button>
+        <div x-show="profileOpen" x-cloak class="dropdown">
+          <a href="#profile">SEJARAH</a>
+          <a href="#profile">TENTANG</a>
+          <a href="#profile">STRUKTUR ORGANISASI</a>
+          <a href="#profile">VISI & MISI</a>
+        </div>
+      </div>
+      <div class="relative" @mouseenter="serviceOpen=true" @mouseleave="serviceOpen=false">
+        <button class="nav-active nav-link" style="font-size:13px">SERVICE</button>
+        <div x-show="serviceOpen" x-cloak class="dropdown">
+          <a href="#service">LAYANAN PEMERIKSAAN HALAL</a>
+          <a href="#service">TARIF LAYANAN</a>
+          <a href="#service">PENGUJIAN LABORATORIUM</a>
+        </div>
+      </div>
+      <div class="relative" @mouseenter="pubOpen=true" @mouseleave="pubOpen=false">
+        <button class="nav-link">PUBLICATION</button>
+        <div x-show="pubOpen" x-cloak class="dropdown">
+          <a href="#publication">ARTIKEL</a>
+          <a href="#publication">AKTIVITAS</a>
+          <a href="#publication">REGULASI</a>
+        </div>
+      </div>
+      <a href="#contact" class="nav-link">CONTACT</a>
+      <button class="nav-link border border-gray-300 rounded-full px-3 py-1 hover:border-[#1a6e3c]">
+        <i class="fa fa-language text-base"></i>
+      </button>
+    </nav>
+
+    <button @click="mob=!mob" class="md:hidden text-[#1a6e3c] text-xl">
+      <i :class="mob?'fa fa-times':'fa fa-bars'"></i>
+    </button>
+  </div>
+
+  <!-- Mobile -->
+  <div x-show="mob" x-cloak x-transition class="md:hidden bg-white border-t px-6 py-4 space-y-3 text-sm font-bold uppercase tracking-wider text-[#1a6e3c]">
+    <a href="#home" class="block py-2">Home</a>
+    <a href="#profile" class="block py-2">Profile</a>
+    <a href="#service" class="block py-2">Service</a>
+    <a href="#publication" class="block py-2">Publication</a>
+    <a href="#contact" class="block py-2">Contact</a>
+  </div>
+</header>
+
+<!-- ========================= HERO SLIDER ========================= -->
+<section id="home" class="min-h-screen bg-white overflow-hidden">
+
+  <!-- Slide 0 -->
+  <div class="max-w-screen-xl mx-auto px-8 py-20 flex items-center justify-between gap-10 w-full min-h-screen"
+       :class="slide===0 ? 'flex' : 'hidden'" style="animation:fadeUp .6s ease">
+    <div class="flex-1 max-w-xl">
+      <span class="tag mb-4 inline-block">Terakreditasi BPJPH · Bandung</span>
+      <h1 class="text-5xl md:text-6xl font-black leading-tight text-gray-900 mb-3">
+        HALAL<br>INSPECTION<br>INSTITUTION
+      </h1>
+      <h2 class="text-4xl md:text-5xl font-black leading-tight mb-6" style="color:#1a6e3c">
+        SALMAN ITB
+      </h2>
+      <p class="text-gray-500 font-semibold text-base mb-1">#halalitumudah</p>
+      <p class="text-gray-600 text-base mb-10 max-w-md">Registering for independent halal certification is now faster and easier. Serving businesses from Bandung to national scale.</p>
+      <button class="inline-flex items-center gap-3 bg-[#1a6e3c] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#145530] transition transform hover:-translate-y-0.5 shadow-lg">
+        Daftar Sekarang
+        <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center">
+          <i class="fa fa-play text-white text-xs ml-0.5"></i>
+        </span>
+      </button>
+    </div>
+    <div class="hidden md:block hero-blob">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Masjid_Salman_ITB.jpg/1280px-Masjid_Salman_ITB.jpg"
+           alt="Masjid Salman ITB"
+           onerror="this.parentElement.style.background='linear-gradient(135deg,#1a6e3c,#145530)';this.style.display='none'"/>
+    </div>
+  </div>
+
+  <!-- Slide 1 -->
+  <div class="max-w-screen-xl mx-auto px-8 py-20 flex items-center justify-between gap-10 w-full min-h-screen"
+       :class="slide===1 ? 'flex' : 'hidden'" style="animation:fadeUp .6s ease">
+    <div class="flex-1 max-w-xl">
+      <span class="tag mb-4 inline-block">Mitra BPJPH Resmi</span>
+      <h1 class="text-5xl font-black leading-tight text-gray-900 mb-3">MEWUJUDKAN<br>EKOSISTEM<br>HALAL</h1>
+      <h2 class="text-4xl font-black leading-tight mb-6" style="color:#1a6e3c">YANG BERKELANJUTAN</h2>
+      <p class="text-gray-600 text-base mb-10 max-w-md">Didukung auditor halal bersertifikat BNSP dan laboratorium terakreditasi SNI ISO/IEC 17025:2017 kerja sama dengan ITB.</p>
+      <button class="inline-flex items-center gap-3 bg-[#1a6e3c] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#145530] transition shadow-lg">
+        Pelajari Lebih Lanjut
+        <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center">
+          <i class="fa fa-arrow-right text-white text-xs"></i>
+        </span>
+      </button>
+    </div>
+    <div class="hidden md:block hero-blob" style="background:linear-gradient(135deg,#1a6e3c,#0f4a28)">
+      <div class="w-full h-full flex items-center justify-center opacity-70">
+        <i class="fa fa-mosque text-white" style="font-size:120px"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="max-w-screen-xl mx-auto px-8 py-20 flex items-center justify-between gap-10 w-full min-h-screen"
+       :class="slide===2 ? 'flex' : 'hidden'" style="animation:fadeUp .6s ease">
+    <div class="flex-1 max-w-xl">
+      <span class="tag mb-4 inline-block">Program Unggulan 2026</span>
+      <h1 class="text-5xl font-black leading-tight text-gray-900 mb-3">SERTIFIKASI<br>HALAL GRATIS<br>UNTUK UMKM</h1>
+      <h2 class="text-4xl font-black leading-tight mb-6" style="color:#1a6e3c">SELF DECLARE BPJPH</h2>
+      <p class="text-gray-600 text-base mb-10 max-w-md">UMKM wajib tahu! Sertifikat Halal sekarang bisa GRATIS melalui program Self Declare BPJPH SEHATI. LPH Salman ITB siap mendampingi.</p>
+      <button class="inline-flex items-center gap-3 bg-[#b8972a] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#9a7d20] transition shadow-lg">
+        Info Selengkapnya
+        <span class="w-8 h-8 bg-[#1a6e3c] rounded-full flex items-center justify-center">
+          <i class="fa fa-play text-white text-xs ml-0.5"></i>
+        </span>
+      </button>
+    </div>
+    <div class="hidden md:block hero-blob" style="background:linear-gradient(135deg,#b8972a,#9a7d20)">
+      <div class="w-full h-full flex items-center justify-center opacity-50">
+        <i class="fa fa-certificate text-white" style="font-size:120px"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide dots -->
+  <div class="flex justify-center gap-3 pb-10 -mt-8">
+    <template x-for="i in slides" :key="i">
+      <button @click="slide=i-1" :class="slide===i-1 ? 'slider-dot active' : 'slider-dot'"></button>
+    </template>
+  </div>
+</section>
+
+<!-- ========================= MARQUEE ========================= -->
+<div class="bg-[#e8f5ee] border-y border-[#c8e8d8] py-3 overflow-hidden">
+  <div class="marquee-track text-sm font-bold text-[#1a6e3c]">
+    <span class="flex items-center gap-2"><i class="fa fa-check-circle"></i> Terakreditasi BPJPH</span>
+    <span class="flex items-center gap-2"><i class="fa fa-flask"></i> Lab Terakreditasi ISO 17025</span>
+    <span class="flex items-center gap-2"><i class="fa fa-user-tie"></i> Auditor Bersertifikat BNSP</span>
+    <span class="flex items-center gap-2"><i class="fa fa-university"></i> Mitra Resmi ITB</span>
+    <span class="flex items-center gap-2"><i class="fa fa-globe"></i> Melayani Nasional & Internasional</span>
+    <span class="flex items-center gap-2"><i class="fa fa-mosque"></i> YPM Salman ITB</span>
+    <span class="flex items-center gap-2"><i class="fa fa-handshake"></i> MoU dengan BPJPH Kemenag RI</span>
+    <span class="flex items-center gap-2"><i class="fa fa-check-circle"></i> Terakreditasi BPJPH</span>
+    <span class="flex items-center gap-2"><i class="fa fa-flask"></i> Lab Terakreditasi ISO 17025</span>
+    <span class="flex items-center gap-2"><i class="fa fa-user-tie"></i> Auditor Bersertifikat BNSP</span>
+    <span class="flex items-center gap-2"><i class="fa fa-university"></i> Mitra Resmi ITB</span>
+    <span class="flex items-center gap-2"><i class="fa fa-globe"></i> Melayani Nasional & Internasional</span>
+    <span class="flex items-center gap-2"><i class="fa fa-mosque"></i> YPM Salman ITB</span>
+    <span class="flex items-center gap-2"><i class="fa fa-handshake"></i> MoU dengan BPJPH Kemenag RI</span>
+  </div>
+</div>
+
+<!-- ========================= PROFILE / ABOUT ========================= -->
+<section id="profile" class="py-20 bg-white">
+  <div class="max-w-screen-xl mx-auto px-8">
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <!-- Left: image grid -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="green-label rounded-2xl aspect-square justify-between group transition-transform hover:-translate-y-1">
+          <div>
+            <i class="fa fa-mosque text-4xl text-[#b8972a] mb-3"></i>
+          </div>
+          <div>
+            <div class="text-sm font-black mb-1" style="color:#b8972a">LPH</div>
+            <div class="green-label-title">PROFILE</div>
+          </div>
+        </div>
+        <div class="rounded-2xl overflow-hidden bg-gray-100 aspect-square flex items-center justify-center group hover:shadow-lg transition-shadow">
+          <div class="text-center text-gray-400 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa fa-building text-4xl mb-2 text-[#1a6e3c]"></i>
+            <p class="text-xs font-semibold">Kompleks Masjid<br>Salman ITB, Lt.3</p>
+          </div>
+        </div>
+        <div class="col-span-2 rounded-2xl overflow-hidden bg-[#e8f5ee] h-44 flex items-center justify-center group hover:shadow-lg transition-shadow">
+          <div class="text-center text-[#1a6e3c] group-hover:scale-105 transition-transform duration-300">
+            <i class="fa fa-users text-5xl mb-2 opacity-60"></i>
+            <p class="text-sm font-semibold">Kegiatan & Sosialisasi LPH Salman ITB</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: text -->
+      <div class="pt-2">
+        <div class="grid grid-cols-3 gap-3 mb-8">
+          <div class="stat-box"><div class="stat-num">2015</div><div class="text-xs text-gray-500 mt-1">Tahun Berdiri</div></div>
+          <div class="stat-box"><div class="stat-num">26+</div><div class="text-xs text-gray-500 mt-1">UMKM Tersertifikasi</div></div>
+          <div class="stat-box"><div class="stat-num">4th</div><div class="text-xs text-gray-500 mt-1">Masa Berlaku</div></div>
+        </div>
+        <p class="text-gray-700 text-base leading-loose text-justify font-medium mb-5">
+          <strong>Lembaga Pemeriksa Halal (LPH) YPM Salman ITB</strong> adalah lembaga yang bergerak di bidang pemeriksaan dan pengujian kehalalan produk di bawah naungan <strong>Yayasan Pembina Masjid (YPM) Salman ITB</strong>, resmi terakreditasi oleh BPJPH Kementerian Agama RI.
+        </p>
+        <p class="text-gray-600 text-base leading-loose text-justify mb-8">
+          Didirikan pada Juli 2015 di Kompleks Masjid Salman ITB Lantai 3, LPH Salman ITB didukung oleh auditor halal bersertifikat BNSP dan bekerja sama dengan laboratorium ITB yang terakreditasi SNI ISO/IEC 17025:2017. LPH Salman bertujuan menjadi mitra utama BPJPH tingkat Jawa Barat dan nasional dalam pengujian kehalalan produk.
+        </p>
+        <button class="btn-more">
+          Selengkapnya
+          <span class="circle"><i class="fa fa-play text-white text-xs ml-0.5"></i></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= HALAL INSPECTION SERVICE ========================= -->
+<section id="service" class="py-20 bg-white">
+  <div class="max-w-screen-xl mx-auto px-8">
+    <div class="flex gap-8 items-stretch">
+      <!-- Teal label -->
+      <div class="green-label w-72 flex-shrink-0 rounded-2xl justify-between" style="min-height:360px">
+        <div><i class="fa fa-certificate text-4xl text-[#b8972a] mb-4"></i></div>
+        <div>
+          <p class="green-label-title text-2xl">LAYANAN<br>PEMERIKSAAN<br>HALAL</p>
+        </div>
+        <div class="flex gap-2 mt-6">
+          <button class="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/40 transition" @click="">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
+          </button>
+          <button class="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/40 transition">
+            <i class="fa fa-chevron-right text-white text-xs"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Cards -->
+      <div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fa fa-utensils"></i></div>
+          <h3 class="font-black text-lg">Makanan</h3>
+          <p class="text-gray-500 text-sm leading-relaxed flex-1">Sertifikasi halal untuk makanan memastikan produk yang dikonsumsi umat Islam memenuhi syarat kehalalan sesuai syariat. Pemeriksaan mencakup bahan baku, proses produksi, dan pengemasan.</p>
+          <button class="btn-more mt-2">Selengkapnya <span class="circle"><i class="fa fa-play text-white text-xs ml-0.5"></i></span></button>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fa fa-wine-glass-alt"></i></div>
+          <h3 class="font-black text-lg">Minuman</h3>
+          <p class="text-gray-500 text-sm leading-relaxed flex-1">Minuman yang memperoleh sertifikasi halal harus terbebas dari alkohol dan bahan terlarang dalam Islam. Lingkup pemeriksaan mencakup bahan baku, proses produksi, dan sanitasi.</p>
+          <button class="btn-more mt-2">Selengkapnya <span class="circle"><i class="fa fa-play text-white text-xs ml-0.5"></i></span></button>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fa fa-pills"></i></div>
+          <h3 class="font-black text-lg">Obat & Kosmetik</h3>
+          <p class="text-gray-500 text-sm leading-relaxed flex-1">Sertifikasi halal pada obat dan kosmetik memastikan bahan aktif maupun tambahan berasal dari sumber yang halal dan suci, sesuai standar syariat Islam.</p>
+          <button class="btn-more mt-2">Selengkapnya <span class="circle"><i class="fa fa-play text-white text-xs ml-0.5"></i></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= HALAL CERTIFICATION FLOW ========================= -->
+<section id="flow" class="py-20 bg-white">
+  <div class="max-w-screen-xl mx-auto px-8">
+    <div class="flex gap-8 items-stretch">
+      <!-- Steps box -->
+      <div class="flex-1 border-2 border-[#1a6e3c] rounded-2xl p-8">
+        <div class="flex gap-4">
+          <div class="flow-card">
+            <div class="flow-icon"><i class="fa fa-users-cog"></i></div>
+            <p class="font-black text-sm mb-2">Preparation</p>
+            <p class="text-xs text-gray-500 leading-relaxed">Pelaku usaha mempersiapkan SDM halal dan mengidentifikasi titik kritis halal dalam proses produksi.</p>
+            <div class="flow-num">1</div>
+          </div>
+          <div class="flow-card">
+            <div class="flow-icon"><i class="fa fa-file-alt"></i></div>
+            <p class="font-black text-sm mb-2">Registration</p>
+            <p class="text-xs text-gray-500 leading-relaxed">Pelaku usaha menyiapkan dokumen persyaratan dan mendaftar secara online melalui BPJPH.</p>
+            <div class="flow-num">2</div>
+          </div>
+          <div class="flow-card">
+            <div class="flow-icon"><i class="fa fa-search-plus"></i></div>
+            <p class="font-black text-sm mb-2">Inspection</p>
+            <p class="text-xs text-gray-500 leading-relaxed">LPH Salman ITB menghubungi pelaku usaha untuk melakukan audit halal di lokasi produksi.</p>
+            <div class="flow-num">3</div>
+          </div>
+          <div class="flow-card">
+            <div class="flow-icon"><i class="fa fa-gavel"></i></div>
+            <p class="font-black text-sm mb-2">Fatwa Session</p>
+            <p class="text-xs text-gray-500 leading-relaxed">Komisi Fatwa MUI melakukan sidang untuk menentukan status kehalalan produk berdasarkan hasil audit LPH.</p>
+            <div class="flow-num">4</div>
+          </div>
+          <div class="flow-card">
+            <div class="flow-icon"><i class="fa fa-certificate"></i></div>
+            <p class="font-black text-sm mb-2">Certificate Issuance</p>
+            <p class="text-xs text-gray-500 leading-relaxed">BPJPH menerbitkan Sertifikat Halal berdasarkan rekomendasi Komisi Fatwa MUI. Berlaku 4 tahun.</p>
+            <div class="flow-num">5</div>
+          </div>
+        </div>
+      </div>
+      <!-- Label -->
+      <div class="green-label w-64 flex-shrink-0 rounded-2xl justify-end" style="min-height:260px">
+        <p class="green-label-title text-2xl">HALAL<br>CERTIFICATION<br>FLOW</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= CHECK HALAL PRODUCT ========================= -->
+<section id="check" class="py-20 bg-white">
+  <div class="max-w-screen-xl mx-auto px-8">
+    <div class="flex gap-8 items-stretch">
+      <!-- Label -->
+      <div class="green-label w-72 flex-shrink-0 rounded-2xl justify-between" style="min-height:280px">
+        <div>
+          <i class="fa fa-mosque text-4xl text-[#b8972a] mb-3"></i>
+          <div class="text-sm font-black" style="color:#b8972a">LPH SALMAN ITB</div>
+        </div>
+        <p class="green-label-title text-2xl">CHECK HALAL<br>PRODUCT</p>
+      </div>
+      <!-- Forms -->
+      <div class="flex-1 space-y-8">
+        <div>
+          <p class="font-bold text-[#1a6e3c] text-base mb-3">Berdasarkan BPJPH</p>
+          <div class="flex gap-3 flex-wrap">
+            <input class="check-input flex-1 min-w-[140px]" placeholder="Nama Produk"/>
+            <input class="check-input flex-1 min-w-[140px]" placeholder="Nama Usaha"/>
+            <input class="check-input flex-1 min-w-[140px]" placeholder="Nomor Sertifikat"/>
+            <button class="btn-search">Cari</button>
+          </div>
+        </div>
+        <div>
+          <p class="font-bold text-[#1a6e3c] text-base mb-3">Berdasarkan KH LPH Salman ITB</p>
+          <div class="flex gap-3 flex-wrap">
+            <input class="check-input flex-1 min-w-[140px]" placeholder="Jenis Produk"/>
+            <input class="check-input flex-1 min-w-[140px]" placeholder="Nama Usaha"/>
+            <input class="check-input flex-1 min-w-[140px]" placeholder="Nomor KH"/>
+            <button class="btn-search">Cari</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= LATEST PUBLICATIONS ========================= -->
+<section id="publication" class="py-20 bg-white">
+  <div class="max-w-screen-xl mx-auto px-8">
+    <div class="flex gap-8 items-stretch">
+      <!-- Cards -->
+      <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="pub-card">
+          <p class="font-black text-lg leading-snug text-gray-900">Wajib Halal Oktober 2026: Kesiapan Industri Kosmetik dan Pangan Olahan</p>
+          <p class="text-xs text-gray-400 font-medium">By Admin LPH Salman ITB / 08 Desember 2025</p>
+          <div class="flex-1 bg-[#e8f5ee] rounded-xl flex items-center justify-center group overflow-hidden" style="min-height:100px">
+            <i class="fa fa-newspaper text-5xl text-[#1a6e3c] opacity-30 group-hover:scale-110 transition-transform duration-300"></i>
+          </div>
+          <button class="btn-more">Baca Selengkapnya <span class="circle"><i class="fa fa-play text-white text-xs ml-0.5"></i></span></button>
+        </div>
+        <div class="pub-card">
+          <p class="font-black text-lg leading-snug text-gray-900">Sertifikasi Halal UMKM Bandung: LPH Salman ITB Dampingi 26 Pelaku Usaha</p>
+          <p class="text-xs text-gray-400 font-medium">By Admin LPH Salman ITB / 13 Maret 2023</p>
+          <div class="rounded-xl overflow-hidden bg-[#1a6e3c] flex items-center justify-center p-6 group" style="min-height:120px">
+            <div class="text-white text-left z-10">
+              <div class="font-black text-sm leading-tight mb-1">Sertifikasi Halal UMKM</div>
+              <div class="text-xs opacity-80">LPH Salman ITB · Bandung<br>Jawa Barat</div>
+            </div>
+            <div class="ml-auto w-16 h-16 bg-white/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <i class="fa fa-store text-white text-2xl opacity-60"></i>
+            </div>
+          </div>
+          <button class="btn-more">Baca Selengkapnya <span class="circle"><i class="fa fa-play text-white text-xs ml-0.5"></i></span></button>
+        </div>
+      </div>
+      <!-- Label -->
+      <div class="green-label w-56 flex-shrink-0 rounded-2xl justify-end" style="min-height:260px">
+        <p class="green-label-title text-2xl">LATEST<br>PUBLICATIONS</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= SUPPORTED BY ========================= -->
+<section class="py-12 bg-white border-t border-gray-100">
+  <div class="max-w-screen-xl mx-auto px-8">
+    <div class="flex items-center gap-12 flex-wrap justify-center">
+      <span class="text-sm font-bold text-gray-500 whitespace-nowrap">Supported By:</span>
+      <div class="logo-placeholder" style="background:#003366;color:white;font-size:9px">ITB<br>Bandung</div>
+      <div class="logo-placeholder" style="background:#1a6e3c;color:white;font-size:8px">YPM<br>Salman</div>
+      <div class="logo-placeholder" style="background:#b8972a;color:white;font-size:8px">LPH<br>Salman</div>
+      <div class="logo-placeholder" style="background:#1a5c1e;color:white;font-size:8px">Kemenag<br>RI</div>
+      <div class="logo-placeholder" style="background:#5c3d1a;color:white;font-size:9px">MUI</div>
+      <div class="logo-placeholder" style="background:#1a3a6e;color:white;font-size:8px">BPJPH</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= CONTACT ========================= -->
+<section id="contact" class="py-20 bg-white">
+  <div class="max-w-screen-xl mx-auto px-8">
+    <div class="flex gap-8 items-stretch">
+      <!-- Label -->
+      <div class="green-label w-72 flex-shrink-0 rounded-2xl justify-between" style="min-height:360px">
+        <div>
+          <i class="fa fa-mosque text-4xl text-[#b8972a] mb-3"></i>
+          <div class="text-sm font-black mb-1" style="color:#b8972a">LPH SALMAN ITB</div>
+          <div class="text-xs text-white/70">Kompleks Masjid Salman ITB</div>
+        </div>
+        <p class="green-label-title text-2xl">CONTACT</p>
+      </div>
+
+      <!-- Info card -->
+      <div class="flex-1 border border-gray-200 rounded-2xl p-8 flex flex-col justify-between hover:shadow-md transition-shadow">
+        <div class="space-y-6">
+          <div class="contact-info-row">
+            <div class="w-10 h-10 border-2 border-[#1a6e3c] rounded-lg flex items-center justify-center flex-shrink-0 hover:bg-[#e8f5ee] transition-colors">
+              <i class="fa fa-phone text-[#1a6e3c]"></i>
+            </div>
+            <span>(022) 250-0089</span>
+          </div>
+          <div class="contact-info-row">
+            <div class="w-10 h-10 border-2 border-[#1a6e3c] rounded-lg flex items-center justify-center flex-shrink-0 hover:bg-[#e8f5ee] transition-colors">
+              <i class="fa fa-envelope text-[#1a6e3c]"></i>
+            </div>
+            <span>lph@salmanitb.com</span>
+          </div>
+          <div class="contact-info-row">
+            <div class="w-10 h-10 border-2 border-[#1a6e3c] rounded-lg flex items-center justify-center flex-shrink-0 hover:bg-[#e8f5ee] transition-colors">
+              <i class="fa fa-globe text-[#1a6e3c]"></i>
+            </div>
+            <span>pusathalal.salmanitb.com</span>
+          </div>
+          <div class="contact-info-row">
+            <div class="w-10 h-10 border-2 border-[#1a6e3c] rounded-lg flex items-center justify-center flex-shrink-0 hover:bg-[#e8f5ee] transition-colors">
+              <i class="fa fa-map-marker-alt text-[#1a6e3c]"></i>
+            </div>
+            <span>Kompleks Masjid Salman ITB, Lt. 3<br><span class="text-sm text-gray-500 font-normal">Jl. Ganesha No.7, Bandung 40132</span></span>
+          </div>
+        </div>
+        <div class="mt-8">
+          <button class="btn-more">
+            Hubungi Kami
+            <span class="circle"><i class="fa fa-play text-white text-xs ml-0.5"></i></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="flex-1 rounded-2xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow" style="min-height:320px">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.9!2d107.6096!3d-6.8917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e64c5e8866b3%3A0x5030bfbca832610!2sMasjid%20Salman%20ITB!5e0!3m2!1sid!2sid!4v1"
+          width="100%" height="100%" style="border:0;min-height:320px" allowfullscreen loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= FOOTER ========================= -->
+<footer class="py-12">
+  <div class="max-w-screen-xl mx-auto px-8">
+    <div class="grid md:grid-cols-3 gap-10">
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-14 h-14 rounded-full border-2 border-white/30 bg-white/10 flex items-center justify-center">
+            <i class="fa fa-mosque text-white text-xl"></i>
+          </div>
+          <div>
+            <div class="font-black text-3xl leading-none" style="color:#b8972a">LPH</div>
+            <div style="font-size:8px;letter-spacing:.12em" class="text-white/60 font-semibold">SALMAN ITB</div>
+          </div>
+        </div>
+        <p class="text-white/80 text-sm leading-relaxed">
+          Lembaga Pemeriksa Halal (LPH) YPM Salman ITB adalah lembaga di bawah naungan Yayasan Pembina Masjid Salman ITB yang bergerak di bidang pemeriksaan kehalalan produk dengan komitmen tinggi mewujudkan ekosistem halal yang berkelanjutan di tingkat nasional dan internasional.
+        </p>
+      </div>
+
+      <!-- Service Scope -->
+      <div>
+        <h4 class="text-white font-bold text-base mb-5">Service Scope</h4>
+        <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-white/80">
+          <a href="#" class="hover:text-white transition">Makanan</a>
+          <a href="#" class="hover:text-white transition">Jasa Penyembelihan</a>
+          <a href="#" class="hover:text-white transition">Minuman</a>
+          <a href="#" class="hover:text-white transition">Jasa Pengolahan</a>
+          <a href="#" class="hover:text-white transition">Obat-obatan</a>
+          <a href="#" class="hover:text-white transition">Jasa Penyimpanan</a>
+          <a href="#" class="hover:text-white transition">Kosmetik</a>
+          <a href="#" class="hover:text-white transition">Jasa Pengemasan</a>
+          <a href="#" class="hover:text-white transition">Produk Kimia</a>
+          <a href="#" class="hover:text-white transition">Jasa Distribusi</a>
+          <a href="#" class="hover:text-white transition">Produk Biologi</a>
+          <a href="#" class="hover:text-white transition">Jasa Penjualan</a>
+          <a href="#" class="hover:text-white transition">Produk Rekayasa Genetik</a>
+          <a href="#" class="hover:text-white transition">Jasa Penyajian</a>
+          <a href="#" class="hover:text-white transition">Barang Konsumsi</a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-white font-bold text-base mb-5">Our Contact</h4>
+        <div class="text-white/80 text-sm leading-loose mb-6">
+          <p class="font-semibold text-white">Alamat:</p>
+          <p>Kompleks Masjid Salman ITB, Lantai 3</p>
+          <p>Jl. Ganesha No.7, Lb. Siliwangi,</p>
+          <p>Kec. Coblong, Kota Bandung 40132</p>
+        </div>
+        <div class="flex gap-3">
+          <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#b8972a] transition transform hover:scale-110"><i class="fab fa-facebook text-white"></i></a>
+          <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#b8972a] transition transform hover:scale-110"><i class="fab fa-instagram text-white"></i></a>
+          <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#b8972a] transition transform hover:scale-110"><i class="fab fa-whatsapp text-white"></i></a>
+          <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#b8972a] transition transform hover:scale-110"><i class="fab fa-tiktok text-white"></i></a>
+          <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#b8972a] transition transform hover:scale-110"><i class="fab fa-youtube text-white"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-white/20 mt-10 pt-6 text-center text-xs text-white/50">
+      © 2025 LPH Salman ITB — Lembaga Pemeriksa Halal Yayasan Pembina Masjid Salman ITB. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/622250000089" target="_blank" class="whatsapp-float">
+  <i class="fab fa-whatsapp text-white text-2xl"></i>
+</a>
+
+</body>
+</html>
