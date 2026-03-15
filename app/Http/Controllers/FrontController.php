@@ -7,7 +7,9 @@ use App\Models\About;
 use App\Models\Video;
 use App\Models\Article;
 use App\Models\Partner;
+use App\Models\Service;
 use App\Models\Category;
+use App\Models\HeroSlide;
 use App\Models\Regulation;
 use App\Models\FaqCategory;
 use App\Models\LandingPage;
@@ -24,11 +26,18 @@ class FrontController extends Controller
     {
         $landingPage = LandingPage::current();
 
+        $heroSlides = HeroSlide::active()->get();
+        $services = Service::active()->get();
         $partners = Partner::orderBy('order')->get();
 
         $testimonials = Testimonial::where('is_featured', true)
             ->orderBy('order')
             ->take(3)
+            ->get();
+
+        $latestArticles = Article::where('status', 'published')
+            ->latest()
+            ->take(2)
             ->get();
 
         $categories = [
@@ -47,8 +56,11 @@ class FrontController extends Controller
 
         return view('front.home', compact(
             'landingPage',
+            'heroSlides',
+            'services',
             'partners',
             'testimonials',
+            'latestArticles',
             'categories',
             'upcomingBatches'
         ));

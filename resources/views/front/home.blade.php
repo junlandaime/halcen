@@ -1,340 +1,452 @@
 @extends('layouts.front')
 
 @section('title')
-    <title>Halal Center - Masjid Salman ITB</title>
+    <title>LPH Salman ITB | Lembaga Pemeriksa Halal | Sertifikasi Halal</title>
 @endsection
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBD9MEK0DY"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'G-ZBD9MEK0DY');
-</script>
-
 @section('content')
-    <!-- Web Banner -->
-    <section class="relative min-h-[90vh] pt-16 overflow-hidden" x-data="{ scroll: 0 }"
-        @scroll.window="scroll = window.pageYOffset">
-        {{-- Background Image --}}
-        @if ($landingPage->hero_image)
-            <img src="{{ Storage::url($landingPage->hero_image) }}" alt="Hero Image"
-                class="absolute inset-0 w-full h-full object-cover object-bottom"
-                :style="`transform: translateY(${scroll * 0.3}px)`">
-        @endif
 
-        {{-- Overlay --}}
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-400/70"></div>
+{{-- ========================= HERO SLIDER ========================= --}}
+<section id="home" class="min-h-screen bg-white overflow-hidden"
+    x-data="{
+        slide: 0,
+        slides: {{ $heroSlides->count() ?: 3 }},
+        startSlide() { setInterval(() => { this.slide = (this.slide + 1) % this.slides }, 4500) }
+    }"
+    x-init="startSlide()">
 
-        {{-- Content --}}
-        <div class="relative z-10 max-w-6xl mx-auto h-full flex items-center px-4">
-            <div class="text-white max-w-2xl" data-aos="fade-up">
-                <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                    {{ $landingPage->hero_title }}
+    @if($heroSlides->count() > 0)
+        @foreach($heroSlides as $index => $heroSlide)
+        <div class="max-w-screen-xl mx-auto px-8 py-20 items-center justify-between gap-10 w-full min-h-screen"
+             :class="slide === {{ $index }} ? 'flex' : 'hidden'" style="animation:fadeUp .6s ease">
+            <div class="flex-1 max-w-xl">
+                @if($heroSlide->tag_text)
+                <span class="tag mb-4 inline-block">{{ $heroSlide->tag_text }}</span>
+                @endif
+                <h1 class="text-5xl md:text-6xl font-black leading-tight text-gray-900 mb-3">
+                    {!! nl2br(e($heroSlide->title)) !!}
                 </h1>
+                @if($heroSlide->subtitle)
+                <h2 class="text-4xl md:text-5xl font-black leading-tight mb-6" style="color:#4a86b8">
+                    {{ $heroSlide->subtitle }}
+                </h2>
+                @endif
+                @if($heroSlide->hashtag)
+                <p class="text-gray-500 font-semibold text-base mb-1">{{ $heroSlide->hashtag }}</p>
+                @endif
+                @if($heroSlide->description)
+                <p class="text-gray-600 text-base mb-10 max-w-md">{{ $heroSlide->description }}</p>
+                @endif
+                @if($heroSlide->button_text)
+                <a href="{{ $heroSlide->button_link ?? '#' }}" class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#3a6d96] transition transform hover:-translate-y-0.5 shadow-lg">
+                    {{ $heroSlide->button_text }}
+                    <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center">
+                        <i class="fa fa-play text-white text-xs ml-0.5"></i>
+                    </span>
+                </a>
+                @endif
+            </div>
+            <div class="hidden md:block hero-blob">
+                @if($heroSlide->image)
+                    <img src="{{ Storage::url($heroSlide->image) }}" alt="{{ $heroSlide->title }}">
+                @else
+                    <div class="w-full h-full flex items-center justify-center" style="background:linear-gradient(135deg,#4a86b8,#2c5478)">
+                        <i class="fa fa-mosque text-white opacity-70" style="font-size:120px"></i>
+                    </div>
+                @endif
+            </div>
+        </div>
+        @endforeach
+    @else
+        {{-- Default slides when no data --}}
+        <div class="max-w-screen-xl mx-auto px-8 py-20 items-center justify-between gap-10 w-full min-h-screen"
+             :class="slide === 0 ? 'flex' : 'hidden'" style="animation:fadeUp .6s ease">
+            <div class="flex-1 max-w-xl">
+                <span class="tag mb-4 inline-block">Terakreditasi BPJPH Â· Bandung</span>
+                <h1 class="text-5xl md:text-6xl font-black leading-tight text-gray-900 mb-3">
+                    HALAL<br>INSPECTION<br>INSTITUTION
+                </h1>
+                <h2 class="text-4xl md:text-5xl font-black leading-tight mb-6" style="color:#4a86b8">SALMAN ITB</h2>
+                <p class="text-gray-500 font-semibold text-base mb-1">#halalitumudah</p>
+                <p class="text-gray-600 text-base mb-10 max-w-md">Registering for independent halal certification is now faster and easier. Serving businesses from Bandung to national scale.</p>
+                <button class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#3a6d96] transition shadow-lg">
+                    Daftar Sekarang
+                    <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center"><i class="fa fa-play text-white text-xs ml-0.5"></i></span>
+                </button>
+            </div>
+            <div class="hidden md:block hero-blob" style="background:linear-gradient(135deg,#4a86b8,#3a6d96)">
+                <div class="w-full h-full flex items-center justify-center opacity-70">
+                    <i class="fa fa-mosque text-white" style="font-size:120px"></i>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-screen-xl mx-auto px-8 py-20 items-center justify-between gap-10 w-full min-h-screen"
+             :class="slide === 1 ? 'flex' : 'hidden'" style="animation:fadeUp .6s ease">
+            <div class="flex-1 max-w-xl">
+                <span class="tag mb-4 inline-block">Mitra BPJPH Resmi</span>
+                <h1 class="text-5xl font-black leading-tight text-gray-900 mb-3">MEWUJUDKAN<br>EKOSISTEM<br>HALAL</h1>
+                <h2 class="text-4xl font-black leading-tight mb-6" style="color:#4a86b8">YANG BERKELANJUTAN</h2>
+                <p class="text-gray-600 text-base mb-10 max-w-md">Didukung auditor halal bersertifikat BNSP dan laboratorium terakreditasi SNI ISO/IEC 17025:2017 kerja sama dengan ITB.</p>
+                <button class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#3a6d96] transition shadow-lg">
+                    Pelajari Lebih Lanjut
+                    <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center"><i class="fa fa-arrow-right text-white text-xs"></i></span>
+                </button>
+            </div>
+            <div class="hidden md:block hero-blob" style="background:linear-gradient(135deg,#4a86b8,#2c5478)">
+                <div class="w-full h-full flex items-center justify-center opacity-70"><i class="fa fa-mosque text-white" style="font-size:120px"></i></div>
+            </div>
+        </div>
+        <div class="max-w-screen-xl mx-auto px-8 py-20 items-center justify-between gap-10 w-full min-h-screen"
+             :class="slide === 2 ? 'flex' : 'hidden'" style="animation:fadeUp .6s ease">
+            <div class="flex-1 max-w-xl">
+                <span class="tag mb-4 inline-block">Program Unggulan {{ date('Y') }}</span>
+                <h1 class="text-5xl font-black leading-tight text-gray-900 mb-3">SERTIFIKASI<br>HALAL GRATIS<br>UNTUK UMKM</h1>
+                <h2 class="text-4xl font-black leading-tight mb-6" style="color:#4a86b8">SELF DECLARE BPJPH</h2>
+                <p class="text-gray-600 text-base mb-10 max-w-md">UMKM wajib tahu! Sertifikat Halal sekarang bisa GRATIS melalui program Self Declare BPJPH SEHATI. LPH Salman ITB siap mendampingi.</p>
+                <button class="inline-flex items-center gap-3 bg-[#b8972a] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#9a7d20] transition shadow-lg">
+                    Info Selengkapnya
+                    <span class="w-8 h-8 bg-[#4a86b8] rounded-full flex items-center justify-center"><i class="fa fa-play text-white text-xs ml-0.5"></i></span>
+                </button>
+            </div>
+            <div class="hidden md:block hero-blob" style="background:linear-gradient(135deg,#b8972a,#9a7d20)">
+                <div class="w-full h-full flex items-center justify-center opacity-50"><i class="fa fa-certificate text-white" style="font-size:120px"></i></div>
+            </div>
+        </div>
+    @endif
 
-                <p class="text-lg md:text-2xl mb-8 text-gray-200">
-                    {{ $landingPage->hero_subtitle }}
+    <!-- Slide dots -->
+    <div class="flex justify-center gap-3 pb-10 -mt-8">
+        <template x-for="i in slides" :key="i">
+            <button @click="slide=i-1" :class="slide===i-1 ? 'slider-dot active' : 'slider-dot'"></button>
+        </template>
+    </div>
+</section>
+
+{{-- ========================= MARQUEE ========================= --}}
+<div class="bg-[#e8f0f7] border-y border-[#c8d8e8] py-3 overflow-hidden">
+    <div class="marquee-track text-sm font-bold text-[#4a86b8]">
+        <span class="flex items-center gap-2"><i class="fa fa-check-circle"></i> Terakreditasi BPJPH</span>
+        <span class="flex items-center gap-2"><i class="fa fa-flask"></i> Lab Terakreditasi ISO 17025</span>
+        <span class="flex items-center gap-2"><i class="fa fa-user-tie"></i> Auditor Bersertifikat BNSP</span>
+        <span class="flex items-center gap-2"><i class="fa fa-university"></i> Mitra Resmi ITB</span>
+        <span class="flex items-center gap-2"><i class="fa fa-globe"></i> Melayani Nasional & Internasional</span>
+        <span class="flex items-center gap-2"><i class="fa fa-mosque"></i> YPM Salman ITB</span>
+        <span class="flex items-center gap-2"><i class="fa fa-handshake"></i> MoU dengan BPJPH Kemenag RI</span>
+        <span class="flex items-center gap-2"><i class="fa fa-check-circle"></i> Terakreditasi BPJPH</span>
+        <span class="flex items-center gap-2"><i class="fa fa-flask"></i> Lab Terakreditasi ISO 17025</span>
+        <span class="flex items-center gap-2"><i class="fa fa-user-tie"></i> Auditor Bersertifikat BNSP</span>
+        <span class="flex items-center gap-2"><i class="fa fa-university"></i> Mitra Resmi ITB</span>
+        <span class="flex items-center gap-2"><i class="fa fa-globe"></i> Melayani Nasional & Internasional</span>
+        <span class="flex items-center gap-2"><i class="fa fa-mosque"></i> YPM Salman ITB</span>
+        <span class="flex items-center gap-2"><i class="fa fa-handshake"></i> MoU dengan BPJPH Kemenag RI</span>
+    </div>
+</div>
+
+{{-- ========================= PROFILE / ABOUT ========================= --}}
+<section id="profile" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-screen-xl mx-auto px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-start">
+            <!-- Left: image grid -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="blue-label rounded-2xl aspect-square justify-between group transition-transform hover:-translate-y-1">
+                    <div><i class="fa fa-mosque text-4xl text-[#b8972a] mb-3"></i></div>
+                    <div>
+                        <div class="text-sm font-black mb-1" style="color:#b8972a">LPH</div>
+                        <div class="blue-label-title">PROFILE</div>
+                    </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden bg-gray-100 aspect-square flex items-center justify-center group hover:shadow-lg transition-shadow">
+                    @if($landingPage->hero_image)
+                        <img src="{{ Storage::url($landingPage->hero_image) }}" alt="Kantor LPH" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    @else
+                        <div class="text-center text-gray-400 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa fa-building text-4xl mb-2 text-[#4a86b8]"></i>
+                            <p class="text-xs font-semibold">Kompleks Masjid<br>Salman ITB, Lt.3</p>
+                        </div>
+                    @endif
+                </div>
+                <div class="col-span-2 rounded-2xl overflow-hidden bg-[#e8f0f7] h-44 flex items-center justify-center group hover:shadow-lg transition-shadow">
+                    <div class="text-center text-[#4a86b8] group-hover:scale-105 transition-transform duration-300">
+                        <i class="fa fa-users text-5xl mb-2 opacity-60"></i>
+                        <p class="text-sm font-semibold">Kegiatan & Sosialisasi LPH Salman ITB</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: text -->
+            <div class="pt-2">
+                <div class="grid grid-cols-3 gap-3 mb-8">
+                    <div class="stat-box"><div class="stat-num">2015</div><div class="text-xs text-gray-500 mt-1">Tahun Berdiri</div></div>
+                    <div class="stat-box"><div class="stat-num">26+</div><div class="text-xs text-gray-500 mt-1">UMKM Tersertifikasi</div></div>
+                    <div class="stat-box"><div class="stat-num">4th</div><div class="text-xs text-gray-500 mt-1">Masa Berlaku</div></div>
+                </div>
+                <p class="text-gray-700 text-base leading-loose text-justify font-medium mb-5">
+                    <strong>Lembaga Pemeriksa Halal (LPH) YPM Salman ITB</strong> adalah lembaga yang bergerak di bidang pemeriksaan dan pengujian kehalalan produk di bawah naungan <strong>Yayasan Pembina Masjid (YPM) Salman ITB</strong>, resmi terakreditasi oleh BPJPH Kementerian Agama RI.
                 </p>
-
-                <a href="{{ route('front.kontak') }}">
-                    <button
-                        class="bg-white text-blue-700 px-8 py-3 rounded-full
-                           hover:bg-blue-50 transition-all duration-300
-                           transform hover:scale-105">
-                        Mulai Sekarang
-                    </button>
+                <p class="text-gray-600 text-base leading-loose text-justify mb-8">
+                    {{ $landingPage->hero_description ?? 'Didirikan pada Juli 2015 di Kompleks Masjid Salman ITB Lantai 3, LPH Salman ITB didukung oleh auditor halal bersertifikat BNSP dan bekerja sama dengan laboratorium ITB yang terakreditasi SNI ISO/IEC 17025:2017.' }}
+                </p>
+                <a href="{{ route('abouts.index') }}" class="btn-more">
+                    Selengkapnya
+                    <span class="circle"><i class="fa fa-play text-white text-xs ml-0.5"></i></span>
                 </a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-
-    <!-- Rekap Penerima Manfaat -->
-    <section class="relative z-10 -mt-20 pb-16">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-xl shadow-xl p-8" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-4xl font-bold text-primary mb-2" x-data="{ count: 0 }" x-init="setInterval(() => { if (count < {{ $landingPage->stats_clients }}) count++ }, 1)">
-                        <span x-text="count">0</span>+
-                    </div>
-                    <p class="text-gray-600">Lulusan Kuliah Halal</p>
-                    <div class="mt-4 h-1 w-20 bg-primary rounded"></div>
-                </div>
-                <div class="bg-white rounded-xl shadow-xl p-8" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-4xl font-bold text-primary mb-2" x-data="{ count: 0 }" x-init="setInterval(() => { if (count < {{ $landingPage->stats_projects }}) count++ }, 1)">
-                        <span x-text="count">0</span>+
-                    </div>
-                    <p class="text-gray-600">Peserta JULEHA</p>
-                    <div class="mt-4 h-1 w-20 bg-primary rounded"></div>
-                </div>
-                <div class="bg-white rounded-xl shadow-xl p-8" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-4xl font-bold text-primary mb-2" x-data="{ count: 5500 }" x-init="setInterval(() => { if (count < {{ $landingPage->stats_partners }}) count++ }, 0.1)">
-                        <span x-text="count">0</span>+
-                    </div>
-                    <p class="text-gray-600">UMKM Tersertifikasi</p>
-                    <div class="mt-4 h-1 w-20 bg-primary rounded"></div>
+{{-- ========================= HALAL INSPECTION SERVICE ========================= --}}
+<section id="service" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-screen-xl mx-auto px-8">
+        <div class="flex flex-col md:flex-row gap-8 items-stretch">
+            <!-- Green label -->
+            <div class="blue-label w-full md:w-72 flex-shrink-0 rounded-2xl justify-between" style="min-height:360px">
+                <div><i class="fa fa-certificate text-4xl text-[#b8972a] mb-4"></i></div>
+                <div>
+                    <p class="blue-label-title text-2xl">LAYANAN<br>PEMERIKSAAN<br>HALAL</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Partners Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-2xl font-bold text-center mb-12" data-aos="fade-up">Mitra Kami</h2>
-            <div x-data="{
-                partners: [],
-                currentIndex: 0,
-                totalSlides: 0,
-                itemsPerSlide: 4,
-            
-                init() {
-                    this.partners = Array.from(document.querySelectorAll('#partner-slider > div'));
-                    this.totalSlides = Math.ceil(this.partners.length / this.itemsPerSlide);
-            
-                    // Handle responsive itemsPerSlide
-                    window.addEventListener('resize', () => {
-                        if (window.innerWidth < 768) {
-                            this.itemsPerSlide = 1;
-                        } else if (window.innerWidth < 1024) {
-                            this.itemsPerSlide = 2;
-                        } else {
-                            this.itemsPerSlide = 4;
-                        }
-                        this.totalSlides = Math.ceil(this.partners.length / this.itemsPerSlide);
-                        this.currentIndex = Math.min(this.currentIndex, this.totalSlides - 1);
-                    });
-                },
-            
-                next() {
-                    this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
-                },
-            
-                prev() {
-                    this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
-                },
-            
-                autoplay: null,
-            
-                startAutoplay() {
-                    this.autoplay = setInterval(() => {
-                        this.next();
-                    }, 3000);
-                },
-            
-                stopAutoplay() {
-                    if (this.autoplay) clearInterval(this.autoplay);
-                }
-            }" x-init="init();
-            startAutoplay()" @mouseover="stopAutoplay()" @mouseleave="startAutoplay()"
-                class="relative">
-                <!-- Previous Button -->
-                <button @click="prev"
-                    class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full p-2 shadow-lg z-10 hover:bg-gray-50">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-
-                <!-- Next Button -->
-                <button @click="next"
-                    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white rounded-full p-2 shadow-lg z-10 hover:bg-gray-50">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
-
-                <!-- Slides Container -->
-                <div class="overflow-hidden">
-                    <div id="partner-slider" class="flex transition-transform duration-500 ease-in-out"
-                        :style="`transform: translateX(-${currentIndex * 100}%)`">
-                        @foreach ($partners as $partner)
-                            <div class="w-full md:w-1/2 lg:w-1/4 flex-shrink-0 px-4">
-                                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300"
-                                    data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
-                                    <a href="{{ $partner->website }}" target="_blank" class="block">
-                                        <img src="{{ Storage::url($partner->logo) }}" alt="{{ $partner->name }}"
-                                            class="w-full h-24 object-contain filter grayscale hover:grayscale-0 transition-all duration-300">
-                                    </a>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+            <!-- Cards -->
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-5">
+                @forelse($services as $service)
+                <div class="svc-card">
+                    <div class="svc-icon"><i class="fa {{ $service->icon }}"></i></div>
+                    <h3 class="font-black text-lg">{{ $service->title }}</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed flex-1">{{ $service->description }}</p>
+                    @if($service->link)
+                    <a href="{{ $service->link }}" class="btn-more mt-2">Selengkapnya <span class="circle"><i class="fa fa-play text-white text-xs ml-0.5"></i></span></a>
+                    @endif
                 </div>
-
-                <!-- Dots Navigation -->
-                <div class="flex justify-center mt-6 space-x-2">
-                    <template x-for="(dot, index) in totalSlides" :key="index">
-                        <button @click="currentIndex = index"
-                            :class="{ 'bg-blue-500': currentIndex === index, 'bg-gray-300': currentIndex !== index }"
-                            class="w-3 h-3 rounded-full transition-colors duration-300">
-                        </button>
-                    </template>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    @php
-        $upcomingPrograms = App\Models\ProgramLayanan::with([
-            'batches' => function ($query) {
-                $query
-                    ->where('status', 'aktif')
-                    ->where(function ($q) {
-                        $q->where('tanggal_mulai_pendaftaran', '<=', now()->addMonths(2))->where(
-                            'tanggal_selesai_pendaftaran',
-                            '>=',
-                            now(),
-                        );
-                    })
-                    ->orderBy('tanggal_mulai_pendaftaran');
-            },
-        ])
-            ->where('status', 'aktif')
-            ->whereHas('batches', function ($query) {
-                $query->where('status', 'aktif')->where('tanggal_selesai_pendaftaran', '>=', now());
-            })
-            ->get();
-    @endphp
-
-    <!-- Upcoming Program -->
-    <section class="py-16" x-data="{
-        selectedCategory: 'all',
-        categories: {
-            1: 'Kuliah Halal',
-            2: 'Juleha Kurban',
-            3: 'Juleha Unggas',
-            4: 'P3H',
-            5: 'Sertifikasi'
-        }
-    }">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-2xl font-bold mb-8" data-aos="fade-up">Program Mendatang</h2>
-
-            <!-- Filter Menu -->
-            <div class="flex flex-wrap gap-2 mb-6 border-b-2 border-gray-200" data-aos="fade-up">
-                <template x-for="(category, id) in { all: 'Semua', ...categories }" :key="id">
-                    <button @click="selectedCategory = id"
-                        class="relative px-4 py-2 text-sm font-medium transition-all duration-300"
-                        :class="selectedCategory === id ?
-                            'text-primary border-b-4 border-primary font-semibold' :
-                            'text-gray-500 hover:text-primary hover:border-primary/50 border-b-4 border-transparent'">
-                        <span x-text="category"></span>
-                    </button>
-                </template>
-            </div>
-
-            <!-- Program List -->
-            <div class="space-y-8">
-                <!-- Loop through all programs -->
-                @forelse ($upcomingPrograms as $program)
-                    @foreach ($program->batches as $batch)
-                        <div x-show="selectedCategory === 'all' || selectedCategory == {{ $batch->program_layanan_id }}"
-                            class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
-                            <div class="flex gap-6">
-                                <div class="text-center bg-blue-50 px-4 py-2 rounded-lg">
-                                    <div class="text-2xl font-bold text-primary">
-                                        {{ $batch->tanggal_mulai_program->format('d') }}
-                                    </div>
-                                    <div class="text-sm text-primary">{{ $batch->tanggal_mulai_program->format('M') }}
-                                    </div>
-                                </div>
-
-                                <div class="flex-1">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <h4 class="font-semibold text-lg">{{ $program->nama_program }}</h4>
-                                            <p class="text-gray-600">Batch {{ $batch->batch_ke }} -
-                                                {{ $batch->nama_batch }}</p>
-                                        </div>
-                                        @if ($batch->isOpenForRegistration())
-                                            <span class="px-3 py-1 bg-green-100 text-green-600 text-sm rounded-full">
-                                                Pendaftaran Dibuka
-                                            </span>
-                                        @else
-                                            <span class="px-3 py-1 bg-blue-100 text-blue-600 text-sm rounded-full">
-                                                Upcoming
-                                            </span>
-                                        @endif
-                                    </div>
-
-                                    <div class="mt-2 flex gap-2 justify-between items-start">
-                                        <div>
-                                            <span class="px-2 py-1 bg-blue-100 text-blue-600 text-sm rounded">
-                                                {{ $program->durasi ?? '-' }}
-                                            </span>
-                                            @if ($batch->isOpenForRegistration())
-                                                <span class="px-2 py-1 bg-red-100 text-red-600 text-sm rounded">
-                                                    Sisa
-                                                    {{ $batch->tanggal_selesai_pendaftaran->diffForHumans(null, true) }}
-                                                </span>
-                                            @endif
-                                        </div>
-                                        @if ($batch->isOpenForRegistration() && $batch->external_link)
-                                            <div class="">
-                                                <a href="{{ $batch->external_link }}"
-                                                    class="inline-block px-3 py-1 bg-blue-300 text-black rounded-lg hover:bg-primary-dark transition-colors">
-                                                    Daftar Sekarang
-                                                </a>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
                 @empty
-                    <div class="text-gray-500">
-                        Belum ada program.
-                    </div>
+                <div class="svc-card">
+                    <div class="svc-icon"><i class="fa fa-utensils"></i></div>
+                    <h3 class="font-black text-lg">Makanan</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed flex-1">Sertifikasi halal untuk makanan memastikan produk yang dikonsumsi umat Islam memenuhi syarat kehalalan sesuai syariat.</p>
+                </div>
+                <div class="svc-card">
+                    <div class="svc-icon"><i class="fa fa-wine-glass-alt"></i></div>
+                    <h3 class="font-black text-lg">Minuman</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed flex-1">Minuman yang memperoleh sertifikasi halal harus terbebas dari alkohol dan bahan terlarang dalam Islam.</p>
+                </div>
+                <div class="svc-card">
+                    <div class="svc-icon"><i class="fa fa-pills"></i></div>
+                    <h3 class="font-black text-lg">Obat & Kosmetik</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed flex-1">Sertifikasi halal pada obat dan kosmetik memastikan bahan aktif maupun tambahan berasal dari sumber halal dan suci.</p>
+                </div>
                 @endforelse
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Quick Button Konsultasi -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-up">
-                <h2 class="text-2xl font-bold mb-6">Konsultasi Sertifikasi Halal</h2>
-                <div x-data="{ category: 'umkm' }" class="space-y-6">
-                    <div class="flex p-1 bg-gray-100 rounded-lg">
-                        <button @click="category = 'umkm'"
-                            :class="category === 'umkm' ? 'bg-white shadow-md' : 'hover:bg-gray-50'"
-                            class="flex-1 py-2 rounded-lg transition-all duration-300">
-                            Pelaku Usaha Mikro dan Ultra Mikro
-                        </button>
-                        <button @click="category = 'industri'"
-                            :class="category === 'industri' ? 'bg-white shadow-md' : 'hover:bg-gray-50'"
-                            class="flex-1 py-2 rounded-lg transition-all duration-300">
-                            Pelaku Usaha Skala Menengah dan Besar
-                        </button>
+{{-- ========================= HALAL CERTIFICATION FLOW ========================= --}}
+<section id="flow" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-screen-xl mx-auto px-8">
+        <div class="flex flex-col md:flex-row gap-8 items-stretch">
+            <!-- Steps box -->
+            <div class="flex-1 border-2 border-[#4a86b8] rounded-2xl p-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
+                    <div class="flow-card">
+                        <div class="flow-icon"><i class="fa fa-users-cog"></i></div>
+                        <p class="font-black text-sm mb-2">Preparation</p>
+                        <p class="text-xs text-gray-500 leading-relaxed">Pelaku usaha mempersiapkan SDM halal dan mengidentifikasi titik kritis halal.</p>
+                        <div class="flow-num">1</div>
                     </div>
-                    <div x-show.transition.opacity="category === 'umkm'">
-                        <p class="text-gray-600 mb-4">Konsultasi khusus Pelaku Usaha omzet kurang dari 500 juta rupiah
-                        </p>
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $landingPage->contact_whatsapp) }}"
-                            target="_blank"><button
-                                class="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-102 cursor-pointer">
-                                Konsultasi Sekarang
-                            </button></a>
+                    <div class="flow-card">
+                        <div class="flow-icon"><i class="fa fa-file-alt"></i></div>
+                        <p class="font-black text-sm mb-2">Registration</p>
+                        <p class="text-xs text-gray-500 leading-relaxed">Menyiapkan dokumen dan mendaftar secara online melalui BPJPH.</p>
+                        <div class="flow-num">2</div>
                     </div>
-                    <div x-show.transition.opacity="category === 'industri'">
-                        <p class="text-gray-600 mb-4">Konsultasi khusus Pelaku Usaha omzet lebih dari 500 juta rupiah</p>
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $landingPage->contact_whatsapp) }}"
-                            target="_blank"><button
-                                class="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-102 cursor-pointer">
-                                Konsultasi Sekarang
-                            </button></a>
+                    <div class="flow-card">
+                        <div class="flow-icon"><i class="fa fa-search-plus"></i></div>
+                        <p class="font-black text-sm mb-2">Inspection</p>
+                        <p class="text-xs text-gray-500 leading-relaxed">LPH Salman ITB melakukan audit halal di lokasi produksi.</p>
+                        <div class="flow-num">3</div>
+                    </div>
+                    <div class="flow-card">
+                        <div class="flow-icon"><i class="fa fa-gavel"></i></div>
+                        <p class="font-black text-sm mb-2">Fatwa Session</p>
+                        <p class="text-xs text-gray-500 leading-relaxed">Komisi Fatwa MUI menentukan status kehalalan berdasarkan hasil audit.</p>
+                        <div class="flow-num">4</div>
+                    </div>
+                    <div class="flow-card">
+                        <div class="flow-icon"><i class="fa fa-certificate"></i></div>
+                        <p class="font-black text-sm mb-2">Certificate</p>
+                        <p class="text-xs text-gray-500 leading-relaxed">BPJPH menerbitkan Sertifikat Halal. Berlaku 4 tahun.</p>
+                        <div class="flow-num">5</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Label -->
+            <div class="blue-label w-full md:w-64 flex-shrink-0 rounded-2xl justify-end" style="min-height:260px">
+                <p class="blue-label-title text-2xl">HALAL<br>CERTIFICATION<br>FLOW</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ========================= CHECK HALAL PRODUCT ========================= --}}
+<section id="check" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-screen-xl mx-auto px-8">
+        <div class="flex flex-col md:flex-row gap-8 items-stretch">
+            <!-- Label -->
+            <div class="blue-label w-full md:w-72 flex-shrink-0 rounded-2xl justify-between" style="min-height:280px">
+                <div>
+                    <i class="fa fa-mosque text-4xl text-[#b8972a] mb-3"></i>
+                    <div class="text-sm font-black" style="color:#b8972a">LPH SALMAN ITB</div>
+                </div>
+                <p class="blue-label-title text-2xl">CHECK HALAL<br>PRODUCT</p>
+            </div>
+            <!-- Forms -->
+            <div class="flex-1 space-y-8">
+                <div>
+                    <p class="font-bold text-[#4a86b8] text-base mb-3">Berdasarkan BPJPH</p>
+                    <div class="flex gap-3 flex-wrap">
+                        <input class="check-input flex-1 min-w-[140px]" placeholder="Nama Produk"/>
+                        <input class="check-input flex-1 min-w-[140px]" placeholder="Nama Usaha"/>
+                        <input class="check-input flex-1 min-w-[140px]" placeholder="Nomor Sertifikat"/>
+                        <button class="btn-search">Cari</button>
+                    </div>
+                </div>
+                <div>
+                    <p class="font-bold text-[#4a86b8] text-base mb-3">Berdasarkan KH LPH Salman ITB</p>
+                    <div class="flex gap-3 flex-wrap">
+                        <input class="check-input flex-1 min-w-[140px]" placeholder="Jenis Produk"/>
+                        <input class="check-input flex-1 min-w-[140px]" placeholder="Nama Usaha"/>
+                        <input class="check-input flex-1 min-w-[140px]" placeholder="Nomor KH"/>
+                        <button class="btn-search">Cari</button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+{{-- ========================= LATEST PUBLICATIONS ========================= --}}
+<section id="publication" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-screen-xl mx-auto px-8">
+        <div class="flex flex-col md:flex-row gap-8 items-stretch">
+            <!-- Cards -->
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+                @forelse($latestArticles as $article)
+                <div class="pub-card">
+                    <p class="font-black text-lg leading-snug text-gray-900">{{ $article->title }}</p>
+                    <p class="text-xs text-gray-400 font-medium">By {{ $article->author?->name ?? 'Admin' }} / {{ $article->created_at->format('d F Y') }}</p>
+                    <div class="flex-1 rounded-xl overflow-hidden group" style="min-height:100px">
+                        @if($article->featured_image)
+                            <img src="{{ Storage::url($article->featured_image) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                        @else
+                            <div class="w-full h-full bg-[#e8f0f7] flex items-center justify-center">
+                                <i class="fa fa-newspaper text-5xl text-[#4a86b8] opacity-30 group-hover:scale-110 transition-transform duration-300"></i>
+                            </div>
+                        @endif
+                    </div>
+                    <a href="{{ route('articles.show', $article) }}" class="btn-more">Baca Selengkapnya <span class="circle"><i class="fa fa-play text-white text-xs ml-0.5"></i></span></a>
+                </div>
+                @empty
+                <div class="pub-card">
+                    <p class="font-black text-lg leading-snug text-gray-900">Belum ada artikel terbaru</p>
+                    <p class="text-xs text-gray-400 font-medium">Artikel akan muncul di sini setelah dipublikasikan</p>
+                    <div class="flex-1 bg-[#e8f0f7] rounded-xl flex items-center justify-center" style="min-height:100px">
+                        <i class="fa fa-newspaper text-5xl text-[#4a86b8] opacity-30"></i>
+                    </div>
+                </div>
+                @endforelse
+            </div>
+            <!-- Label -->
+            <div class="blue-label w-full md:w-56 flex-shrink-0 rounded-2xl justify-end" style="min-height:260px">
+                <p class="blue-label-title text-2xl">LATEST<br>PUBLICATIONS</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ========================= SUPPORTED BY ========================= --}}
+@if($partners->count() > 0)
+<section class="py-12 bg-white border-t border-gray-100" data-aos="fade-up">
+    <div class="max-w-screen-xl mx-auto px-8">
+        <div class="flex items-center gap-12 flex-wrap justify-center">
+            <span class="text-sm font-bold text-gray-500 whitespace-nowrap">Supported By:</span>
+            @foreach($partners as $partner)
+                <a href="{{ $partner->website ?? '#' }}" target="_blank" class="group">
+                    @if($partner->logo)
+                        <img src="{{ Storage::url($partner->logo) }}" alt="{{ $partner->name }}"
+                             class="h-16 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110">
+                    @else
+                        <div class="logo-placeholder" style="background:#4a86b8;color:white;font-size:9px">{{ $partner->name }}</div>
+                    @endif
+                </a>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- ========================= CONTACT ========================= --}}
+<section id="contact" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-screen-xl mx-auto px-8">
+        <div class="flex flex-col md:flex-row gap-8 items-stretch">
+            <!-- Label -->
+            <div class="blue-label w-full md:w-72 flex-shrink-0 rounded-2xl justify-between" style="min-height:360px">
+                <div>
+                    <i class="fa fa-mosque text-4xl text-[#b8972a] mb-3"></i>
+                    <div class="text-sm font-black mb-1" style="color:#b8972a">LPH SALMAN ITB</div>
+                    <div class="text-xs text-white/70">Kompleks Masjid Salman ITB</div>
+                </div>
+                <p class="blue-label-title text-2xl">CONTACT</p>
+            </div>
+
+            <!-- Info card -->
+            <div class="flex-1 border border-gray-200 rounded-2xl p-8 flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div class="space-y-6">
+                    @if(!empty($landingPage->contact_phone))
+                    <div class="contact-info-row">
+                        <div class="w-10 h-10 border-2 border-[#4a86b8] rounded-lg flex items-center justify-center flex-shrink-0 hover:bg-[#e8f0f7] transition-colors">
+                            <i class="fa fa-phone text-[#4a86b8]"></i>
+                        </div>
+                        <span>{{ $landingPage->contact_phone }}</span>
+                    </div>
+                    @endif
+                    @if(!empty($landingPage->contact_email))
+                    <div class="contact-info-row">
+                        <div class="w-10 h-10 border-2 border-[#4a86b8] rounded-lg flex items-center justify-center flex-shrink-0 hover:bg-[#e8f0f7] transition-colors">
+                            <i class="fa fa-envelope text-[#4a86b8]"></i>
+                        </div>
+                        <span>{{ $landingPage->contact_email }}</span>
+                    </div>
+                    @endif
+                    <div class="contact-info-row">
+                        <div class="w-10 h-10 border-2 border-[#4a86b8] rounded-lg flex items-center justify-center flex-shrink-0 hover:bg-[#e8f0f7] transition-colors">
+                            <i class="fa fa-globe text-[#4a86b8]"></i>
+                        </div>
+                        <span>pusathalal.salmanitb.com</span>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="w-10 h-10 border-2 border-[#4a86b8] rounded-lg flex items-center justify-center flex-shrink-0 hover:bg-[#e8f0f7] transition-colors">
+                            <i class="fa fa-map-marker-alt text-[#4a86b8]"></i>
+                        </div>
+                        <span>Kompleks Masjid Salman ITB, Lt. 3<br><span class="text-sm text-gray-500 font-normal">Jl. Ganesha No.7, Bandung 40132</span></span>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <a href="{{ route('front.kontak') }}" class="btn-more">
+                        Hubungi Kami
+                        <span class="circle"><i class="fa fa-play text-white text-xs ml-0.5"></i></span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="flex-1 rounded-2xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow" style="min-height:320px">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.9!2d107.6096!3d-6.8917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e64c5e8866b3%3A0x5030bfbca832610!2sMasjid%20Salman%20ITB!5e0!3m2!1sid!2sid!4v1"
+                    width="100%" height="100%" style="border:0;min-height:320px" allowfullscreen loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
 @endsection

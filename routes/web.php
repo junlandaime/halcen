@@ -34,7 +34,9 @@ use App\Http\Controllers\{
 use App\Http\Controllers\Admin\{
     AboutTeamController,
     AboutProgramController,
-    AboutSectionController
+    AboutSectionController,
+    HeroSlideController,
+    ServiceController as AdminServiceController
 };
 
 /* ----------------------------------------------------------
@@ -110,6 +112,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
                 Route::resource('categories', CategoryController::class)->except(['create', 'edit', 'show']);
                 Route::post('/categories/update-order', [CategoryController::class, 'updateOrder'])->name('categories.updateOrder');
+
+                Route::resource('hero-slides', HeroSlideController::class)->except(['create', 'edit', 'show']);
+                Route::post('/hero-slides/update-order', [HeroSlideController::class, 'updateOrder'])->name('hero-slides.updateOrder');
+
+                Route::resource('services', AdminServiceController::class)->except(['create', 'edit', 'show']);
+                Route::post('/services/update-order', [AdminServiceController::class, 'updateOrder'])->name('services.updateOrder');
 
                 Route::post('/tambah-sesi-manual', [ProgramLayananController::class, 'tambahSesiManual'])->name('sesi.tambah.manual');
                 Route::get('/program-layanan/{program}/{batch}/detail', [ProgramBatchController::class, 'detail'])->name('program-layanan.detail');
