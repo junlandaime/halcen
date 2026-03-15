@@ -4,16 +4,17 @@
 @endphp
 
 <header class="sticky top-0 z-50 bg-white shadow-sm">
-    <div class="max-w-screen-xl mx-auto px-8 py-3 flex items-center justify-between"
-         x-data="{ profileOpen: false, serviceOpen: false, pubOpen: false, mob: false }">
+    <div class="max-w-screen-xl mx-auto px-8 py-3 flex items-center justify-between" x-data="{ profileOpen: false, serviceOpen: false, pubOpen: false, mob: false }">
         <!-- Logo -->
         <a href="{{ route('front.index') }}" class="flex items-center gap-3">
-            @if(file_exists(public_path('logohalcen.png')))
-                <img src="{{ asset('logohalcen.png') }}" alt="Logo" class="h-12 rounded">
+            @if (file_exists(public_path('logohalcen.png')))
+                <img src="{{ asset('logohalcen.png') }}" alt="Logo" class="h-12 w-auto rounded">
             @else
-                <div class="w-14 h-14 rounded-full border-2 border-[#4a86b8] flex items-center justify-center bg-white relative">
+                <div
+                    class="w-14 h-14 rounded-full border-2 border-[#4a86b8] flex items-center justify-center bg-white relative">
                     <i class="fa fa-mosque text-[#4a86b8] text-xl"></i>
-                    <div class="absolute inset-0 rounded-full border border-[#b8972a] opacity-50" style="transform:scale(1.1)"></div>
+                    <div class="absolute inset-0 rounded-full border border-[#b8972a] opacity-50"
+                        style="transform:scale(1.1)"></div>
                 </div>
             @endif
             <div class="w-px h-10 bg-gray-200 mx-1"></div>
@@ -25,7 +26,8 @@
 
         <!-- Desktop nav -->
         <nav class="hidden md:flex items-center gap-7">
-            <a href="{{ route('front.index') }}" class="nav-link {{ request()->routeIs('front.index') ? 'nav-active' : '' }}">HOME</a>
+            <a href="{{ route('front.index') }}"
+                class="nav-link {{ request()->routeIs('front.index') ? 'nav-active' : '' }}">HOME</a>
 
             <!-- Profile dropdown -->
             <div class="relative" @mouseenter="profileOpen=true" @mouseleave="profileOpen=false">
@@ -39,17 +41,20 @@
 
             <!-- Service dropdown -->
             <div class="relative" @mouseenter="serviceOpen=true" @mouseleave="serviceOpen=false">
-                <button class="nav-link {{ request()->routeIs('program-layanan.*') ? 'nav-active' : '' }}">SERVICE</button>
+                <button
+                    class="nav-link {{ request()->routeIs('program-layanan.*') ? 'nav-active' : '' }}">SERVICE</button>
                 <div x-show="serviceOpen" x-cloak class="dropdown-menu">
                     @foreach ($headerPrograms as $program)
-                        <a href="{{ route('program-layanan.show', $program) }}">{{ strtoupper($program->nama_program) }}</a>
+                        <a
+                            href="{{ route('program-layanan.show', $program) }}">{{ strtoupper($program->nama_program) }}</a>
                     @endforeach
                 </div>
             </div>
 
             <!-- Publication dropdown -->
             <div class="relative" @mouseenter="pubOpen=true" @mouseleave="pubOpen=false">
-                <button class="nav-link {{ request()->routeIs('articles.*') || request()->routeIs('videos.*') || request()->routeIs('regulations.*') ? 'nav-active' : '' }}">PUBLICATION</button>
+                <button
+                    class="nav-link {{ request()->routeIs('articles.*') || request()->routeIs('videos.*') || request()->routeIs('regulations.*') ? 'nav-active' : '' }}">PUBLICATION</button>
                 <div x-show="pubOpen" x-cloak class="dropdown-menu">
                     <a href="{{ route('articles.index') }}">ARTIKEL</a>
                     <a href="{{ route('videos.index') }}">VIDEO PEMBELAJARAN</a>
@@ -57,7 +62,8 @@
                 </div>
             </div>
 
-            <a href="{{ route('front.kontak') }}" class="nav-link {{ request()->routeIs('front.kontak') ? 'nav-active' : '' }}">CONTACT</a>
+            <a href="{{ route('front.kontak') }}"
+                class="nav-link {{ request()->routeIs('front.kontak') ? 'nav-active' : '' }}">CONTACT</a>
         </nav>
 
         <!-- Mobile menu button -->
@@ -67,13 +73,13 @@
     </div>
 
     <!-- Mobile menu -->
-    <div x-data="{ profileOpen: false, serviceOpen: false, pubOpen: false, mob: false }"
-         x-show="mob" x-cloak x-transition
-         class="md:hidden bg-white border-t px-6 py-4 space-y-3 text-sm font-bold uppercase tracking-wider text-[#4a86b8]">
+    <div x-data="{ profileOpen: false, serviceOpen: false, pubOpen: false, mob: false }" x-show="mob" x-cloak x-transition
+        class="md:hidden bg-white border-t px-6 py-4 space-y-3 text-sm font-bold uppercase tracking-wider text-[#4a86b8]">
         <a href="{{ route('front.index') }}" class="block py-2">Home</a>
 
         <div>
-            <button @click="profileOpen=!profileOpen" class="block py-2 w-full text-left flex items-center justify-between">
+            <button @click="profileOpen=!profileOpen"
+                class="block py-2 w-full text-left flex items-center justify-between">
                 Profile
                 <i class="fa fa-chevron-down text-xs"></i>
             </button>
@@ -85,13 +91,15 @@
         </div>
 
         <div>
-            <button @click="serviceOpen=!serviceOpen" class="block py-2 w-full text-left flex items-center justify-between">
+            <button @click="serviceOpen=!serviceOpen"
+                class="block py-2 w-full text-left flex items-center justify-between">
                 Service
                 <i class="fa fa-chevron-down text-xs"></i>
             </button>
             <div x-show="serviceOpen" class="pl-4 space-y-2 text-xs">
                 @foreach ($headerPrograms as $program)
-                    <a href="{{ route('program-layanan.show', $program) }}" class="block py-1">{{ $program->nama_program }}</a>
+                    <a href="{{ route('program-layanan.show', $program) }}"
+                        class="block py-1">{{ $program->nama_program }}</a>
                 @endforeach
             </div>
         </div>
