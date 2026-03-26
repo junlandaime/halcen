@@ -59,71 +59,66 @@
             @endforeach
         @else
             {{-- Default slides when no data --}}
-            <div class="max-w-screen-xl mx-auto px-8 py-20 items-center justify-between gap-10 w-full min-h-screen"
-                :class="slide === 0 ? 'flex' : 'hidden'" style="animation:fadeUp .6s ease">
-                <div class="flex-1 max-w-xl">
-                    {{-- <span class="tag mb-4 inline-block">Terakreditasi BPJPH Â· Bandung</span> --}}
-                    <h1 class="text-5xl md:text-6xl font-black leading-tight text-gray-900 mb-3">
-                        LEMBAGA<br>PEMERIKSA<br>HALAL
-                    </h1>
-                    <h2 class="text-4xl md:text-5xl font-black leading-tight mb-6" style="color:#4a86b8">YPM SALMAN ITB</h2>
-                    <p class="text-gray-500 font-semibold text-base mb-1">#berkahalal</p>
-                    <p class="text-gray-600 text-base mb-10 max-w-md">Kami melayani audit kehalalan produk untuk kebutuhan
-                        Sertifikasi Halal produk makanan dan minuman UMKM. Sertifikasi Halal dapat menaikkan nilai produk
-                        dan meningkatkan daya saing produk Anda di pasaran.</p>
-                    <button
-                        class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#3a6d96] transition shadow-lg">
-                        Daftar Sekarang
-                        <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center"><i
-                                class="fa fa-play text-white text-xs ml-0.5"></i></span>
-                    </button>
-                </div>
-                <div class="hidden md:block hero-blob" style="background:linear-gradient(135deg,#4a86b8,#3a6d96)">
-                    <div class="w-full h-full flex items-center justify-center opacity-70">
-                        <i class="fa fa-mosque text-white" style="font-size:120px"></i>
+            <div class="max-w-screen-xl mx-auto px-8 py-20 items-center justify-between gap-10 w-full min-h-screen flex"
+                style="animation:fadeUp .6s ease">
+
+                {{-- Konten slide (berubah) --}}
+                <div class="flex-1 max-w-xl relative" style="min-height:300px">
+                    <div :class="slide === 0 ? 'block' : 'hidden'" style="animation:fadeUp .6s ease">
+                        <h1 class="text-5xl md:text-6xl font-black leading-tight text-gray-900 mb-3">
+                            LEMBAGA<br>PEMERIKSA<br>HALAL
+                        </h1>
+                        <h2 class="text-4xl md:text-5xl font-black leading-tight mb-6" style="color:#4a86b8">YPM SALMAN ITB
+                        </h2>
+                        <p class="text-gray-500 font-semibold text-base mb-1">#berkahalal</p>
+                        <p class="text-gray-600 text-base mb-10 max-w-md">Kami melayani audit kehalalan produk untuk
+                            kebutuhan
+                            Sertifikasi Halal produk makanan dan minuman UMKM.</p>
+                        <button
+                            class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#3a6d96] transition shadow-lg">
+                            Daftar Sekarang
+                            <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center"><i
+                                    class="fa fa-play text-white text-xs ml-0.5"></i></span>
+                        </button>
+                    </div>
+
+                    <div :class="slide === 1 ? 'block' : 'hidden'" style="animation:fadeUp .6s ease">
+                        <span class="tag mb-4 inline-block">Mitra BPJPH Resmi</span>
+                        <h1 class="text-5xl font-black leading-tight text-gray-900 mb-3">MEWUJUDKAN<br>EKOSISTEM<br>HALAL
+                        </h1>
+                        <h2 class="text-4xl font-black leading-tight mb-6" style="color:#4a86b8">YANG BERKELANJUTAN</h2>
+                        <p class="text-gray-600 text-base mb-10 max-w-md">Didukung auditor halal bersertifikat BNSP dan
+                            laboratorium terakreditasi SNI ISO/IEC 17025:2017 kerja sama dengan ITB.</p>
+                        <button
+                            class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#3a6d96] transition shadow-lg">
+                            Pelajari Lebih Lanjut
+                            <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center"><i
+                                    class="fa fa-arrow-right text-white text-xs"></i></span>
+                        </button>
+                    </div>
+
+                    <div :class="slide === 2 ? 'block' : 'hidden'" style="animation:fadeUp .6s ease">
+                        <span class="tag mb-4 inline-block">Program Unggulan {{ date('Y') }}</span>
+                        <h1 class="text-5xl font-black leading-tight text-gray-900 mb-3">SERTIFIKASI<br>HALAL GRATIS<br>ITU
+                            MUDAH</h1>
+                        <h2 class="text-4xl font-black leading-tight mb-6" style="color:#4a86b8">SELF DECLARE BPJPH</h2>
+                        <p class="text-gray-600 text-base mb-10 max-w-md">Tidak perlu khawatir. Mengurus Sertifikasi Halal
+                            itu
+                            mudah dan biayanya terjangkau. Kami siap membantu Anda.</p>
+                        <button
+                            class="inline-flex items-center gap-3 bg-[#b8972a] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#9a7d20] transition shadow-lg">
+                            Info Selengkapnya
+                            <span class="w-8 h-8 bg-[#4a86b8] rounded-full flex items-center justify-center"><i
+                                    class="fa fa-play text-white text-xs ml-0.5"></i></span>
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="max-w-screen-xl mx-auto px-8 py-20 items-center justify-between gap-10 w-full min-h-screen"
-                :class="slide === 1 ? 'flex' : 'hidden'" style="animation:fadeUp .6s ease">
-                <div class="flex-1 max-w-xl">
-                    <span class="tag mb-4 inline-block">Mitra BPJPH Resmi</span>
-                    <h1 class="text-5xl font-black leading-tight text-gray-900 mb-3">MEWUJUDKAN<br>EKOSISTEM<br>HALAL</h1>
-                    <h2 class="text-4xl font-black leading-tight mb-6" style="color:#4a86b8">YANG BERKELANJUTAN</h2>
-                    <p class="text-gray-600 text-base mb-10 max-w-md">Didukung auditor halal bersertifikat BNSP dan
-                        laboratorium terakreditasi SNI ISO/IEC 17025:2017 kerja sama dengan ITB.</p>
-                    <button
-                        class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#3a6d96] transition shadow-lg">
-                        Pelajari Lebih Lanjut
-                        <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center"><i
-                                class="fa fa-arrow-right text-white text-xs"></i></span>
-                    </button>
+
+                {{-- Gambar tetap (tidak berubah saat slide berganti) --}}
+                <div class="hidden md:block flex-shrink-0">
+                    <img src="{{ asset('hero-lph.jpg') }}" alt="Hero Image" class=" object-cover rounded-3xl shadow-xl">
                 </div>
-                <div class="hidden md:block hero-blob" style="background:linear-gradient(135deg,#4a86b8,#2c5478)">
-                    <div class="w-full h-full flex items-center justify-center opacity-70"><i
-                            class="fa fa-mosque text-white" style="font-size:120px"></i></div>
-                </div>
-            </div>
-            <div class="max-w-screen-xl mx-auto px-8 py-20 items-center justify-between gap-10 w-full min-h-screen"
-                :class="slide === 2 ? 'flex' : 'hidden'" style="animation:fadeUp .6s ease">
-                <div class="flex-1 max-w-xl">
-                    <span class="tag mb-4 inline-block">Program Unggulan {{ date('Y') }}</span>
-                    <h1 class="text-5xl font-black leading-tight text-gray-900 mb-3">SERTIFIKASI<br>HALAL GRATIS<br>ITU
-                        MUDAH</h1>
-                    <h2 class="text-4xl font-black leading-tight mb-6" style="color:#4a86b8">SELF DECLARE BPJPH</h2>
-                    <p class="text-gray-600 text-base mb-10 max-w-md">Tidak perlu khawatir. Mengurus Sertifikasi Halal itu
-                        mudah dan biayanya terjangkau. Kami siap membantu Anda.</p>
-                    <button
-                        class="inline-flex items-center gap-3 bg-[#b8972a] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#9a7d20] transition shadow-lg">
-                        Info Selengkapnya
-                        <span class="w-8 h-8 bg-[#4a86b8] rounded-full flex items-center justify-center"><i
-                                class="fa fa-play text-white text-xs ml-0.5"></i></span>
-                    </button>
-                </div>
-                <div class="hidden md:block hero-blob" style="background:linear-gradient(135deg,#b8972a,#9a7d20)">
-                    <div class="w-full h-full flex items-center justify-center opacity-50"><i
-                            class="fa fa-certificate text-white" style="font-size:120px"></i></div>
-                </div>
+
             </div>
         @endif
 
