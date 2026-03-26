@@ -485,29 +485,7 @@
             <div class="max-w-6xl mx-auto px-4">
 
                 {{-- Heading blok --}}
-                <div class="purpose-wrap mb-8">
-                    <div class="purpose-label">UNIT<br>LEMBAGA</div>
-                    <div class="purpose-content">
-                        <p class="text-gray-500 text-sm">
-                            Pusat Halal Salman ITB memiliki beberapa unit lembaga yang saling melengkapi dalam
-                            mewujudkan ekosistem halal yang komprehensif. Pilih lembaga di bawah untuk mengetahui
-                            lebih lanjut.
-                        </p>
 
-                        {{-- Tab navigation --}}
-                        <div class="lembaga-nav mt-4" x-data="{
-                            active: 0,
-                            tabs: {{ $about->sections->pluck('title') }}
-                        }">
-                            @foreach ($about->sections as $si => $section)
-                                <button class="lembaga-tab {{ $si === 0 ? 'active' : '' }}"
-                                    onclick="switchTab({{ $si }})" id="tab-btn-{{ $si }}">
-                                    {{ $section->title }}
-                                </button>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
 
                 {{-- Tab panels --}}
                 @foreach ($about->sections as $si => $section)
