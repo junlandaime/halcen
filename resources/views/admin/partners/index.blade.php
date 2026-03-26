@@ -61,7 +61,7 @@
                                             <i class="fas fa-grip-vertical handle cursor-move"></i>
                                         </td>
                                         <td class="px-4 py-3">
-                                            <img src="{{ asset($partner->logo) }}" alt="{{ $partner->name }}"
+                                            <img src="{{ Storage::url($partner->logo) }}" alt="{{ $partner->name }}"
                                                 class="w-12 h-12 object-contain">
                                         </td>
                                         <td class="px-4 py-3">{{ $partner->name }}</td>
@@ -400,7 +400,7 @@
                         document.getElementById('partner-website').value = partnerData.website;
 
                         const baseUrl = window.location.origin;
-                        const logoPath = `${baseUrl}/${partnerData.logo}`;
+                        const logoPath = `/storage/${partnerData.logo}`;
                         const currentLogoDiv = document.getElementById('current-logo');
                         currentLogoDiv.innerHTML = `
             <p class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Current Logo:</p>

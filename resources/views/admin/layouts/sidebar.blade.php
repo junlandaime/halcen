@@ -30,7 +30,7 @@
 
             <!-- Landing Page -->
             <li>
-                <a href="{{ route('admin.landing-page.edit') }}"
+                {{-- <a href="{{ route('admin.landing-page.edit') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -38,7 +38,7 @@
                             d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
                     </svg>
                     <span class="ml-3">Landing Page</span>
-                </a>
+                </a> --}}
             </li>
 
             <!-- Content Management -->

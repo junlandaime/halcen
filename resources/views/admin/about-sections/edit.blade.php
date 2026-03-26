@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('template.layouts.index')
 
 @section('content')
     <div class="p-4 md:ml-64">

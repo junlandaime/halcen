@@ -9,6 +9,12 @@ class TwoFactorMiddleware
 {
     public function handle($request, Closure $next)
     {
+
+        // Jika 2FA dinonaktifkan secara global, langsung lewati
+        if (!config('services.2fa.enabled', true)) {
+            return $next($request);
+        }
+
         if (!Auth::check()) {
             return redirect()->route('login');
         }

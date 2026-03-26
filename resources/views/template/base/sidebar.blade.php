@@ -22,11 +22,11 @@
             Dashboard
         </a>
 
-        <a href="{{ route('admin.landing-page.edit') }}"
+        {{-- <a href="{{ route('admin.landing-page.edit') }}"
             class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
             <i class="fad fa-globe text-green-500 text-xs mr-2"></i>
             Landing Page
-        </a>
+        </a> --}}
 
         <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">Contents</p>
 

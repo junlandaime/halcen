@@ -34,9 +34,9 @@
             </h2>
             <div class="flex items-center justify-end mb-4">
                 <div class="flex items-center space-x-1">
-                    <button type="button" data-modal-target="crud-modal" id="create-partner-btn"
+                    <button type="button" data-modal-target="crud-modal" id="create-testimoni-btn"
                         data-modal-toggle="crud-modal"
-                        class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-primer-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primer-600 dark:hover:bg-primer-700 focus:outline-none dark:focus:ring-primer-800 edit-partner">
+                        class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-primer-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primer-600 dark:hover:bg-primer-700 focus:outline-none dark:focus:ring-primer-800 edit-testimoni">
                         Tambah Testimoni
                     </button>
                 </div>
@@ -67,7 +67,7 @@
                                             <i class="fas fa-grip-vertical handle cursor-move"></i>
                                         </td>
                                         <td class="px-4 py-3">
-                                            <img src="{{ asset($testimonial->image) }}" alt="{{ $testimonial->name }}"
+                                            <img src="{{ Storage::url($testimonial->image) }}" alt="{{ $testimonial->name }}"
                                                 class="w-12 h-12 object-cover rounded-full">
                                         </td>
                                         <td class="px-4 py-3">{{ $testimonial->name }}</td>
@@ -275,7 +275,7 @@
                 }
             });
 
-            document.getElementById('create-partner-btn').addEventListener('click', function() {
+            document.getElementById('create-testimoni-btn').addEventListener('click', function() {
                 setTimeout(() => {
                     const submitButton = document.getElementById('submit-button');
                     const modalTitle = document.getElementById('modal-title');
@@ -286,8 +286,8 @@
                         form.reset();
                         form.action = '/admin/testimonials';
                         formMethod.value = 'POST';
-                        submitButton.textContent = 'Tambah Partner';
-                        modalTitle.textContent = 'Tambah Partner';
+                        submitButton.textContent = 'Tambah Testimoni';
+                        modalTitle.textContent = 'Tambah Testimoni';
                     } else {
                         console.error('Modal belum selesai dirender, elemen tidak ditemukan.');
                     }

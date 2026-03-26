@@ -2,7 +2,7 @@
     <!-- Logo -->
     <div class="sm:mx-auto sm:w-full sm:max-w-sm mt-4">
         <a href="/">
-            <img src="{{ asset('logohalcen.png') }}" alt="Logo Halal Center" class="mx-auto h-32 mt-4">
+            <img src="{{ asset('logolph.png') }}" alt="Logo Halal Center" class="mx-auto h-32 mt-4">
         </a>
     </div>
 
@@ -28,8 +28,8 @@
             <div class="mb-4">
                 <label for="one_time_password" class="block text-sm font-medium text-gray-700">Kode OTP</label>
                 <input id="one_time_password" name="one_time_password" type="text" maxlength="6" required
-                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                       placeholder="123456">
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    placeholder="123456">
                 @error('one_time_password')
                     <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
                 @enderror

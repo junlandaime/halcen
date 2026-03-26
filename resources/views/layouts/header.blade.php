@@ -7,20 +7,20 @@
     <div class="max-w-screen-xl mx-auto px-8 py-3 flex items-center justify-between" x-data="{ profileOpen: false, serviceOpen: false, pubOpen: false, mob: false }">
         <!-- Logo -->
         <a href="{{ route('front.index') }}" class="flex items-center gap-3">
-            @if (file_exists(public_path('logohalcen.png')))
-                <img src="{{ asset('logohalcen.png') }}" alt="Logo" class="h-12 w-auto rounded">
+            @if (file_exists(public_path('logolph.png')))
+                <img src="{{ asset('logolph.png') }}" alt="Logo" class="h-12 w-auto rounded">
             @else
                 <div
                     class="w-14 h-14 rounded-full border-2 border-[#4a86b8] flex items-center justify-center bg-white relative">
                     <i class="fa fa-mosque text-[#4a86b8] text-xl"></i>
-                    <div class="absolute inset-0 rounded-full border border-[#b8972a] opacity-50"
+                    <div class="absolute inset-0 rounded-full border border-[#4a86b8] opacity-50"
                         style="transform:scale(1.1)"></div>
                 </div>
             @endif
             <div class="w-px h-10 bg-gray-200 mx-1"></div>
             <div>
-                <div class="text-2xl font-black leading-none" style="color:#b8972a;letter-spacing:.05em">LPH</div>
-                <div style="font-size:8px;letter-spacing:.12em" class="text-gray-400 font-semibold">SALMAN ITB</div>
+                <div class="text-2xl font-black leading-none" style="color:#4a86b8;letter-spacing:.05em">LPH</div>
+                <div style="font-size:8px;letter-spacing:.12em" class="text-gray-400 font-semibold">YPM SALMAN ITB</div>
             </div>
         </a>
 

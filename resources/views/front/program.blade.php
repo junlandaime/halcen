@@ -78,7 +78,7 @@
                     @foreach ($featuredPrograms as $program)
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up"
                             data-aos-delay="{{ $loop->iteration * 100 }}">
-                            <img src="{{ $program->gambar_banner }}" alt="{{ $program->nama_program }}"
+                            <img src="{{ Storage::url($program->gambar_banner) }}" alt="{{ $program->nama_program }}"
                                 class="w-full h-48 object-cover">
                             <div class="p-6">
                                 <h3 class="text-xl font-bold mb-2">{{ $program->nama_program }}</h3>
@@ -107,7 +107,7 @@
                 @forelse($programs as $program)
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up"
                         data-aos-delay="{{ $loop->iteration * 100 }}">
-                        <img src="{{ $program->gambar_banner }}" alt="{{ $program->nama_program }}"
+                        <img src="{{ Storage::url($program->gambar_banner) }}" alt="{{ $program->nama_program }}"
                             class="w-full h-48 object-cover">
                         <div class="p-6">
                             <div class="flex items-center mb-2">
@@ -226,7 +226,7 @@
                     @foreach ($featuredPrograms as $program)
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
                             data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
-                            <img src="{{ $program->gambar_banner }}" alt="{{ $program->nama_program }}"
+                            <img src="{{ Storage::url($program->gambar_banner) }}" alt="{{ $program->nama_program }}"
                                 class="w-full h-48 object-cover">
                             <div class="p-6">
                                 <div class="flex items-center mb-2">
@@ -266,7 +266,7 @@
                 @forelse($programs as $program)
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
                         data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
-                        <img src="{{ $program->gambar_banner }}" alt="{{ $program->nama_program }}"
+                        <img src="{{ Storage::url($program->gambar_banner) }}" alt="{{ $program->nama_program }}"
                             class="w-full h-48 object-cover">
                         <div class="p-6">
                             <div class="flex items-center mb-2">

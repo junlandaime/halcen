@@ -33,7 +33,7 @@ class ViewServiceProvider extends ServiceProvider
 
             $abouts = About::query()
                 ->where('is_active', true)
-                ->orderBy('title', 'asc')
+                ->orderBy('order', 'asc')
                 ->get();
 
 
