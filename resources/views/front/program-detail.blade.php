@@ -453,7 +453,8 @@
                             </section>
                             <section class="mb-10">
                                 <h3 class="text-4xl font-extrabold text-black mb-4">Required Documents:</h3>
-                                <a href="#" class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
+                                <a href="https://drive.google.com/drive/folders/1sLZ63chjv0GKpwB1OiqgidAsrVZUqtfC"
+                                    target="_blank" class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
                                     Document</a>
                             </section>
                             <section>
@@ -514,7 +515,8 @@
                             </section>
                             <section class="mb-10">
                                 <h3 class="text-4xl font-extrabold text-black mb-4">Required Documents:</h3>
-                                <a href="#" class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
+                                <a href="https://drive.google.com/drive/folders/1sLZ63chjv0GKpwB1OiqgidAsrVZUqtfC"
+                                    target="_blank" class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
                                     Document</a>
                             </section>
                             <section>
@@ -584,7 +586,9 @@
                             </section>
                             <section class="mb-10">
                                 <h3 class="text-4xl font-extrabold text-black mb-4">Required Documents:</h3>
-                                <a href="#" class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
+                                <a href="https://drive.google.com/drive/folders/1sLZ63chjv0GKpwB1OiqgidAsrVZUqtfC"
+                                    target="_blank"
+                                    class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
                                     Document</a>
                             </section>
                             <section>
@@ -672,7 +676,9 @@
                             </section>
                             <section class="mb-10">
                                 <h3 class="text-4xl font-extrabold text-black mb-4">Required Documents:</h3>
-                                <a href="#" class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
+                                <a href="https://drive.google.com/drive/folders/1sLZ63chjv0GKpwB1OiqgidAsrVZUqtfC"
+                                    target="_blank"
+                                    class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
                                     Document</a>
                             </section>
                             <section>
@@ -733,7 +739,9 @@
                             </section>
                             <section class="mb-10">
                                 <h3 class="text-4xl font-extrabold text-black mb-4">Required Documents:</h3>
-                                <a href="#" class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
+                                <a href="https://drive.google.com/drive/folders/1sLZ63chjv0GKpwB1OiqgidAsrVZUqtfC"
+                                    target="_blank"
+                                    class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
                                     Document</a>
                             </section>
                             <section>
@@ -810,7 +818,9 @@
                             </section>
                             <section class="mb-10">
                                 <h3 class="text-4xl font-extrabold text-black mb-4">Required Documents:</h3>
-                                <a href="#" class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
+                                <a href="https://drive.google.com/drive/folders/1sLZ63chjv0GKpwB1OiqgidAsrVZUqtfC"
+                                    target="_blank"
+                                    class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
                                     Document</a>
                             </section>
                             <section>
@@ -865,7 +875,9 @@
                             </section>
                             <section class="mb-10">
                                 <h3 class="text-4xl font-extrabold text-black mb-4">Required Documents:</h3>
-                                <a href="#" class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
+                                <a href="https://drive.google.com/drive/folders/1sLZ63chjv0GKpwB1OiqgidAsrVZUqtfC"
+                                    target="_blank"
+                                    class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
                                     Document</a>
                             </section>
                             <section>
@@ -919,7 +931,9 @@
                             </section>
                             <section class="mb-10">
                                 <h3 class="text-4xl font-extrabold text-black mb-4">Required Documents:</h3>
-                                <a href="#" class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
+                                <a href="https://drive.google.com/drive/folders/1sLZ63chjv0GKpwB1OiqgidAsrVZUqtfC"
+                                    target="_blank"
+                                    class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
                                     Document</a>
                             </section>
                             <section>
@@ -963,7 +977,9 @@
                             </section>
                             <section class="mb-10">
                                 <h3 class="text-4xl font-extrabold text-black mb-4">Required Documents:</h3>
-                                <a href="#" class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
+                                <a href="https://drive.google.com/drive/folders/1sLZ63chjv0GKpwB1OiqgidAsrVZUqtfC"
+                                    target="_blank"
+                                    class="text-indigo-600 underline text-[18px] hover:text-indigo-700">See
                                     Document</a>
                             </section>
                             <section>
@@ -1150,10 +1166,12 @@
                             </div>
                             <div>
                                 <h3 class="text-white font-extrabold text-lg md:text-xl">Hitung Biaya Layanan</h3>
-                                <p class="text-white/70 text-sm mt-1">Kalkulator estimasi biaya sertifikasi halal dari BPJPH</p>
+                                <p class="text-white/70 text-sm mt-1">Kalkulator estimasi biaya sertifikasi halal dari
+                                    BPJPH</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-2 bg-white text-[#1a5f8b] font-bold px-6 py-3 rounded-xl group-hover:bg-blue-50 transition-colors">
+                        <div
+                            class="flex items-center gap-2 bg-white text-[#1a5f8b] font-bold px-6 py-3 rounded-xl group-hover:bg-blue-50 transition-colors">
                             <span>Hitung Sekarang</span>
                             <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
@@ -1201,7 +1219,8 @@
         <section class="hero-section fade-up" x-data="{ scroll: 0 }" @scroll.window="scroll = window.pageYOffset">
             <div class="hero-bg">
                 @if ($programLayanan->gambar_banner)
-                    <img src="{{ Storage::url($programLayanan->gambar_banner) }}" alt="{{ $programLayanan->nama_banner }}"
+                    <img src="{{ Storage::url($programLayanan->gambar_banner) }}"
+                        alt="{{ $programLayanan->nama_banner }}"
                         x-bind:style="`transform: translateY(${scroll * 0.4}px)`">
                 @endif
             </div>
@@ -1218,7 +1237,9 @@
                     @if ($activeBatch)
                         <div class="mt-6 flex flex-wrap items-center gap-4">
                             <span class="badge-pill" style="background:#065f46;color:#d1fae5;">
-                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="5"/></svg>
+                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <circle cx="10" cy="10" r="5" />
+                                </svg>
                                 Pendaftaran Dibuka
                             </span>
                             <span class="text-blue-100 text-sm font-medium">
@@ -1232,40 +1253,56 @@
 
         {{-- ══════════════════════ BATCH INFO BAR ══════════════════════ --}}
         @if ($activeBatch)
-            <div class="fade-up delay-1" style="background:linear-gradient(135deg,#1a6a9a 0%,#1e7bb5 50%,#1a6a9a 100%);padding:2rem 1rem;">
-                <div style="max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-around;gap:2rem;">
+            <div class="fade-up delay-1"
+                style="background:linear-gradient(135deg,#1a6a9a 0%,#1e7bb5 50%,#1a6a9a 100%);padding:2rem 1rem;">
+                <div
+                    style="max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-around;gap:2rem;">
                     <div class="flex items-center gap-5">
-                        <div class="counter-icon" style="width:70px;height:70px;border:3px solid #4dd9e8;border-radius:50%;display:flex;align-items:center;justify-content:center;">
-                            <svg class="w-9 h-9 text-cyan-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <div class="counter-icon"
+                            style="width:70px;height:70px;border:3px solid #4dd9e8;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                            <svg class="w-9 h-9 text-cyan-300" fill="none" stroke="currentColor" stroke-width="1.8"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
                         <div>
-                            <div class="text-white text-3xl font-extrabold leading-none">Rp {{ number_format($activeBatch->harga, 0, ',', '.') }}</div>
+                            <div class="text-white text-3xl font-extrabold leading-none">Rp
+                                {{ number_format($activeBatch->harga, 0, ',', '.') }}</div>
                             <div class="text-cyan-200 text-sm font-medium mt-1">Harga Program</div>
                         </div>
                     </div>
-                    <div style="display:none;width:1px;height:64px;background:rgba(147,197,253,0.4);" class="hidden md:block" ></div>
+                    <div style="display:none;width:1px;height:64px;background:rgba(147,197,253,0.4);"
+                        class="hidden md:block"></div>
                     <div class="flex items-center gap-5">
-                        <div style="width:70px;height:70px;border:3px solid #4dd9e8;border-radius:50%;display:flex;align-items:center;justify-content:center;">
-                            <svg class="w-9 h-9 text-cyan-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        <div
+                            style="width:70px;height:70px;border:3px solid #4dd9e8;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                            <svg class="w-9 h-9 text-cyan-300" fill="none" stroke="currentColor" stroke-width="1.8"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
                         </div>
                         <div>
-                            <div class="text-white text-3xl font-extrabold leading-none">{{ $activeBatch->kuota }} Peserta</div>
+                            <div class="text-white text-3xl font-extrabold leading-none">{{ $activeBatch->kuota }} Peserta
+                            </div>
                             <div class="text-cyan-200 text-sm font-medium mt-1">Sisa Kuota</div>
                         </div>
                     </div>
-                    <div style="display:none;width:1px;height:64px;background:rgba(147,197,253,0.4);" class="hidden md:block"></div>
+                    <div style="display:none;width:1px;height:64px;background:rgba(147,197,253,0.4);"
+                        class="hidden md:block"></div>
                     <div class="flex items-center gap-5">
-                        <div style="width:70px;height:70px;border:3px solid #4dd9e8;border-radius:50%;display:flex;align-items:center;justify-content:center;">
-                            <svg class="w-9 h-9 text-cyan-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        <div
+                            style="width:70px;height:70px;border:3px solid #4dd9e8;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                            <svg class="w-9 h-9 text-cyan-300" fill="none" stroke="currentColor" stroke-width="1.8"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </div>
                         <div>
-                            <div class="text-white text-xl font-extrabold leading-none">{{ $activeBatch->tanggal_selesai_pendaftaran->format('d F Y') }}</div>
+                            <div class="text-white text-xl font-extrabold leading-none">
+                                {{ $activeBatch->tanggal_selesai_pendaftaran->format('d F Y') }}</div>
                             <div class="text-cyan-200 text-sm font-medium mt-1">Batas Pendaftaran</div>
                         </div>
                     </div>
@@ -1309,7 +1346,11 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="task-item">
                                 <div class="task-num">
-                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
                                 </div>
                                 <div>
                                     <span class="font-semibold text-blue-900">Tipe Kelas</span>
@@ -1318,7 +1359,11 @@
                             </div>
                             <div class="task-item">
                                 <div class="task-num">
-                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                            clip-rule="evenodd" />
+                                    </svg>
                                 </div>
                                 <div>
                                     <span class="font-semibold text-blue-900">Durasi Program</span>
@@ -1365,9 +1410,11 @@
                     @foreach ($programLayanan->manfaat as $i => $manfaat)
                         <div class="program-card">
                             <div class="flex items-start gap-3">
-                                <div class="flex-shrink-0 w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                                <div
+                                    class="flex-shrink-0 w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
                                     <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        <path
+                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                     </svg>
                                 </div>
                                 <p class="text-gray-700 text-sm">{{ $manfaat }}</p>
@@ -1438,20 +1485,26 @@
                                 </h3>
                                 <div class="space-y-2 text-sm text-gray-600">
                                     <div class="flex items-center gap-2">
-                                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
                                         <span>Mulai: {{ $batch->tanggal_mulai_program->format('d F Y') }}</span>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
                                         <span>Kuota: {{ $batch->kuota }} peserta</span>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                                         </svg>
                                         <span>Rp {{ number_format($batch->harga, 0, ',', '.') }}</span>
                                     </div>
@@ -1471,10 +1524,11 @@
                         <img src="{{ Storage::url($programLayanan->gambar_banner) }}"
                             alt="{{ $programLayanan->nama_program }}"
                             class="w-full rounded-xl shadow-lg object-cover max-h-[420px] cursor-zoom-in"
-                            style="border: 3px solid #1e7bb5;"
-                            @click="open = true">
-                        <div class="absolute inset-0 bg-black/30 opacity-0 hover:opacity-100 transition flex items-center justify-center rounded-xl pointer-events-none">
-                            <span class="text-white text-sm font-medium bg-black/40 px-4 py-2 rounded-lg">Klik untuk memperbesar</span>
+                            style="border: 3px solid #1e7bb5;" @click="open = true">
+                        <div
+                            class="absolute inset-0 bg-black/30 opacity-0 hover:opacity-100 transition flex items-center justify-center rounded-xl pointer-events-none">
+                            <span class="text-white text-sm font-medium bg-black/40 px-4 py-2 rounded-lg">Klik untuk
+                                memperbesar</span>
                         </div>
                         <div x-show="open" x-cloak x-transition
                             class="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center"

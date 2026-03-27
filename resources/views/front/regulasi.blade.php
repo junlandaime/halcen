@@ -87,7 +87,7 @@
                                     @if ($regulation->external_link)
                                         <a href="{{ $regulation->external_link }}" target="_blank"
                                             class="text-primary hover:text-blue-700">
-                                            Lihat di Website BPJPH →
+                                            Lihat Dokumen →
                                         </a>
                                     @endif
                                 </div>
