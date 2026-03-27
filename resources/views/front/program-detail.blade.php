@@ -38,9 +38,236 @@
 
 
 @push('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
         p {
             text-align: justify;
+        }
+
+        /* ── Hero ── */
+        .hero-section {
+            position: relative;
+            min-height: 280px;
+            overflow: hidden;
+        }
+
+        .hero-section .hero-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-section .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-section .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(20, 80, 120, 0.65);
+        }
+
+        .hero-section .hero-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 280px;
+            padding: 2rem 2rem;
+        }
+
+        /* ── Purpose block ── */
+        .purpose-wrap {
+            display: flex;
+            flex-direction: column;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        @media (min-width: 768px) {
+            .purpose-wrap {
+                flex-direction: row;
+            }
+        }
+
+        .purpose-label {
+            background: linear-gradient(135deg, #1a6a9a, #1e7bb5);
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 2rem;
+            min-height: 10rem;
+        }
+
+        @media (min-width: 768px) {
+            .purpose-label {
+                width: 12rem;
+                min-height: unset;
+            }
+        }
+
+        .purpose-content {
+            flex: 1;
+            background: white;
+            border: 1px solid #f3f4f6;
+            padding: 2rem;
+            color: #374151;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ── Content sections ── */
+        .about-section-card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid #f3f4f6;
+            padding: 2rem;
+            color: #374151;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ── Sidebar label ── */
+        .sidebar-label {
+            background: linear-gradient(135deg, #1a6a9a, #1e7bb5);
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            min-height: 8rem;
+            box-shadow: 0 4px 12px rgba(26, 106, 154, 0.3);
+        }
+
+        @media (min-width: 768px) {
+            .sidebar-label {
+                width: 9rem;
+                min-height: unset;
+                border-radius: 0.75rem;
+            }
+        }
+
+        /* ── Task list item ── */
+        .task-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            border-radius: 0.5rem;
+            background: #f8fafc;
+            border-left: 3px solid #1e7bb5;
+            font-size: 0.9rem;
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        .task-item .task-num {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: #1e7bb5;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 0.1rem;
+        }
+
+        /* ── Badge pill ── */
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #dbeafe;
+            color: #1e40af;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 9999px;
+        }
+
+        /* ── Program cards ── */
+        .program-card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            border-top: 3px solid #1e7bb5;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(26, 106, 154, 0.18);
+        }
+
+        /* ── Fade-up animation ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.4s;
+        }
+
+        /* ── VM icon wrap ── */
+        .vm-icon-wrap {
+            background: #dbeafe;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ── Section anchor ── */
+        .section-anchor {
+            scroll-margin-top: 80px;
         }
     </style>
 @endpush
@@ -970,214 +1197,295 @@
         {{-- TAMPILAN DEFAULT UNTUK SLUG LAINNYA                          --}}
         {{-- ============================================================ --}}
 
-        {{-- HERO BANNER --}}
-        <section class="relative flex items-center justify-center mb-10"
-            style="background: linear-gradient(rgba(13,80,120,0.62), rgba(10,60,100,0.68)),
-                   url('{{ $programLayanan->gambar_banner ? Storage::url($programLayanan->gambar_banner) : '' }}') center/cover no-repeat;
-                   min-height: 320px;">
-            <div class="text-center px-6 py-16">
-                <h1 class="text-white font-extrabold text-3xl md:text-5xl tracking-wide drop-shadow-lg uppercase">
-                    {{ $programLayanan->nama_banner }}
-                </h1>
-                @if ($programLayanan->deskripsi)
-                    <p class="text-white/80 mt-4 max-w-2xl mx-auto text-base md:text-lg">
-                        {{ $programLayanan->deskripsi }}
-                    </p>
+        {{-- ══════════════════════ HERO ══════════════════════ --}}
+        <section class="hero-section fade-up" x-data="{ scroll: 0 }" @scroll.window="scroll = window.pageYOffset">
+            <div class="hero-bg">
+                @if ($programLayanan->gambar_banner)
+                    <img src="{{ Storage::url($programLayanan->gambar_banner) }}" alt="{{ $programLayanan->nama_banner }}"
+                        x-bind:style="`transform: translateY(${scroll * 0.4}px)`">
                 @endif
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content max-w-6xl mx-auto w-full">
+                <div class="text-white">
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-lg mb-3">
+                        {{ $programLayanan->nama_banner }}
+                    </h1>
+                    @if ($programLayanan->deskripsi)
+                        <p class="text-lg md:text-xl text-blue-100">{{ $programLayanan->deskripsi }}</p>
+                    @endif
 
-                @if ($activeBatch)
-                    <div class="mt-6 inline-flex flex-col items-center gap-3">
-                        <div class="flex items-center gap-3">
-                            <span class="text-white font-semibold">
-                                Batch {{ $activeBatch->batch_ke }} – {{ $activeBatch->nama_batch }}
-                            </span>
-                            <span class="px-3 py-1 bg-green-500 text-white text-sm rounded-full">
+                    @if ($activeBatch)
+                        <div class="mt-6 flex flex-wrap items-center gap-4">
+                            <span class="badge-pill" style="background:#065f46;color:#d1fae5;">
+                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="5"/></svg>
                                 Pendaftaran Dibuka
                             </span>
+                            <span class="text-blue-100 text-sm font-medium">
+                                Batch {{ $activeBatch->batch_ke }} – {{ $activeBatch->nama_batch }}
+                            </span>
                         </div>
-                        <div class="flex gap-6 text-white">
-                            <div>
-                                <div class="text-sm opacity-75">Harga Program</div>
-                                <div class="text-2xl font-bold">
-                                    Rp {{ number_format($activeBatch->harga, 0, ',', '.') }}
-                                </div>
-                            </div>
-                            <div>
-                                <div class="text-sm opacity-75">Sisa Kuota</div>
-                                <div class="text-2xl font-bold">
-                                    {{ $activeBatch->kuota }} Peserta
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-white/80 text-sm">
-                            Batas Pendaftaran: {{ $activeBatch->tanggal_selesai_pendaftaran->format('d F Y') }}
-                        </div>
-                        <a href="{{ $activeBatch->external_link }}" target="_blank"
-                            class="mt-2 px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg hover:bg-blue-50 transition">
-                            Daftar Sekarang
-                        </a>
-                    </div>
-                @endif
+                    @endif
+                </div>
             </div>
         </section>
 
-        {{-- MAIN CONTENT --}}
-        <main class="max-w-7xl mx-auto px-4 pb-16">
-
-            {{-- IMAGE BANNER (jika ada) --}}
-            @if ($programLayanan->gambar_banner)
-                <div x-data="{ open: false }" class="relative cursor-pointer mb-10 max-w-3xl mx-auto">
-
-                    {{-- IMAGE THUMBNAIL --}}
-                    <img src="{{ Storage::url($programLayanan->gambar_banner) }}"
-                        alt="{{ $programLayanan->nama_program }}"
-                        class="rounded-xl shadow-lg object-cover w-full max-h-[420px] cursor-zoom-in"
-                        @click="open = true">
-
-                    {{-- HOVER OVERLAY --}}
-                    <div
-                        class="absolute inset-0 bg-black/30 opacity-0 hover:opacity-100 transition flex items-center justify-center rounded-xl pointer-events-none">
-                        <span class="text-white text-sm">Klik untuk memperbesar</span>
-                    </div>
-
-                    {{-- MODAL IMAGE --}}
-                    <div x-show="open" x-cloak x-transition
-                        class="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center"
-                        @click.self="open = false">
-                        <img src="{{ Storage::url($programLayanan->gambar_banner) }}"
-                            class="max-w-[90%] max-h-[90%] rounded-lg shadow-2xl">
-                    </div>
-
-                </div>
-            @endif
-
-            {{-- PROGRAM DETAILS --}}
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-                {{-- MAIN CONTENT --}}
-                <div class="md:col-span-2 space-y-6">
-
-                    {{-- Apa itu --}}
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                        <h2 class="text-2xl font-bold mb-4">Apa itu {{ $programLayanan->nama_banner }}</h2>
+        {{-- ══════════════════════ BATCH INFO BAR ══════════════════════ --}}
+        @if ($activeBatch)
+            <div class="fade-up delay-1" style="background:linear-gradient(135deg,#1a6a9a 0%,#1e7bb5 50%,#1a6a9a 100%);padding:2rem 1rem;">
+                <div style="max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-around;gap:2rem;">
+                    <div class="flex items-center gap-5">
+                        <div class="counter-icon" style="width:70px;height:70px;border:3px solid #4dd9e8;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                            <svg class="w-9 h-9 text-cyan-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
                         <div>
-                            <p class="font-semibold text-wrap">{!! $programLayanan->deskripsi_lengkap !!}</p>
+                            <div class="text-white text-3xl font-extrabold leading-none">Rp {{ number_format($activeBatch->harga, 0, ',', '.') }}</div>
+                            <div class="text-cyan-200 text-sm font-medium mt-1">Harga Program</div>
                         </div>
                     </div>
-
-                    {{-- Informasi Program --}}
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                        <h2 class="text-2xl font-bold mb-4">Informasi Program</h2>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <span class="text-gray-600">Tipe Kelas</span>
-                                <p class="font-semibold">{{ ucfirst($programLayanan->tipe_kelas) }}</p>
-                            </div>
-                            <div>
-                                <span class="text-gray-600">Durasi Program</span>
-                                <p class="font-semibold">{{ $programLayanan->durasi }}</p>
-                            </div>
+                    <div style="display:none;width:1px;height:64px;background:rgba(147,197,253,0.4);" class="hidden md:block" ></div>
+                    <div class="flex items-center gap-5">
+                        <div style="width:70px;height:70px;border:3px solid #4dd9e8;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                            <svg class="w-9 h-9 text-cyan-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-white text-3xl font-extrabold leading-none">{{ $activeBatch->kuota }} Peserta</div>
+                            <div class="text-cyan-200 text-sm font-medium mt-1">Sisa Kuota</div>
                         </div>
                     </div>
-
-                    {{-- Materi --}}
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                        <h2 class="text-2xl font-bold mb-4">Apa saja yang dipelajari di {{ $programLayanan->nama_banner }}
-                        </h2>
-                        <ul class="space-y-2">
-                            @foreach ($programLayanan->materi as $materi)
-                                <li class="flex items-start gap-2">
-                                    <i class="fas fa-check-circle text-primary mt-1"></i>
-                                    <span>{{ $materi }}</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                    {{-- Manfaat --}}
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                        <h2 class="text-2xl font-bold mb-4">Benefit Program</h2>
-                        <ul class="space-y-2">
-                            @foreach ($programLayanan->manfaat as $manfaat)
-                                <li class="flex items-start gap-2">
-                                    <i class="fas fa-star text-yellow-500 mt-1"></i>
-                                    <span>{{ $manfaat }}</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                    {{-- Persyaratan / Capaian --}}
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                        <h2 class="text-2xl font-bold mb-4">Capaian Program</h2>
-                        <ul class="space-y-2">
-                            @foreach ($programLayanan->persyaratan as $syarat)
-                                <li class="flex items-start gap-2">
-                                    <i class="fas fa-clipboard-check text-primary mt-1"></i>
-                                    <span>{{ $syarat }}</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                    {{-- Alur Proses --}}
-                    @if (count($programLayanan['alur_proses']) > 1)
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                            <h2 class="text-2xl font-bold mb-4">Alur Proses</h2>
-                            <div class="space-y-4">
-                                @foreach ($programLayanan->alur_proses as $index => $alur)
-                                    <div class="flex items-start gap-4">
-                                        <div
-                                            class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">
-                                            {{ $index + 1 }}
-                                        </div>
-                                        <div>
-                                            <p>{{ $alur }}</p>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
+                    <div style="display:none;width:1px;height:64px;background:rgba(147,197,253,0.4);" class="hidden md:block"></div>
+                    <div class="flex items-center gap-5">
+                        <div style="width:70px;height:70px;border:3px solid #4dd9e8;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                            <svg class="w-9 h-9 text-cyan-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
                         </div>
-                    @endif
-
+                        <div>
+                            <div class="text-white text-xl font-extrabold leading-none">{{ $activeBatch->tanggal_selesai_pendaftaran->format('d F Y') }}</div>
+                            <div class="text-cyan-200 text-sm font-medium mt-1">Batas Pendaftaran</div>
+                        </div>
+                    </div>
                 </div>
+                <div class="text-center mt-6">
+                    <a href="{{ $activeBatch->external_link }}" target="_blank"
+                        class="inline-block px-8 py-3 bg-white text-blue-700 font-bold rounded-lg hover:bg-blue-50 transition shadow-lg">
+                        Daftar Sekarang →
+                    </a>
+                </div>
+            </div>
+        @endif
 
-                {{-- SIDEBAR --}}
-                <div class="space-y-6">
-                    {{-- Upcoming Batches --}}
-                    @if ($upcomingBatches->isNotEmpty())
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                            <h2 class="text-xl font-bold mb-4">Batch Mendatang</h2>
-                            <div class="space-y-4">
-                                @foreach ($upcomingBatches as $batch)
-                                    <div class="border-b border-gray-200 pb-4 last:border-0 last:pb-0">
-                                        <h3 class="font-semibold text-gray-800">
-                                            Batch {{ $batch->batch_ke }} - {{ $batch->nama_batch }}
-                                        </h3>
-                                        <div class="text-sm text-gray-600 space-y-1 mt-2">
-                                            <p>
-                                                <i class="fas fa-calendar-alt w-5"></i>
-                                                Mulai: {{ $batch->tanggal_mulai_program->format('d F Y') }}
-                                            </p>
-                                            <p>
-                                                <i class="fas fa-users w-5"></i>
-                                                Kuota: {{ $batch->kuota }} peserta
-                                            </p>
-                                            <p>
-                                                <i class="fas fa-tag w-5"></i>
-                                                Rp {{ number_format($batch->harga, 0, ',', '.') }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                @endforeach
+        {{-- ══════════════════════ DESKRIPSI ══════════════════════ --}}
+        <div class="max-w-6xl mx-auto px-4 py-12 flex flex-col md:flex-row gap-6 fade-up delay-2">
+            <div class="about-section-card flex-1">
+                <p class="text-gray-600 leading-relaxed">{{ $programLayanan->deskripsi }}</p>
+            </div>
+            <div class="sidebar-label">PROGRAM</div>
+        </div>
+
+        {{-- ══════════════════════ APA ITU PROGRAM ══════════════════════ --}}
+        <div class="max-w-6xl mx-auto px-4 pb-12 fade-up delay-3">
+            <div class="purpose-wrap">
+                <div class="purpose-label">APA ITU<br>PROGRAM INI</div>
+                <div class="purpose-content">
+                    <div class="prose prose-sm text-gray-600 text-justify leading-relaxed">
+                        {!! $programLayanan->deskripsi_lengkap !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- ══════════════════════ INFORMASI PROGRAM ══════════════════════ --}}
+        <div class="bg-gray-50 py-14 section-anchor" id="info-program">
+            <div class="max-w-6xl mx-auto px-4">
+
+                <div class="purpose-wrap mb-10 fade-up">
+                    <div class="purpose-label">INFORMASI<br>PROGRAM</div>
+                    <div class="purpose-content">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="task-item">
+                                <div class="task-num">
+                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                </div>
+                                <div>
+                                    <span class="font-semibold text-blue-900">Tipe Kelas</span>
+                                    <p class="mt-1">{{ ucfirst($programLayanan->tipe_kelas) }}</p>
+                                </div>
+                            </div>
+                            <div class="task-item">
+                                <div class="task-num">
+                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                                </div>
+                                <div>
+                                    <span class="font-semibold text-blue-900">Durasi Program</span>
+                                    <p class="mt-1">{{ $programLayanan->durasi }}</p>
+                                </div>
                             </div>
                         </div>
-                    @endif
+                    </div>
                 </div>
 
             </div>
+        </div>
 
-        </main>
+        {{-- ══════════════════════ MATERI ══════════════════════ --}}
+        <section class="py-16 bg-white">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="purpose-wrap mb-10 fade-up">
+                    <div class="purpose-label">MATERI<br>PROGRAM</div>
+                    <div class="purpose-content">
+                        <p>Materi yang akan dipelajari dalam program {{ $programLayanan->nama_banner }}.</p>
+                    </div>
+                </div>
+                <div class="space-y-3 fade-up delay-1">
+                    @foreach ($programLayanan->materi as $i => $materi)
+                        <div class="task-item">
+                            <div class="task-num">{{ $i + 1 }}</div>
+                            <div>{{ $materi }}</div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+
+        {{-- ══════════════════════ MANFAAT ══════════════════════ --}}
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="purpose-wrap mb-10 fade-up">
+                    <div class="purpose-label">BENEFIT<br>PROGRAM</div>
+                    <div class="purpose-content">
+                        <p>Manfaat yang akan Anda peroleh dari program ini.</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 fade-up delay-1">
+                    @foreach ($programLayanan->manfaat as $i => $manfaat)
+                        <div class="program-card">
+                            <div class="flex items-start gap-3">
+                                <div class="flex-shrink-0 w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-gray-700 text-sm">{{ $manfaat }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+
+        {{-- ══════════════════════ CAPAIAN ══════════════════════ --}}
+        <section class="py-16 bg-white">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="purpose-wrap mb-10 fade-up">
+                    <div class="purpose-label">CAPAIAN<br>PROGRAM</div>
+                    <div class="purpose-content">
+                        <p>Target capaian yang akan diperoleh peserta setelah mengikuti program.</p>
+                    </div>
+                </div>
+                <div class="space-y-3 fade-up delay-1">
+                    @foreach ($programLayanan->persyaratan as $i => $syarat)
+                        <div class="task-item">
+                            <div class="task-num">{{ $i + 1 }}</div>
+                            <div>{{ $syarat }}</div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+
+        {{-- ══════════════════════ ALUR PROSES ══════════════════════ --}}
+        @if (count($programLayanan['alur_proses']) > 1)
+            <section class="py-16 bg-gray-50">
+                <div class="max-w-6xl mx-auto px-4">
+                    <div class="purpose-wrap mb-10 fade-up">
+                        <div class="purpose-label">ALUR<br>PROSES</div>
+                        <div class="purpose-content">
+                            <p>Langkah-langkah yang perlu dilalui dalam program ini.</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4 fade-up delay-1">
+                        @foreach ($programLayanan->alur_proses as $index => $alur)
+                            <div class="task-item">
+                                <div class="task-num">{{ $index + 1 }}</div>
+                                <div>{{ $alur }}</div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+        @endif
+
+        {{-- ══════════════════════ BATCH MENDATANG ══════════════════════ --}}
+        @if ($upcomingBatches->isNotEmpty())
+            <section class="py-16 bg-white">
+                <div class="max-w-6xl mx-auto px-4">
+                    <div class="purpose-wrap mb-10 fade-up">
+                        <div class="purpose-label">BATCH<br>MENDATANG</div>
+                        <div class="purpose-content">
+                            <p>Jadwal batch yang akan segera dibuka untuk pendaftaran.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 fade-up delay-1">
+                        @foreach ($upcomingBatches as $batch)
+                            <div class="program-card">
+                                <h3 class="text-base font-bold text-blue-800 mb-3">
+                                    Batch {{ $batch->batch_ke }} - {{ $batch->nama_batch }}
+                                </h3>
+                                <div class="space-y-2 text-sm text-gray-600">
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <span>Mulai: {{ $batch->tanggal_mulai_program->format('d F Y') }}</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        <span>Kuota: {{ $batch->kuota }} peserta</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                                        </svg>
+                                        <span>Rp {{ number_format($batch->harga, 0, ',', '.') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+        @endif
+
+        {{-- ══════════════════════ IMAGE BANNER ══════════════════════ --}}
+        @if ($programLayanan->gambar_banner)
+            <section class="py-12 bg-gray-50">
+                <div class="max-w-4xl mx-auto px-4 fade-up">
+                    <div x-data="{ open: false }" class="relative cursor-pointer">
+                        <img src="{{ Storage::url($programLayanan->gambar_banner) }}"
+                            alt="{{ $programLayanan->nama_program }}"
+                            class="w-full rounded-xl shadow-lg object-cover max-h-[420px] cursor-zoom-in"
+                            style="border: 3px solid #1e7bb5;"
+                            @click="open = true">
+                        <div class="absolute inset-0 bg-black/30 opacity-0 hover:opacity-100 transition flex items-center justify-center rounded-xl pointer-events-none">
+                            <span class="text-white text-sm font-medium bg-black/40 px-4 py-2 rounded-lg">Klik untuk memperbesar</span>
+                        </div>
+                        <div x-show="open" x-cloak x-transition
+                            class="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center"
+                            @click.self="open = false">
+                            <img src="{{ Storage::url($programLayanan->gambar_banner) }}"
+                                class="max-w-[90%] max-h-[90%] rounded-lg shadow-2xl">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
 
     @endif
 
