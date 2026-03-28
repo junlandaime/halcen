@@ -15,17 +15,17 @@
 
         @if ($heroSlides->count() > 0)
             @foreach ($heroSlides as $index => $heroSlide)
-                <div class="max-w-screen-xl mx-auto px-8 py-20 items-center justify-between gap-10 w-full min-h-screen"
+                <div class="max-w-screen-xl mx-auto px-4 sm:px-8 py-12 md:py-20 items-center justify-between gap-6 md:gap-10 w-full min-h-[60vh] md:min-h-screen flex-col md:flex-row"
                     :class="slide === {{ $index }} ? 'flex' : 'hidden'" style="animation:fadeUp .6s ease">
-                    <div class="flex-1 max-w-xl">
+                    <div class="flex-1 max-w-xl text-center md:text-left">
                         @if ($heroSlide->tag_text)
                             <span class="tag mb-4 inline-block">{{ $heroSlide->tag_text }}</span>
                         @endif
-                        <h1 class="text-5xl md:text-6xl font-black leading-tight text-gray-900 mb-3">
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-gray-900 mb-3">
                             {!! nl2br(e($heroSlide->title)) !!}
                         </h1>
                         @if ($heroSlide->subtitle)
-                            <h2 class="text-4xl md:text-5xl font-black leading-tight mb-6" style="color:#4a86b8">
+                            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-4 md:mb-6" style="color:#4a86b8">
                                 {{ $heroSlide->subtitle }}
                             </h2>
                         @endif
@@ -33,11 +33,11 @@
                             <p class="text-gray-500 font-semibold text-base mb-1">{{ $heroSlide->hashtag }}</p>
                         @endif
                         @if ($heroSlide->description)
-                            <p class="text-gray-600 text-base mb-10 max-w-md">{{ $heroSlide->description }}</p>
+                            <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">{{ $heroSlide->description }}</p>
                         @endif
                         @if ($heroSlide->button_text)
                             <a href="{{ $heroSlide->button_link ?? '#' }}"
-                                class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#3a6d96] transition transform hover:-translate-y-0.5 shadow-lg">
+                                class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-5 md:px-7 py-2.5 md:py-3 text-xs md:text-sm hover:bg-[#3a6d96] transition transform hover:-translate-y-0.5 shadow-lg">
                                 {{ $heroSlide->button_text }}
                                 <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center">
                                     <i class="fa fa-play text-white text-xs ml-0.5"></i>
@@ -45,7 +45,7 @@
                             </a>
                         @endif
                     </div>
-                    <div class="hidden md:block hero-blob">
+                    <div class="hidden md:block hero-blob flex-shrink-0">
                         @if ($heroSlide->image)
                             <img src="{{ Storage::url($heroSlide->image) }}" alt="{{ $heroSlide->title }}">
                         @else
@@ -59,23 +59,23 @@
             @endforeach
         @else
             {{-- Default slides when no data --}}
-            <div class="max-w-screen-xl mx-auto px-8 py-20 items-center justify-between gap-10 w-full min-h-screen flex"
+            <div class="max-w-screen-xl mx-auto px-4 sm:px-8 py-12 md:py-20 items-center justify-between gap-6 md:gap-10 w-full min-h-[60vh] md:min-h-screen flex flex-col md:flex-row"
                 style="animation:fadeUp .6s ease">
 
                 {{-- Konten slide (berubah) --}}
-                <div class="flex-1 max-w-xl relative" style="min-height:300px">
+                <div class="flex-1 max-w-xl relative text-center md:text-left" style="min-height:200px">
                     <div :class="slide === 0 ? 'block' : 'hidden'" style="animation:fadeUp .6s ease">
-                        <h1 class="text-5xl md:text-6xl font-black leading-tight text-gray-900 mb-3">
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-gray-900 mb-3">
                             LEMBAGA<br>PEMERIKSA<br>HALAL
                         </h1>
-                        <h2 class="text-4xl md:text-5xl font-black leading-tight mb-6" style="color:#4a86b8">YPM SALMAN ITB
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-4 md:mb-6" style="color:#4a86b8">YPM SALMAN ITB
                         </h2>
-                        <p class="text-gray-500 font-semibold text-base mb-1">#berkahalal</p>
-                        <p class="text-gray-600 text-base mb-10 max-w-md">Kami melayani audit kehalalan produk untuk
+                        <p class="text-gray-500 font-semibold text-sm md:text-base mb-1">#berkahalal</p>
+                        <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">Kami melayani audit kehalalan produk untuk
                             kebutuhan
                             Sertifikasi Halal produk makanan dan minuman UMKM.</p>
                         <button
-                            class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#3a6d96] transition shadow-lg">
+                            class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-5 md:px-7 py-2.5 md:py-3 text-xs md:text-sm hover:bg-[#3a6d96] transition shadow-lg">
                             Daftar Sekarang
                             <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center"><i
                                     class="fa fa-play text-white text-xs ml-0.5"></i></span>
@@ -84,13 +84,13 @@
 
                     <div :class="slide === 1 ? 'block' : 'hidden'" style="animation:fadeUp .6s ease">
                         <span class="tag mb-4 inline-block">Mitra BPJPH Resmi</span>
-                        <h1 class="text-5xl font-black leading-tight text-gray-900 mb-3">MEWUJUDKAN<br>EKOSISTEM<br>HALAL
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-gray-900 mb-3">MEWUJUDKAN<br>EKOSISTEM<br>HALAL
                         </h1>
-                        <h2 class="text-4xl font-black leading-tight mb-6" style="color:#4a86b8">YANG BERKELANJUTAN</h2>
-                        <p class="text-gray-600 text-base mb-10 max-w-md">Didukung auditor halal bersertifikat BNSP dan
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight mb-4 md:mb-6" style="color:#4a86b8">YANG BERKELANJUTAN</h2>
+                        <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">Didukung auditor halal bersertifikat BNSP dan
                             laboratorium terakreditasi SNI ISO/IEC 17025:2017 kerja sama dengan ITB.</p>
                         <button
-                            class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#3a6d96] transition shadow-lg">
+                            class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-5 md:px-7 py-2.5 md:py-3 text-xs md:text-sm hover:bg-[#3a6d96] transition shadow-lg">
                             Pelajari Lebih Lanjut
                             <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center"><i
                                     class="fa fa-arrow-right text-white text-xs"></i></span>
@@ -99,14 +99,14 @@
 
                     <div :class="slide === 2 ? 'block' : 'hidden'" style="animation:fadeUp .6s ease">
                         <span class="tag mb-4 inline-block">Program Unggulan {{ date('Y') }}</span>
-                        <h1 class="text-5xl font-black leading-tight text-gray-900 mb-3">SERTIFIKASI<br>HALAL GRATIS<br>ITU
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-gray-900 mb-3">SERTIFIKASI<br>HALAL GRATIS<br>ITU
                             MUDAH</h1>
-                        <h2 class="text-4xl font-black leading-tight mb-6" style="color:#4a86b8">SELF DECLARE BPJPH</h2>
-                        <p class="text-gray-600 text-base mb-10 max-w-md">Tidak perlu khawatir. Mengurus Sertifikasi Halal
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight mb-4 md:mb-6" style="color:#4a86b8">SELF DECLARE BPJPH</h2>
+                        <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">Tidak perlu khawatir. Mengurus Sertifikasi Halal
                             itu
                             mudah dan biayanya terjangkau. Kami siap membantu Anda.</p>
                         <button
-                            class="inline-flex items-center gap-3 bg-[#b8972a] text-white font-bold rounded-full px-7 py-3 text-sm hover:bg-[#9a7d20] transition shadow-lg">
+                            class="inline-flex items-center gap-3 bg-[#b8972a] text-white font-bold rounded-full px-5 md:px-7 py-2.5 md:py-3 text-xs md:text-sm hover:bg-[#9a7d20] transition shadow-lg">
                             Info Selengkapnya
                             <span class="w-8 h-8 bg-[#4a86b8] rounded-full flex items-center justify-center"><i
                                     class="fa fa-play text-white text-xs ml-0.5"></i></span>
@@ -116,7 +116,7 @@
 
                 {{-- Gambar tetap (tidak berubah saat slide berganti) --}}
                 <div class="hidden md:block flex-shrink-0">
-                    <img src="{{ asset('hero-lph.jpg') }}" alt="Hero Image" class=" object-cover rounded-3xl shadow-xl">
+                    <img src="{{ asset('hero-lph.jpg') }}" alt="Hero Image" class="object-cover rounded-3xl shadow-xl max-w-xs lg:max-w-md">
                 </div>
 
             </div>

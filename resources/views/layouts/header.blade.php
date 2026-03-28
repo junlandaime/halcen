@@ -3,8 +3,8 @@
     $headerAbouts = $headerAbouts ?? collect();
 @endphp
 
-<header class="sticky top-0 z-50 bg-white shadow-sm">
-    <div class="max-w-screen-xl mx-auto px-8 py-3 flex items-center justify-between" x-data="{ profileOpen: false, serviceOpen: false, pubOpen: false, mob: false }">
+<header class="sticky top-0 z-50 bg-white shadow-sm" x-data="{ profileOpen: false, serviceOpen: false, pubOpen: false, mob: false }">
+    <div class="max-w-screen-xl mx-auto px-8 py-3 flex items-center justify-between">
         <!-- Logo -->
         <a href="{{ route('front.index') }}" class="flex items-center gap-3">
             @if (file_exists(public_path('logolph.png')))
@@ -73,7 +73,7 @@
     </div>
 
     <!-- Mobile menu -->
-    <div x-data="{ profileOpen: false, serviceOpen: false, pubOpen: false, mob: false }" x-show="mob" x-cloak x-transition
+    <div x-show="mob" x-cloak x-transition
         class="md:hidden bg-white border-t px-6 py-4 space-y-3 text-sm font-bold uppercase tracking-wider text-[#4a86b8]">
         <a href="{{ route('front.index') }}" class="block py-2">Home</a>
 

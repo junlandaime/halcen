@@ -1321,13 +1321,13 @@
             <div class="about-section-card flex-1">
                 <p class="text-gray-600 leading-relaxed">{{ $programLayanan->deskripsi }}</p>
             </div>
-            <div class="sidebar-label">PROGRAM</div>
+            <div class="sidebar-label">DESKRIPSI SINGKAT</div>
         </div>
 
         {{-- ══════════════════════ APA ITU PROGRAM ══════════════════════ --}}
         <div class="max-w-6xl mx-auto px-4 pb-12 fade-up delay-3">
             <div class="purpose-wrap">
-                <div class="purpose-label">APA ITU<br>PROGRAM INI</div>
+                <div class="purpose-label">PROFIL<br>PROGRAM</div>
                 <div class="purpose-content">
                     <div class="prose prose-sm text-gray-600 text-justify leading-relaxed">
                         {!! $programLayanan->deskripsi_lengkap !!}

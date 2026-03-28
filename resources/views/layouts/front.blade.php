@@ -73,6 +73,9 @@
           clip-path:path("M310 0 C490 0 610 100 610 280 C610 440 500 560 310 600 C120 560 10 440 10 280 C10 100 130 0 310 0Z");
           overflow:hidden;
         }
+        @media(max-width:1024px){
+          .hero-blob{width:380px;height:360px;clip-path:path("M190 0 C300 0 374 61 374 171 C374 270 306 343 190 367 C74 343 6 270 6 171 C6 61 80 0 190 0Z")}
+        }
         .hero-blob img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
         .hero-blob:hover img{transform:scale(1.05)}
         .hero-blob::after{content:'';position:absolute;inset:0;background:rgba(74,134,184,.25)}
