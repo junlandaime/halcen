@@ -76,6 +76,52 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
+
+        /* ========================================
+           Custom Primary Color Utilities
+           (Needed because template/style.css is pre-compiled
+            and doesn't process tailwind.config.js)
+           ======================================== */
+
+        /* Background */
+        .bg-primary { background-color: #2563EB !important; }
+        .bg-primary-dark { background-color: #1D4ED8 !important; }
+        .bg-primary-light { background-color: #3B82F6 !important; }
+        .bg-primary-50 { background-color: #EFF6FF !important; }
+        .bg-primary-100 { background-color: #DBEAFE !important; }
+        .bg-primary-500 { background-color: #3B82F6 !important; }
+        .bg-primary-600 { background-color: #2563EB !important; }
+        .bg-primary-700 { background-color: #1D4ED8 !important; }
+
+        /* Text */
+        .text-primary { color: #2563EB !important; }
+        .text-primary-dark { color: #1D4ED8 !important; }
+        .text-primary-light { color: #3B82F6 !important; }
+        .text-primary-500 { color: #3B82F6 !important; }
+        .text-primary-600 { color: #2563EB !important; }
+        .text-primary-700 { color: #1D4ED8 !important; }
+
+        /* Border */
+        .border-primary { border-color: #2563EB !important; }
+        .border-primary-500 { border-color: #3B82F6 !important; }
+        .border-primary-600 { border-color: #2563EB !important; }
+
+        /* Hover states */
+        .hover\:bg-primary:hover { background-color: #2563EB !important; }
+        .hover\:bg-primary-dark:hover { background-color: #1D4ED8 !important; }
+        .hover\:bg-primary-700:hover { background-color: #1D4ED8 !important; }
+        .hover\:text-primary:hover { color: #2563EB !important; }
+        .hover\:text-primary-dark:hover { color: #1D4ED8 !important; }
+
+        /* Focus states */
+        .focus\:border-primary:focus { border-color: #2563EB !important; }
+        .focus\:border-primary-500:focus { border-color: #3B82F6 !important; }
+        .focus\:ring-primary:focus { --tw-ring-color: #2563EB; }
+        .focus\:ring-primary-500:focus { --tw-ring-color: #3B82F6; }
+
+        /* Ring */
+        .ring-primary { --tw-ring-color: #2563EB; }
+        .ring-primary-500 { --tw-ring-color: #3B82F6; }
     </style>
 </head>
 
