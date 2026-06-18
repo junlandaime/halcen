@@ -539,7 +539,7 @@
         </div>
 
         {{-- MODAL: OBAT --}}
-        <div x-data="{ open: false }" id="modal-obat-wrapper">
+        {{-- <div x-data="{ open: false }" id="modal-obat-wrapper">
             <template x-teleport="body">
                 <div x-show="$store.modalObat.open" x-cloak x-transition
                     class="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center p-4"
@@ -600,10 +600,10 @@
                     </div>
                 </div>
             </template>
-        </div>
+        </div> --}}
 
         {{-- MODAL: KOSMETIK --}}
-        <div x-data="{ open: false }" id="modal-kosmetik-wrapper">
+        {{-- <div x-data="{ open: false }" id="modal-kosmetik-wrapper">
             <template x-teleport="body">
                 <div x-show="$store.modalKosmetik.open" x-cloak x-transition
                     class="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center p-4"
@@ -699,10 +699,10 @@
                     </div>
                 </div>
             </template>
-        </div>
+        </div> --}}
 
         {{-- MODAL: PRODUK KIMIAWI --}}
-        <div x-data="{ open: false }" id="modal-kimiawi-wrapper">
+        {{-- <div x-data="{ open: false }" id="modal-kimiawi-wrapper">
             <template x-teleport="body">
                 <div x-show="$store.modalKimiawi.open" x-cloak x-transition
                     class="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center p-4"
@@ -753,10 +753,10 @@
                     </div>
                 </div>
             </template>
-        </div>
+        </div> --}}
 
         {{-- MODAL: BARANG GUNAAN --}}
-        <div x-data="{ open: false }" id="modal-gunaan-wrapper">
+        {{-- <div x-data="{ open: false }" id="modal-gunaan-wrapper">
             <template x-teleport="body">
                 <div x-show="$store.modalGunaan.open" x-cloak x-transition
                     class="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center p-4"
@@ -841,10 +841,10 @@
                     </div>
                 </div>
             </template>
-        </div>
+        </div> --}}
 
         {{-- MODAL: JASA PENYEMBELIHAN --}}
-        <div x-data="{ open: false }" id="modal-sembelih-wrapper">
+        {{-- <div x-data="{ open: false }" id="modal-sembelih-wrapper">
             <template x-teleport="body">
                 <div x-show="$store.modalSembelih.open" x-cloak x-transition
                     class="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center p-4"
@@ -898,10 +898,10 @@
                     </div>
                 </div>
             </template>
-        </div>
+        </div> --}}
 
         {{-- MODAL: JASA PENGOLAHAN --}}
-        <div x-data="{ open: false }" id="modal-pengolahan-wrapper">
+        {{-- <div x-data="{ open: false }" id="modal-pengolahan-wrapper">
             <template x-teleport="body">
                 <div x-show="$store.modalPengolahan.open" x-cloak x-transition
                     class="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center p-4"
@@ -945,10 +945,10 @@
                     </div>
                 </div>
             </template>
-        </div>
+        </div> --}}
 
         {{-- MODAL: JASA PENGEMASAN --}}
-        <div x-data="{ open: false }" id="modal-pengemasan-wrapper">
+        {{-- <div x-data="{ open: false }" id="modal-pengemasan-wrapper">
             <template x-teleport="body">
                 <div x-show="$store.modalPengemasan.open" x-cloak x-transition
                     class="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center p-4"
@@ -991,7 +991,7 @@
                     </div>
                 </div>
             </template>
-        </div>
+        </div> --}}
 
         {{-- Alpine Store Init --}}
         @push('scripts')
@@ -1032,8 +1032,7 @@
         <main class="max-w-7xl mx-auto px-4 pb-16">
 
             {{-- Title Box --}}
-            <div
-                class="section-title-box rounded-2xl flex items-center justify-center p-8 max-w-xs mx-auto mb-8 shadow-lg">
+            <div class="section-title-box rounded-2xl flex items-center justify-center p-8 max-w-xs mx-auto mb-8 shadow-lg">
                 <div class="text-center text-white">
                     <p class="text-xs uppercase tracking-widest opacity-80 mb-1">Layanan</p>
                     <h2 class="text-2xl font-extrabold uppercase leading-tight">
@@ -1070,7 +1069,7 @@
                 </div>
 
                 {{-- OBAT --}}
-                <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalObat.open = true">
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f489.svg"
@@ -1079,10 +1078,10 @@
                     <p class="service-label mb-2">OBAT</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Sertifikasi halal pada obat memastikan bahwa
                         bahan-bahan yang digunakan berasal dari sumber yang halal dan suci.</p>
-                </div>
+                </div> --}}
 
                 {{-- KOSMETIK --}}
-                <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalKosmetik.open = true">
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f48e.svg"
@@ -1091,10 +1090,10 @@
                     <p class="service-label mb-2">KOSMETIK</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Kosmetik yang mendapatkan sertifikasi halal harus
                         terbebas dari bahan haram, baik dari hewan maupun bahan kimia yang najis.</p>
-                </div>
+                </div> --}}
 
                 {{-- PRODUK KIMIAWI --}}
-                <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalKimiawi.open = true">
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f9ea.svg"
@@ -1103,10 +1102,10 @@
                     <p class="service-label mb-2">PRODUK KIMIAWI</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Produk kimiawi seperti enzim dan nutrisi mikroba juga
                         dapat disertifikasi halal sesuai syariat Islam.</p>
-                </div>
+                </div> --}}
 
                 {{-- BARANG GUNAAN --}}
-                <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalGunaan.open = true">
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f6cd.svg"
@@ -1115,10 +1114,10 @@
                     <p class="service-label mb-2">BARANG GUNAAN</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Sertifikasi halal berlaku untuk barang sehari-hari
                         seperti pakaian atau peralatan rumah tangga yang mengandung unsur hewan.</p>
-                </div>
+                </div> --}}
 
                 {{-- JASA PENYEMBELIHAN --}}
-                <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalSembelih.open = true">
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f404.svg"
@@ -1127,10 +1126,10 @@
                     <p class="service-label mb-2">JASA PENYEMBELIHAN</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Jasa penyembelihan yang disertifikasi halal harus
                         memenuhi syarat syariat dan dilakukan oleh Juru Sembelih Halal (Juleha) yang kompeten.</p>
-                </div>
+                </div> --}}
 
                 {{-- JASA PENGOLAHAN --}}
-                <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalPengolahan.open = true">
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f3ed.svg"
@@ -1139,10 +1138,10 @@
                     <p class="service-label mb-2">JASA PENGOLAHAN</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Jasa pengolahan terkait makanan, minuman, obat dan
                         kosmetik diaudit untuk memastikan setiap tahap sesuai syariat Islam.</p>
-                </div>
+                </div> --}}
 
                 {{-- JASA PENGEMASAN --}}
-                <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalPengemasan.open = true">
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f4cb.svg"
@@ -1151,7 +1150,7 @@
                     <p class="service-label mb-2">JASA PENGEMASAN</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Jasa pengemasan harus memastikan produk halal dikemas
                         tanpa kontaminasi bahan haram dan alat yang digunakan bersih dari najis.</p>
-                </div>
+                </div> --}}
 
             </div>
 
