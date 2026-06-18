@@ -300,7 +300,7 @@
     </section>
 @endsection
 
-@push('script')
+@push('scripts')
     <script>
         // Mengambil nomor WhatsApp dari PHP dan membersihkan karakter non-angka
         const whatsappNumber = '<?php echo preg_replace('/[^0-9]/', '', $landingPage->contact_whatsapp); ?>';
