@@ -25,7 +25,8 @@
                             {!! nl2br(e($heroSlide->title)) !!}
                         </h1>
                         @if ($heroSlide->subtitle)
-                            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-4 md:mb-6" style="color:#4a86b8">
+                            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-4 md:mb-6"
+                                style="color:#4a86b8">
                                 {{ $heroSlide->subtitle }}
                             </h2>
                         @endif
@@ -33,7 +34,8 @@
                             <p class="text-gray-500 font-semibold text-base mb-1">{{ $heroSlide->hashtag }}</p>
                         @endif
                         @if ($heroSlide->description)
-                            <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">{{ $heroSlide->description }}</p>
+                            <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">
+                                {{ $heroSlide->description }}</p>
                         @endif
                         @if ($heroSlide->button_text)
                             <a href="{{ $heroSlide->button_link ?? '#' }}"
@@ -65,13 +67,16 @@
                 {{-- Konten slide (berubah) --}}
                 <div class="flex-1 max-w-xl relative text-center md:text-left" style="min-height:200px">
                     <div :class="slide === 0 ? 'block' : 'hidden'" style="animation:fadeUp .6s ease">
-                        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-gray-900 mb-3">
+                        <h1
+                            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-gray-900 mb-3">
                             LEMBAGA<br>PEMERIKSA<br>HALAL
                         </h1>
-                        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-4 md:mb-6" style="color:#4a86b8">YPM SALMAN ITB
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-4 md:mb-6"
+                            style="color:#4a86b8">YPM SALMAN ITB
                         </h2>
                         <p class="text-gray-500 font-semibold text-sm md:text-base mb-1">#berkahalal</p>
-                        <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">Kami melayani audit kehalalan produk untuk
+                        <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">Kami melayani
+                            audit kehalalan produk untuk
                             kebutuhan
                             Sertifikasi Halal produk makanan dan minuman UMKM.</p>
                         <button
@@ -84,10 +89,13 @@
 
                     <div :class="slide === 1 ? 'block' : 'hidden'" style="animation:fadeUp .6s ease">
                         <span class="tag mb-4 inline-block">Mitra BPJPH Resmi</span>
-                        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-gray-900 mb-3">MEWUJUDKAN<br>EKOSISTEM<br>HALAL
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-gray-900 mb-3">
+                            MEWUJUDKAN<br>EKOSISTEM<br>HALAL
                         </h1>
-                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight mb-4 md:mb-6" style="color:#4a86b8">YANG BERKELANJUTAN</h2>
-                        <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">Didukung auditor halal bersertifikat BNSP dan
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight mb-4 md:mb-6"
+                            style="color:#4a86b8">YANG BERKELANJUTAN</h2>
+                        <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">Didukung
+                            auditor halal bersertifikat BNSP dan
                             laboratorium terakreditasi SNI ISO/IEC 17025:2017 kerja sama dengan ITB.</p>
                         <button
                             class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-5 md:px-7 py-2.5 md:py-3 text-xs md:text-sm hover:bg-[#3a6d96] transition shadow-lg">
@@ -99,10 +107,13 @@
 
                     <div :class="slide === 2 ? 'block' : 'hidden'" style="animation:fadeUp .6s ease">
                         <span class="tag mb-4 inline-block">Program Unggulan {{ date('Y') }}</span>
-                        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-gray-900 mb-3">SERTIFIKASI<br>HALAL GRATIS<br>ITU
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-gray-900 mb-3">
+                            SERTIFIKASI<br>HALAL GRATIS<br>ITU
                             MUDAH</h1>
-                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight mb-4 md:mb-6" style="color:#4a86b8">SELF DECLARE BPJPH</h2>
-                        <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">Tidak perlu khawatir. Mengurus Sertifikasi Halal
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight mb-4 md:mb-6"
+                            style="color:#4a86b8">SELF DECLARE BPJPH</h2>
+                        <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">Tidak perlu
+                            khawatir. Mengurus Sertifikasi Halal
                             itu
                             mudah dan biayanya terjangkau. Kami siap membantu Anda.</p>
                         <button
@@ -116,7 +127,8 @@
 
                 {{-- Gambar tetap (tidak berubah saat slide berganti) --}}
                 <div class="hidden md:block flex-shrink-0">
-                    <img src="{{ asset('hero-lph.jpg') }}" alt="Hero Image" class="object-cover rounded-3xl shadow-xl max-w-xs lg:max-w-md">
+                    <img src="{{ asset('hero-lph.jpg') }}" alt="Hero Image"
+                        class="object-cover rounded-3xl shadow-xl max-w-xs lg:max-w-md">
                 </div>
 
             </div>
@@ -231,9 +243,9 @@
 
     {{-- ========================= HALAL INSPECTION SERVICE ========================= --}}
     <section id="service" class="py-20 bg-white" data-aos="fade-up" x-data="{
-        slide: 0,
+        {{-- slide: 0,
         slides: 3,
-        startSlide() { setInterval(() => { this.slide = (this.slide + 1) % this.slides }, 4500) }
+        startSlide() { setInterval(() => { this.slide = (this.slide + 1) % this.slides }, 4500) } --}}
     }" x-init="startSlide()">
         <div class="max-w-screen-xl mx-auto px-8">
             <div class="flex flex-col md:flex-row gap-8 items-stretch">
@@ -284,17 +296,17 @@
                                 <p class="text-gray-500 text-sm leading-relaxed flex-1">Minuman yang memperoleh sertifikasi
                                     halal harus terbebas dari alkohol dan bahan terlarang dalam Islam.</p>
                             </div>
-                            <div class="svc-card">
+                            {{-- <div class="svc-card">
                                 <div class="svc-icon"><i class="fa fa-pills"></i></div>
                                 <h3 class="font-black text-lg">Obat</h3>
                                 <p class="text-gray-500 text-sm leading-relaxed flex-1">Sertifikasi halal pada obat
                                     memastikan bahan aktif maupun tambahan berasal dari sumber halal dan suci sesuai
                                     ketentuan syariat.</p>
-                            </div>
+                            </div> --}}
                         </div>
 
                         {{-- Slide 2: Kosmetik, Produk Kimia, Barang Gunaan --}}
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5" :class="slide === 1 ? 'grid' : 'hidden'"
+                        {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-5" :class="slide === 1 ? 'grid' : 'hidden'"
                             style="animation:fadeUp .6s ease">
                             <div class="svc-card">
                                 <div class="svc-icon"><i class="fa fa-pump-soap"></i></div>
@@ -316,10 +328,10 @@
                                     makan, tekstil, dan perlengkapan ibadah disertifikasi halal untuk memastikan
                                     kesuciannya.</p>
                             </div>
-                        </div>
+                        </div> --}}
 
                         {{-- Slide 3: Jasa Penyembelihan, Jasa Pengolahan, Jasa Pengemasan --}}
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5" :class="slide === 2 ? 'grid' : 'hidden'"
+                        {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-5" :class="slide === 2 ? 'grid' : 'hidden'"
                             style="animation:fadeUp .6s ease">
                             <div class="svc-card">
                                 <div class="svc-icon"><i class="fa fa-drumstick-bite"></i></div>
@@ -342,7 +354,7 @@
                                     menjamin kemasan yang digunakan aman, suci, dan tidak mencemari produk halal di
                                     dalamnya.</p>
                             </div>
-                        </div>
+                        </div> --}}
                     @endforelse
 
                 </div>
@@ -351,9 +363,9 @@
 
         <!-- Slide dots -->
         <div class="flex justify-center gap-3 pt-8">
-            <template x-for="i in slides" :key="i">
+            {{-- <template x-for="i in slides" :key="i">
                 <button @click="slide=i-1" :class="slide === i - 1 ? 'slider-dot active' : 'slider-dot'"></button>
-            </template>
+            </template> --}}
         </div>
     </section>
 
