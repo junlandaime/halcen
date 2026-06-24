@@ -243,9 +243,9 @@
 
     {{-- ========================= HALAL INSPECTION SERVICE ========================= --}}
     <section id="service" class="py-20 bg-white" data-aos="fade-up" x-data="{
-        {{-- slide: 0,
+        slide: 0,
         slides: 3,
-        startSlide() { setInterval(() => { this.slide = (this.slide + 1) % this.slides }, 4500) } --}}
+        startSlide() { setInterval(() => { this.slide = (this.slide + 1) % this.slides }, 4500) }
     }" x-init="startSlide()">
         <div class="max-w-screen-xl mx-auto px-8">
             <div class="flex flex-col md:flex-row gap-8 items-stretch">
@@ -296,65 +296,117 @@
                                 <p class="text-gray-500 text-sm leading-relaxed flex-1">Minuman yang memperoleh sertifikasi
                                     halal harus terbebas dari alkohol dan bahan terlarang dalam Islam.</p>
                             </div>
-                            {{-- <div class="svc-card">
+                            <div class="svc-card">
+                                <!-- Badge On Progress -->
+                                <span
+                                    class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                                    <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                                    On Progress
+                                </span>
+
                                 <div class="svc-icon"><i class="fa fa-pills"></i></div>
                                 <h3 class="font-black text-lg">Obat</h3>
                                 <p class="text-gray-500 text-sm leading-relaxed flex-1">Sertifikasi halal pada obat
                                     memastikan bahan aktif maupun tambahan berasal dari sumber halal dan suci sesuai
                                     ketentuan syariat.</p>
-                            </div> --}}
+                            </div>
+
                         </div>
 
                         {{-- Slide 2: Kosmetik, Produk Kimia, Barang Gunaan --}}
-                        {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-5" :class="slide === 1 ? 'grid' : 'hidden'"
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5" :class="slide === 1 ? 'grid' : 'hidden'"
                             style="animation:fadeUp .6s ease">
-                            <div class="svc-card">
+
+                            {{-- Kosmetik --}}
+                            <div class="svc-card relative overflow-hidden">
+                                <span
+                                    class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                                    <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                                    On Progress
+                                </span>
                                 <div class="svc-icon"><i class="fa fa-pump-soap"></i></div>
                                 <h3 class="font-black text-lg">Kosmetik</h3>
                                 <p class="text-gray-500 text-sm leading-relaxed flex-1">Sertifikasi halal kosmetik
                                     memastikan seluruh bahan baku dan proses produksi bebas dari unsur yang diharamkan dalam
                                     Islam.</p>
                             </div>
-                            <div class="svc-card">
+
+                            {{-- Produk Kimia --}}
+                            <div class="svc-card relative overflow-hidden">
+                                <span
+                                    class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                                    <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                                    On Progress
+                                </span>
                                 <div class="svc-icon"><i class="fa fa-flask"></i></div>
                                 <h3 class="font-black text-lg">Produk Kimia</h3>
                                 <p class="text-gray-500 text-sm leading-relaxed flex-1">Produk kimia seperti deterjen dan
                                     pembersih yang bersertifikat halal dipastikan tidak mengandung turunan bahan haram.</p>
                             </div>
-                            <div class="svc-card">
+
+                            {{-- Barang Gunaan --}}
+                            <div class="svc-card relative overflow-hidden">
+                                <span
+                                    class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                                    <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                                    On Progress
+                                </span>
                                 <div class="svc-icon"><i class="fa fa-box-open"></i></div>
                                 <h3 class="font-black text-lg">Barang Gunaan</h3>
                                 <p class="text-gray-500 text-sm leading-relaxed flex-1">Barang gunaan seperti peralatan
                                     makan, tekstil, dan perlengkapan ibadah disertifikasi halal untuk memastikan
                                     kesuciannya.</p>
                             </div>
-                        </div> --}}
+
+                        </div>
 
                         {{-- Slide 3: Jasa Penyembelihan, Jasa Pengolahan, Jasa Pengemasan --}}
-                        {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-5" :class="slide === 2 ? 'grid' : 'hidden'"
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5" :class="slide === 2 ? 'grid' : 'hidden'"
                             style="animation:fadeUp .6s ease">
-                            <div class="svc-card">
+
+                            {{-- Jasa Penyembelihan --}}
+                            <div class="svc-card relative overflow-hidden">
+                                <span
+                                    class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                                    <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                                    On Progress
+                                </span>
                                 <div class="svc-icon"><i class="fa fa-drumstick-bite"></i></div>
                                 <h3 class="font-black text-lg">Jasa Penyembelihan</h3>
                                 <p class="text-gray-500 text-sm leading-relaxed flex-1">Audit halal pada proses
                                     penyembelihan memastikan hewan disembelih sesuai tata cara syariat Islam oleh juru
                                     sembelih bersertifikat.</p>
                             </div>
-                            <div class="svc-card">
+
+                            {{-- Jasa Pengolahan --}}
+                            <div class="svc-card relative overflow-hidden">
+                                <span
+                                    class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                                    <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                                    On Progress
+                                </span>
                                 <div class="svc-icon"><i class="fa fa-industry"></i></div>
                                 <h3 class="font-black text-lg">Jasa Pengolahan</h3>
                                 <p class="text-gray-500 text-sm leading-relaxed flex-1">Pemeriksaan halal pada jasa
                                     pengolahan memastikan setiap tahap produksi tidak terkontaminasi bahan maupun peralatan
                                     yang haram.</p>
                             </div>
-                            <div class="svc-card">
+
+                            {{-- Jasa Pengemasan --}}
+                            <div class="svc-card relative overflow-hidden">
+                                <span
+                                    class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                                    <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                                    On Progress
+                                </span>
                                 <div class="svc-icon"><i class="fa fa-archive"></i></div>
                                 <h3 class="font-black text-lg">Jasa Pengemasan</h3>
                                 <p class="text-gray-500 text-sm leading-relaxed flex-1">Sertifikasi halal jasa pengemasan
                                     menjamin kemasan yang digunakan aman, suci, dan tidak mencemari produk halal di
                                     dalamnya.</p>
                             </div>
-                        </div> --}}
+
+                        </div>
                     @endforelse
 
                 </div>
@@ -363,9 +415,9 @@
 
         <!-- Slide dots -->
         <div class="flex justify-center gap-3 pt-8">
-            {{-- <template x-for="i in slides" :key="i">
+            <template x-for="i in slides" :key="i">
                 <button @click="slide=i-1" :class="slide === i - 1 ? 'slider-dot active' : 'slider-dot'"></button>
-            </template> --}}
+            </template>
         </div>
     </section>
 
@@ -415,6 +467,74 @@
                 <!-- Label -->
                 <div class="blue-label w-full md:w-64 flex-shrink-0 rounded-2xl justify-end" style="min-height:260px">
                     <p class="blue-label-title text-2xl">HALAL<br>CERTIFICATION<br>FLOW</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Hitung Biaya Layanan --}}
+    <section id="cost" class="py-20 bg-white" data-aos="fade-up">
+        <div class="max-w-screen-xl mx-auto px-8">
+            <div class="relative overflow-hidden rounded-2xl"
+                style="background: linear-gradient(135deg, #1a3a5c 0%, #2a5f8f 50%, #1a3a5c 100%); min-height: 220px;">
+
+                <!-- Decorative background pattern -->
+                <div
+                    style="position:absolute;inset:0;opacity:0.07;background-image:repeating-linear-gradient(45deg,#b8972a 0,#b8972a 1px,transparent 0,transparent 50%);background-size:20px 20px;">
+                </div>
+
+                <!-- Gold accent line top -->
+                <div
+                    style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,#b8972a,transparent);">
+                </div>
+
+                <!-- Calculator icon decoration -->
+                <div style="position:absolute;right:-10px;bottom:-30px;opacity:0.06;font-size:200px;line-height:1;"
+                    class="fas fa-calculator"></div>
+
+                <a href="https://bpjph.halal.go.id/kalkulator-biaya-sh/" target="_blank" rel="noopener noreferrer"
+                    class="relative flex flex-col md:flex-row items-center justify-between gap-6 px-8 md:px-12 py-10 group"
+                    style="text-decoration:none;">
+
+                    <div class="flex items-center gap-5 text-center md:text-left">
+                        <div class="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0"
+                            style="background:rgba(184,151,42,0.15);border:1px solid rgba(184,151,42,0.35);">
+                            <i class="fas fa-calculator" style="color:#b8972a;font-size:1.5rem;"></i>
+                        </div>
+                        <div>
+                            <span
+                                style="color:#b8972a;font-size:0.7rem;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;display:block;margin-bottom:4px;">
+                                BPJPH
+                            </span>
+                            <h3 style="color:#ffffff;font-weight:800;font-size:1.25rem;letter-spacing:0.02em;">
+                                Hitung Biaya Layanan
+                            </h3>
+                            <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;margin-top:4px;">
+                                Kalkulator estimasi biaya sertifikasi halal dari BPJPH
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 flex-shrink-0 group-hover:-translate-y-1 transition-transform"
+                        style="
+                       background:linear-gradient(135deg,#b8972a,#d4af50);
+                       color:#1a3a5c;
+                       font-weight:800;
+                       font-size:0.9rem;
+                       letter-spacing:0.06em;
+                       text-transform:uppercase;
+                       padding:14px 32px;
+                       border-radius:100px;
+                       box-shadow:0 4px 24px rgba(184,151,42,0.35);
+                   ">
+                        <span>Hitung Sekarang</span>
+                        <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </a>
+
+                <!-- Gold accent line bottom -->
+                <div
+                    style="position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,#b8972a,transparent);">
                 </div>
             </div>
         </div>

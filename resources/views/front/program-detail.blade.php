@@ -539,7 +539,7 @@
         </div>
 
         {{-- MODAL: OBAT --}}
-        {{-- <div x-data="{ open: false }" id="modal-obat-wrapper">
+        <div x-data="{ open: false }" id="modal-obat-wrapper">
             <template x-teleport="body">
                 <div x-show="$store.modalObat.open" x-cloak x-transition
                     class="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center p-4"
@@ -600,7 +600,7 @@
                     </div>
                 </div>
             </template>
-        </div> --}}
+        </div>
 
         {{-- MODAL: KOSMETIK --}}
         {{-- <div x-data="{ open: false }" id="modal-kosmetik-wrapper">
@@ -1032,7 +1032,8 @@
         <main class="max-w-7xl mx-auto px-4 pb-16">
 
             {{-- Title Box --}}
-            <div class="section-title-box rounded-2xl flex items-center justify-center p-8 max-w-xs mx-auto mb-8 shadow-lg">
+            <div
+                class="section-title-box rounded-2xl flex items-center justify-center p-8 max-w-xs mx-auto mb-8 shadow-lg">
                 <div class="text-center text-white">
                     <p class="text-xs uppercase tracking-widest opacity-80 mb-1">Layanan</p>
                     <h2 class="text-2xl font-extrabold uppercase leading-tight">
@@ -1069,8 +1070,16 @@
                 </div>
 
                 {{-- OBAT --}}
-                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                <div class="relative overflow-hidden bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalObat.open = true">
+
+                    <!-- Badge On Progress -->
+                    <span
+                        class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                        <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                        On Progress
+                    </span>
+
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f489.svg"
                             class="h-20 opacity-80" alt="Obat" />
@@ -1078,11 +1087,19 @@
                     <p class="service-label mb-2">OBAT</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Sertifikasi halal pada obat memastikan bahwa
                         bahan-bahan yang digunakan berasal dari sumber yang halal dan suci.</p>
-                </div> --}}
+                </div>
 
                 {{-- KOSMETIK --}}
-                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                <div class="relative overflow-hidden bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalKosmetik.open = true">
+
+                    <!-- Badge On Progress -->
+                    <span
+                        class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                        <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                        On Progress
+                    </span>
+
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f48e.svg"
                             class="h-20 opacity-80" alt="Kosmetik" />
@@ -1090,11 +1107,19 @@
                     <p class="service-label mb-2">KOSMETIK</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Kosmetik yang mendapatkan sertifikasi halal harus
                         terbebas dari bahan haram, baik dari hewan maupun bahan kimia yang najis.</p>
-                </div> --}}
+                </div>
 
                 {{-- PRODUK KIMIAWI --}}
-                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                <div class="relative overflow-hidden bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalKimiawi.open = true">
+
+                    <!-- Badge On Progress -->
+                    <span
+                        class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                        <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                        On Progress
+                    </span>
+
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f9ea.svg"
                             class="h-20 opacity-80" alt="Produk Kimiawi" />
@@ -1102,11 +1127,19 @@
                     <p class="service-label mb-2">PRODUK KIMIAWI</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Produk kimiawi seperti enzim dan nutrisi mikroba juga
                         dapat disertifikasi halal sesuai syariat Islam.</p>
-                </div> --}}
+                </div>
 
                 {{-- BARANG GUNAAN --}}
-                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                <div class="relative overflow-hidden bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalGunaan.open = true">
+
+                    <!-- Badge On Progress -->
+                    <span
+                        class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                        <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                        On Progress
+                    </span>
+
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f6cd.svg"
                             class="h-20 opacity-80" alt="Barang Gunaan" />
@@ -1114,11 +1147,19 @@
                     <p class="service-label mb-2">BARANG GUNAAN</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Sertifikasi halal berlaku untuk barang sehari-hari
                         seperti pakaian atau peralatan rumah tangga yang mengandung unsur hewan.</p>
-                </div> --}}
+                </div>
 
                 {{-- JASA PENYEMBELIHAN --}}
-                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                <div class="relative overflow-hidden bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalSembelih.open = true">
+
+                    <!-- Badge On Progress -->
+                    <span
+                        class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                        <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                        On Progress
+                    </span>
+
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f404.svg"
                             class="h-20 opacity-80" alt="Jasa Penyembelihan" />
@@ -1126,11 +1167,19 @@
                     <p class="service-label mb-2">JASA PENYEMBELIHAN</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Jasa penyembelihan yang disertifikasi halal harus
                         memenuhi syarat syariat dan dilakukan oleh Juru Sembelih Halal (Juleha) yang kompeten.</p>
-                </div> --}}
+                </div>
 
                 {{-- JASA PENGOLAHAN --}}
-                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                <div class="relative overflow-hidden bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalPengolahan.open = true">
+
+                    <!-- Badge On Progress -->
+                    <span
+                        class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                        <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                        On Progress
+                    </span>
+
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f3ed.svg"
                             class="h-20 opacity-80" alt="Jasa Pengolahan" />
@@ -1138,11 +1187,19 @@
                     <p class="service-label mb-2">JASA PENGOLAHAN</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Jasa pengolahan terkait makanan, minuman, obat dan
                         kosmetik diaudit untuk memastikan setiap tahap sesuai syariat Islam.</p>
-                </div> --}}
+                </div>
 
                 {{-- JASA PENGEMASAN --}}
-                {{-- <div class="bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                <div class="relative overflow-hidden bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalPengemasan.open = true">
+
+                    <!-- Badge On Progress -->
+                    <span
+                        class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
+                        <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                        On Progress
+                    </span>
+
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f4cb.svg"
                             class="h-20 opacity-80" alt="Jasa Pengemasan" />
@@ -1150,7 +1207,7 @@
                     <p class="service-label mb-2">JASA PENGEMASAN</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Jasa pengemasan harus memastikan produk halal dikemas
                         tanpa kontaminasi bahan haram dan alat yang digunakan bersih dari najis.</p>
-                </div> --}}
+                </div>
 
             </div>
 
