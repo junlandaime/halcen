@@ -560,6 +560,22 @@
         </section>
     @endif
 
+    {{-- Struktur Organisasi khusus LPH Salman (selalu muncul) --}}
+    @if ($about->slug === 'lph-salman')
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="mb-12" data-aos="fade-up">
+                    <h3 class="text-center text-lg font-bold text-gray-700 mb-4">Struktur Organisasi LPH YPM Salman ITB
+                    </h3>
+                    <div class="overflow-x-auto rounded-xl shadow-md">
+                        <img src="{{ asset('images/struktur-organisasi-lph-salman.jpg') }}"
+                            alt="Struktur Organisasi LPH YPM Salman ITB" class="w-full h-auto object-contain">
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
     {{-- ══════════════════════ TEAM ══════════════════════ --}}
     @if ($about->teams->isNotEmpty())
         <section class="py-16 bg-gray-50">

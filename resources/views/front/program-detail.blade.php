@@ -900,14 +900,14 @@
             </template>
         </div> --}}
 
-        {{-- MODAL: JASA PENGOLAHAN --}}
-        {{-- <div x-data="{ open: false }" id="modal-pengolahan-wrapper">
+        {{-- MODAL: JASA PENJUALAN --}}
+        {{-- <div x-data="{ open: false }" id="modal-penjualan-wrapper">
             <template x-teleport="body">
-                <div x-show="$store.modalPengolahan.open" x-cloak x-transition
+                <div x-show="$store.modalPenjualan.open" x-cloak x-transition
                     class="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center p-4"
-                    @click.self="$store.modalPengolahan.open = false">
+                    @click.self="$store.modalPenjualan.open = false">
                     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto relative">
-                        <button @click="$store.modalPengolahan.open = false"
+                        <button @click="$store.modalPenjualan.open = false"
                             class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold z-10">&times;</button>
                         <div class="max-w-5xl mx-auto px-8 py-10 text-slate-500 leading-relaxed">
                             <section class="mb-10">
@@ -1018,7 +1018,7 @@
                     Alpine.store('modalSembelih', {
                         open: false
                     });
-                    Alpine.store('modalPengolahan', {
+                    Alpine.store('modalPenjualan', {
                         open: false
                     });
                     Alpine.store('modalPengemasan', {
@@ -1110,7 +1110,7 @@
                 </div>
 
                 {{-- PRODUK KIMIAWI --}}
-                <div class="relative overflow-hidden bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
+                {{-- <div class="relative overflow-hidden bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
                     @click="$store.modalKimiawi.open = true">
 
                     <!-- Badge On Progress -->
@@ -1127,7 +1127,7 @@
                     <p class="service-label mb-2">PRODUK KIMIAWI</p>
                     <p class="text-gray-500 text-xs leading-relaxed">Produk kimiawi seperti enzim dan nutrisi mikroba juga
                         dapat disertifikasi halal sesuai syariat Islam.</p>
-                </div>
+                </div> --}}
 
                 {{-- BARANG GUNAAN --}}
                 <div class="relative overflow-hidden bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
@@ -1169,9 +1169,9 @@
                         memenuhi syarat syariat dan dilakukan oleh Juru Sembelih Halal (Juleha) yang kompeten.</p>
                 </div>
 
-                {{-- JASA PENGOLAHAN --}}
+                {{-- JASA PENJUALAN --}}
                 <div class="relative overflow-hidden bg-white rounded-2xl p-5 card-hover shadow-sm border border-gray-100 cursor-pointer"
-                    @click="$store.modalPengolahan.open = true">
+                    @click="$store.modalPenjualan.open = true">
 
                     <!-- Badge On Progress -->
                     <span
@@ -1182,10 +1182,10 @@
 
                     <div class="img-placeholder mb-4">
                         <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f3ed.svg"
-                            class="h-20 opacity-80" alt="Jasa Pengolahan" />
+                            class="h-20 opacity-80" alt="Jasa Penjualan" />
                     </div>
-                    <p class="service-label mb-2">JASA PENGOLAHAN</p>
-                    <p class="text-gray-500 text-xs leading-relaxed">Jasa pengolahan terkait makanan, minuman, obat dan
+                    <p class="service-label mb-2">JASA PENJUALAN</p>
+                    <p class="text-gray-500 text-xs leading-relaxed">Jasa penjualan terkait makanan, minuman, obat dan
                         kosmetik diaudit untuk memastikan setiap tahap sesuai syariat Islam.</p>
                 </div>
 

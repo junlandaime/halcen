@@ -35,15 +35,15 @@
                 </div> --}}
                 <h4 class="text-white font-bold text-base mb-5">Service Scope</h4>
                 <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-white/80">
-                    <a href="#" class="hover:text-white transition">Makanan</a>
-                    <a href="#" class="hover:text-white transition">Minuman</a>
-                    <a href="#" class="hover:text-white transition">Obat</a>
-                    <a href="#" class="hover:text-white transition">Kosmetik</a>
-                    <a href="#" class="hover:text-white transition">Produk Kimia</a>
-                    <a href="#" class="hover:text-white transition">Barang Gunaan</a>
-                    <a href="#" class="hover:text-white transition">Jasa Penyembelihan</a>
-                    <a href="#" class="hover:text-white transition">Jasa Pengolahan</a>
-                    <a href="#" class="hover:text-white transition">Jasa Pengemasan</a>
+                    <a href="{{ route('front.index') }}" class="hover:text-white transition">Makanan</a>
+                    <a href="{{ route('front.index') }}" class="hover:text-white transition">Minuman</a>
+                    <a href="{{ route('front.index') }}" class="hover:text-white transition">Obat</a>
+                    <a href="{{ route('front.index') }}" class="hover:text-white transition">Kosmetik</a>
+                    {{-- <a href="{{ route('front.index') }}" class="hover:text-white transition">Produk Kimia</a> --}}
+                    <a href="{{ route('front.index') }}" class="hover:text-white transition">Barang Gunaan</a>
+                    <a href="{{ route('front.index') }}" class="hover:text-white transition">Jasa Penyembelihan</a>
+                    <a href="{{ route('front.index') }}" class="hover:text-white transition">Jasa Penjualan</a>
+                    <a href="{{ route('front.index') }}" class="hover:text-white transition">Jasa Pengemasan</a>
                 </div>
 
             </div>

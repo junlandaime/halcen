@@ -79,12 +79,13 @@
                             audit kehalalan produk untuk
                             kebutuhan
                             Sertifikasi Halal produk makanan dan minuman UMKM.</p>
-                        <button
-                            class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-5 md:px-7 py-2.5 md:py-3 text-xs md:text-sm hover:bg-[#3a6d96] transition shadow-lg">
-                            Daftar Sekarang
-                            <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center"><i
-                                    class="fa fa-play text-white text-xs ml-0.5"></i></span>
-                        </button>
+                        <a href="https://pusathalal.salmanitb.com/kontak"><button
+                                class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-5 md:px-7 py-2.5 md:py-3 text-xs md:text-sm hover:bg-[#3a6d96] transition shadow-lg">
+                                Daftar Sekarang
+                                <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center"><i
+                                        class="fa fa-play text-white text-xs ml-0.5"></i></span>
+                            </button>
+                        </a>
                     </div>
 
                     <div :class="slide === 1 ? 'block' : 'hidden'" style="animation:fadeUp .6s ease">
@@ -97,12 +98,13 @@
                         <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-10 max-w-md mx-auto md:mx-0">Didukung
                             auditor halal bersertifikat BNSP dan
                             laboratorium terakreditasi SNI ISO/IEC 17025:2017 kerja sama dengan ITB.</p>
-                        <button
-                            class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-5 md:px-7 py-2.5 md:py-3 text-xs md:text-sm hover:bg-[#3a6d96] transition shadow-lg">
-                            Pelajari Lebih Lanjut
-                            <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center"><i
-                                    class="fa fa-arrow-right text-white text-xs"></i></span>
-                        </button>
+                        <a href="https://pusathalal.salmanitb.com/regulasi"><button
+                                class="inline-flex items-center gap-3 bg-[#4a86b8] text-white font-bold rounded-full px-5 md:px-7 py-2.5 md:py-3 text-xs md:text-sm hover:bg-[#3a6d96] transition shadow-lg">
+                                Pelajari Lebih Lanjut
+                                <span class="w-8 h-8 bg-[#b8972a] rounded-full flex items-center justify-center"><i
+                                        class="fa fa-arrow-right text-white text-xs"></i></span>
+                            </button>
+                        </a>
                     </div>
 
                     <div :class="slide === 2 ? 'block' : 'hidden'" style="animation:fadeUp .6s ease">
@@ -116,12 +118,13 @@
                             khawatir. Mengurus Sertifikasi Halal
                             itu
                             mudah dan biayanya terjangkau. Kami siap membantu Anda.</p>
-                        <button
-                            class="inline-flex items-center gap-3 bg-[#b8972a] text-white font-bold rounded-full px-5 md:px-7 py-2.5 md:py-3 text-xs md:text-sm hover:bg-[#9a7d20] transition shadow-lg">
-                            Info Selengkapnya
-                            <span class="w-8 h-8 bg-[#4a86b8] rounded-full flex items-center justify-center"><i
-                                    class="fa fa-play text-white text-xs ml-0.5"></i></span>
-                        </button>
+                        <a href="https://pusathalal.salmanitb.com/program-layanan/audit-halal-produk-umkm"><button
+                                class="inline-flex items-center gap-3 bg-[#b8972a] text-white font-bold rounded-full px-5 md:px-7 py-2.5 md:py-3 text-xs md:text-sm hover:bg-[#9a7d20] transition shadow-lg">
+                                Info Selengkapnya
+                                <span class="w-8 h-8 bg-[#4a86b8] rounded-full flex items-center justify-center"><i
+                                        class="fa fa-play text-white text-xs ml-0.5"></i></span>
+                            </button>
+                        </a>
                     </div>
                 </div>
 
@@ -332,7 +335,7 @@
                             </div>
 
                             {{-- Produk Kimia --}}
-                            <div class="svc-card relative overflow-hidden">
+                            {{-- <div class="svc-card relative overflow-hidden">
                                 <span
                                     class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
                                     <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
@@ -342,7 +345,7 @@
                                 <h3 class="font-black text-lg">Produk Kimia</h3>
                                 <p class="text-gray-500 text-sm leading-relaxed flex-1">Produk kimia seperti deterjen dan
                                     pembersih yang bersertifikat halal dipastikan tidak mengandung turunan bahan haram.</p>
-                            </div>
+                            </div> --}}
 
                             {{-- Barang Gunaan --}}
                             <div class="svc-card relative overflow-hidden">
@@ -360,7 +363,7 @@
 
                         </div>
 
-                        {{-- Slide 3: Jasa Penyembelihan, Jasa Pengolahan, Jasa Pengemasan --}}
+                        {{-- Slide 3: Jasa Penyembelihan, Jasa Penjualan, Jasa Pengemasan --}}
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-5" :class="slide === 2 ? 'grid' : 'hidden'"
                             style="animation:fadeUp .6s ease">
 
@@ -378,7 +381,7 @@
                                     sembelih bersertifikat.</p>
                             </div>
 
-                            {{-- Jasa Pengolahan --}}
+                            {{-- Jasa Penjualan --}}
                             <div class="svc-card relative overflow-hidden">
                                 <span
                                     class="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-md shadow-amber-500/30">
@@ -386,10 +389,11 @@
                                     On Progress
                                 </span>
                                 <div class="svc-icon"><i class="fa fa-industry"></i></div>
-                                <h3 class="font-black text-lg">Jasa Pengolahan</h3>
+                                <h3 class="font-black text-lg">Jasa Penjualan</h3>
                                 <p class="text-gray-500 text-sm leading-relaxed flex-1">Pemeriksaan halal pada jasa
-                                    pengolahan memastikan setiap tahap produksi tidak terkontaminasi bahan maupun peralatan
-                                    yang haram.</p>
+                                    Penjualan memastikan setiap tahap penjualan tidak terkontaminasi kegiatan atau perilaku
+                                    yang bisa menyebaban
+                                    keharaman.</p>
                             </div>
 
                             {{-- Jasa Pengemasan --}}
