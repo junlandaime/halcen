@@ -154,14 +154,14 @@
             <span class="flex items-center gap-2"><i class="fa fa-university"></i> Mitra Resmi BPJPH RI</span>
             <span class="flex items-center gap-2"><i class="fa fa-globe"></i> Skala Layanan se-Jawa Barat</span>
             <span class="flex items-center gap-2"><i class="fa fa-mosque"></i> YPM Salman ITB</span>
-            <span class="flex items-center gap-2"><i class="fa fa-handshake"></i> MoU dengan BPJPH Kemenag RI</span>
+            <span class="flex items-center gap-2"><i class="fa fa-handshake"></i> MoU dengan BPJPH RI</span>
             {{-- <span class="flex items-center gap-2"><i class="fa fa-check-circle"></i> Terakreditasi BPJPH</span> --}}
             {{-- <span class="flex items-center gap-2"><i class="fa fa-flask"></i> Lab Terakreditasi ISO 17025</span> --}}
             <span class="flex items-center gap-2"><i class="fa fa-user-tie"></i> Auditor Bersertifikat BNSP</span>
             <span class="flex items-center gap-2"><i class="fa fa-university"></i> Mitra Resmi BPJPH RI</span>
             <span class="flex items-center gap-2"><i class="fa fa-globe"></i> Skala Layanan se-Jawa Barat</span>
             <span class="flex items-center gap-2"><i class="fa fa-mosque"></i> YPM Salman ITB</span>
-            <span class="flex items-center gap-2"><i class="fa fa-handshake"></i> MoU dengan BPJPH Kemenag RI</span>
+            <span class="flex items-center gap-2"><i class="fa fa-handshake"></i> MoU dengan BPJPH RI</span>
         </div>
     </div>
 
